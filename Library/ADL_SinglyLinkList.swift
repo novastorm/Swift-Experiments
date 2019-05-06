@@ -31,7 +31,7 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
         
     }
     
-    private var list: Node? = nil
+    private var list: Node?
     private(set) public var count = 0
    
     public init() {}
@@ -46,7 +46,6 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
         }
         return list.data
     }
-    
     
     public var head: Element? {
         return first
