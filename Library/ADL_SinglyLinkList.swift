@@ -31,9 +31,19 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
         
     }
     
-    private var list: Node?
     private(set) public var count = 0
    
+    private var startNode: Node?
+    private var endNode: Node?
+    private var list: Node? {
+        get {
+            return startNode
+        }
+        set {
+            startNode = newValue
+        }
+    }
+
     public init() {}
  
     public var isEmpty: Bool {
@@ -41,10 +51,10 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
     }
     
     public var first: Element? {
-        guard let list = list, count > 0 else {
+        guard count > 0, let node = startNode else {
             return nil
         }
-        return list.data
+        return node.data
     }
     
     public var head: Element? {
@@ -74,16 +84,27 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
         let newNode = Node(datum)
 
         if index == 0 {
-            newNode.next = list
-            list = newNode
+            newNode.next = startNode
+            
+            startNode = newNode
+            
+            if count == 0 {
+                endNode = newNode
+            }
         }
         else {
-            var nodeAtIndex = list
+            var nodeAtIndex = startNode
             for _ in 1 ..< index {
                 nodeAtIndex = nodeAtIndex?.next
             }
+            
             newNode.next = nodeAtIndex?.next
+            
             nodeAtIndex?.next = newNode
+            
+            if index == count {
+                endNode = newNode
+            }
         }
         count += 1
     }
@@ -106,20 +127,68 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
     
     @discardableResult
     mutating public func remove(at index: Int) -> Element {
-        var deletedNode: Node!
+        var node: Node!
+        
         if index == 0 {
-            deletedNode = list
-            list = list?.next
+            node = startNode
+            startNode = startNode?.next
+            
+            if count == 1 {
+                endNode = nil
+            }
         }
         else {
-            var precedingNode = list
+            var precedingNode = startNode
             for _ in 1 ..< index {
                 precedingNode = precedingNode?.next
             }
-            deletedNode = precedingNode?.next
-            precedingNode?.next = deletedNode?.next
+            node = precedingNode?.next
+            precedingNode?.next = node?.next
+            
+            if index == count - 1 {
+                endNode = precedingNode
+            }
         }
         count -= 1
-        return deletedNode.data
+        return node.data
+    }
+}
+
+extension ADL_SinglyLinkList: CustomStringConvertible {
+    public var description: String {
+        var s = "["
+        var separator = ""
+        let _ = self.reduce(into: s, { (acc, e) in
+            s += "\(separator)\(e)"
+            separator = ", "
+        })
+        s += "]"
+        return s
+    }
+}
+
+extension ADL_SinglyLinkList: Equatable where Element: Equatable {
+    public static func == (lhs: ADL_SinglyLinkList<Element>, rhs: ADL_SinglyLinkList<Element>) -> Bool {
+        guard lhs.count == rhs.count else {
+            return false
+        }
+        
+        for (l,r) in zip(lhs, rhs) {
+            if l != r { return false }
+        }
+        
+        return true
+    }
+    
+    public static func == (lhs: ADL_SinglyLinkList<Element>, rhs: Array<Element>) -> Bool {
+        guard lhs.count == rhs.count else {
+            return false
+        }
+        
+        for (l,r) in zip(lhs, rhs) {
+            if l != r { return false }
+        }
+        
+        return true
     }
 }
