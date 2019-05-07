@@ -2,7 +2,6 @@ import Foundation
 
 public struct ADL_DoublyLinkList<Element>: Sequence {
     
-
     class Node {
         var data: Element
         var previous: Node?
@@ -181,5 +180,44 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
 
         count -= 1
         return node!.data
+    }
+}
+
+extension ADL_DoublyLinkList: CustomStringConvertible {
+    public var description: String {
+        var s = "["
+        var separator = ""
+        let _ = self.reduce(into: s, { (acc, e) in
+            s += "\(separator)\(e)"
+            separator = ", "
+        })
+        s += "]"
+        return s
+    }
+}
+
+extension ADL_DoublyLinkList: Equatable where Element: Equatable {
+    public static func == (lhs: ADL_DoublyLinkList<Element>, rhs: ADL_DoublyLinkList<Element>) -> Bool {
+        guard lhs.count == rhs.count else {
+            return false
+        }
+        
+        for (l,r) in zip(lhs, rhs) {
+            if l != r { return false }
+        }
+        
+        return true
+    }
+    
+    public static func == (lhs: ADL_DoublyLinkList<Element>, rhs: Array<Element>) -> Bool {
+        guard lhs.count == rhs.count else {
+            return false
+        }
+        
+        for (l,r) in zip(lhs, rhs) {
+            if l != r { return false }
+        }
+        
+        return true
     }
 }
