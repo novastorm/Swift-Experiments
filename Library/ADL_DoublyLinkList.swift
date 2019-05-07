@@ -41,12 +41,19 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
         
     }
     
-    private var list: Node?
     private(set) public var count = 0
     
-    private var start: Node?
-    private var end: Node?
-   
+    private var startNode: Node?
+    private var endNode: Node?
+    private var list: Node? {
+        get {
+            return startNode
+        }
+        set {
+            startNode = newValue
+        }
+    }
+
     public init() {}
  
     public var isEmpty: Bool {
@@ -54,12 +61,19 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
     }
     
     public var first: Element? {
-        guard let list = list, count > 0 else {
+        guard count > 0, let node = startNode else {
             return nil
         }
-        return list.data
+        return node.data
     }
     
+    public var last: Element? {
+        guard count > 0, let node = endNode else {
+            return nil
+        }
+        return node.data
+    }
+
     public var head: Element? {
         return first
     }
@@ -87,16 +101,36 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
         let newNode = Node(datum)
 
         if index == 0 {
-            newNode.next = list
-            list = newNode
+            if let nextNode = startNode?.next {
+                nextNode.previous = newNode
+            }
+            
+            newNode.next = startNode
+            
+            startNode = newNode
+            
+            if count == 0 {
+                endNode = newNode
+            }
         }
         else {
-            var nodeAtIndex = list
+            var nodeAtIndex = startNode
             for _ in 1 ..< index {
                 nodeAtIndex = nodeAtIndex?.next
             }
+            
+            if let nextNode = nodeAtIndex?.next {
+                nextNode.previous = newNode
+            }
+            
             newNode.next = nodeAtIndex?.next
+            newNode.previous = nodeAtIndex
+            
             nodeAtIndex?.next = newNode
+            
+            if index == count {
+                endNode = newNode
+            }
         }
         count += 1
     }
@@ -119,20 +153,33 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
     
     @discardableResult
     mutating public func remove(at index: Int) -> Element {
-        var deletedNode: Node!
+        var node: Node? = startNode
+
         if index == 0 {
-            deletedNode = list
-            list = list?.next
+            startNode = startNode?.next
+            
+            startNode?.previous = nil
+            
+            if count == 1 {
+                endNode = nil
+            }
         }
         else {
-            var precedingNode = list
-            for _ in 1 ..< index {
-                precedingNode = precedingNode?.next
+            for _ in 1 ... index {
+                node = node?.next
             }
-            deletedNode = precedingNode?.next
-            precedingNode?.next = deletedNode?.next
+            let precedingNode = node?.previous
+            let followingNode = node?.next
+            
+            precedingNode?.next = followingNode
+            followingNode?.previous = precedingNode
+            
+            if index == count - 1 {
+                endNode = precedingNode
+            }
         }
+
         count -= 1
-        return deletedNode.data
+        return node!.data
     }
 }
