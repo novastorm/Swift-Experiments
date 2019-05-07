@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3E52F7792280C13F00E3A755 /* ADL_SinglyLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD085227EB21900B6540D /* ADL_SinglyLinkList.swift */; };
+		3E52F78422810B6300E3A755 /* ADL_DoublyLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E52F7802280FFB900E3A755 /* ADL_DoublyLinkList.swift */; };
+		3E52F78522810B6E00E3A755 /* DoublyLinkedListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E52F7772280C10C00E3A755 /* DoublyLinkedListTests.swift */; };
 		3EEAD063227EB1B400B6540D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD062227EB1B400B6540D /* AppDelegate.swift */; };
 		3EEAD065227EB1B400B6540D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD064227EB1B400B6540D /* ViewController.swift */; };
 		3EEAD068227EB1B400B6540D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EEAD066227EB1B400B6540D /* Main.storyboard */; };
@@ -32,7 +34,7 @@
 
 /* Begin PBXFileReference section */
 		3E52F7772280C10C00E3A755 /* DoublyLinkedListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoublyLinkedListTests.swift; sourceTree = "<group>"; };
-		3E52F77A2280C24C00E3A755 /* ADL_DoublyLinkList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADL_DoublyLinkList.swift; sourceTree = "<group>"; };
+		3E52F7802280FFB900E3A755 /* ADL_DoublyLinkList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADL_DoublyLinkList.swift; sourceTree = "<group>"; };
 		3EEAD05F227EB1B400B6540D /* experiments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = experiments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EEAD062227EB1B400B6540D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EEAD064227EB1B400B6540D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -116,7 +118,7 @@
 				3EEAD084227EB21900B6540D /* ADL_Collection.swift */,
 				3EEAD086227EB21900B6540D /* ADL_List.swift */,
 				3EEAD085227EB21900B6540D /* ADL_SinglyLinkList.swift */,
-				3E52F77A2280C24C00E3A755 /* ADL_DoublyLinkList.swift */,
+				3E52F7802280FFB900E3A755 /* ADL_DoublyLinkList.swift */,
 				3EEAD083227EB21900B6540D /* Int+Extensions.swift */,
 				3EEAD087227EB21A00B6540D /* Utilities.swift */,
 			);
@@ -228,6 +230,7 @@
 				3EEAD089227EB23100B6540D /* ADL_List.swift in Sources */,
 				3E52F7792280C13F00E3A755 /* ADL_SinglyLinkList.swift in Sources */,
 				3EEAD08C227EB23100B6540D /* Utilities.swift in Sources */,
+				3E52F78422810B6300E3A755 /* ADL_DoublyLinkList.swift in Sources */,
 				3EEAD088227EB23100B6540D /* ADL_Collection.swift in Sources */,
 				3EEAD08B227EB23100B6540D /* Int+Extensions.swift in Sources */,
 				3EEAD063227EB1B400B6540D /* AppDelegate.swift in Sources */,
@@ -239,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EEAD078227EB1B500B6540D /* SinglyLinkedListTests.swift in Sources */,
+				3E52F78522810B6E00E3A755 /* DoublyLinkedListTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
