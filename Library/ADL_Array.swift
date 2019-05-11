@@ -82,6 +82,13 @@ class ADL_ArrayImplementation<Element> {
         
         return results
     }
+    
+    @discardableResult
+    public func removeLast() -> Element {
+        precondition(!isEmpty)
+        
+        return remove(at: count-1)
+    }
 
     // MARK: - Helpers
     

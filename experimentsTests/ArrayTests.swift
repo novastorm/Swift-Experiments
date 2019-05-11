@@ -94,6 +94,25 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array[1], 1)
         XCTAssertEqual(array[2], 3)
         XCTAssertEqual(array[3], 4)
+        
+        array.remove(at: 0)
+        XCTAssertFalse(array.isEmpty)
+        XCTAssertEqual(array.capacity, 6)
+        XCTAssertEqual(array.count, 3)
+        XCTAssertEqual(array.first, 1)
+        XCTAssertEqual(array.last, 4)
+        XCTAssertEqual(array[0], 1)
+        XCTAssertEqual(array[1], 3)
+        XCTAssertEqual(array[2], 4)
+
+        array.removeLast()
+        XCTAssertFalse(array.isEmpty)
+        XCTAssertEqual(array.capacity, 6)
+        XCTAssertEqual(array.count, 2)
+        XCTAssertEqual(array.first, 1)
+        XCTAssertEqual(array.last, 3)
+        XCTAssertEqual(array[0], 1)
+        XCTAssertEqual(array[1], 3)
     }
     
     func test_arrayIterator() {
