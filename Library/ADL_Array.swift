@@ -80,14 +80,20 @@ class ADL_ArrayImplementation<Element> {
     }
     
     public subscript(index: Int) -> Element {
-        return getValue(at: index)
+        get {
+            return getValue(at: index)
+        }
+        set {
+            insert(newValue, at: index)
+        }
     }
     
+    @discardableResult
     public func remove(at index: Int) -> Element {
         precondition(0 <= index && index < count, "index out of bounds")
         let pointer = array.advanced(by: index)
         let results = pointer.pointee
-        pointer.moveAssign(from: pointer.advanced(by: 1), count: count - index)
+        pointer.assign(from: pointer.advanced(by: 1), count: count - index)
         
         count -= 1
         
@@ -114,7 +120,7 @@ class ADL_ArrayImplementation<Element> {
     
     private func next3x2byn(after n: Int) -> Int {
         guard n > 0 else { return 1 }
-        guard n > 3 else { return 3 }
+        guard n > 1 else { return 3 }
         
         let normalized = Float(n) / 3
         let l2 = log2(normalized)
