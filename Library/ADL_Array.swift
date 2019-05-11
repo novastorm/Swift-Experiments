@@ -57,23 +57,6 @@ class ADL_ArrayImplementation<Element> {
         insert(element, at: count)
     }
     
-    public struct Iterator: IteratorProtocol {
-        private var array: ADL_ArrayImplementation<Element>!
-        private var index: Int = 0
-        
-        init(_ array: ADL_ArrayImplementation<Element>) {
-            self.array = array
-        }
-        
-        @discardableResult
-        public mutating func next() -> Element? {
-            guard index < array.count else { return nil }
-            let results = array.getValue(at: index)
-            index += 1
-            return results
-        }
-    }
-    
     public func getValue(at index: Int) -> Element {
         precondition(0 <= index && index < count, "index out of bounds")
         return array.advanced(by: index).pointee
@@ -127,6 +110,29 @@ class ADL_ArrayImplementation<Element> {
         let exponent = floor(l2) + 1
         
         return Int(3 * pow(2.0, exponent))
+    }
+}
+
+extension ADL_ArrayImplementation: Sequence {
+    public struct Iterator: IteratorProtocol {
+        private var array: ADL_ArrayImplementation<Element>!
+        private var index: Int = 0
+        
+        init(_ array: ADL_ArrayImplementation<Element>) {
+            self.array = array
+        }
+        
+        @discardableResult
+        public mutating func next() -> Element? {
+            guard index < array.count else { return nil }
+            let results = array.getValue(at: index)
+            index += 1
+            return results
+        }
+    }
+
+    __consuming func makeIterator() -> ADL_ArrayImplementation<Element>.Iterator {
+        return Iterator(self)
     }
 }
 

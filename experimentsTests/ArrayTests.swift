@@ -95,6 +95,16 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array[2], 3)
         XCTAssertEqual(array[3], 4)
     }
+    
+    func test_arrayIterator() {
+        for i in 0 ..< 5 {
+            array.append(i)
+        }
+        
+        for (i, value) in array.enumerated() {
+            XCTAssertEqual(value, i)
+        }
+    }
 
 //    func testPerformanceExample() {
 //        // This is an example of a performance test case.
