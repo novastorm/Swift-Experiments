@@ -102,7 +102,7 @@ class DoublyLinkedListTests: XCTestCase {
             list.append(i)
         }
 
-        list.remove(at: list.count-1)
+        list.removeLast()
         XCTAssert(list == [0, 1, 2, 3, 4])
         XCTAssertEqual(list.first, 0)
         XCTAssertEqual(list.last, 4)
