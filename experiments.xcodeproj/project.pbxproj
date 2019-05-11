@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3E0A4075228488BE003F4470 /* ADL_Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A4074228488BE003F4470 /* ADL_Array.swift */; };
 		3E0C27EF2286733F0095533E /* ArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C27EE2286733F0095533E /* ArrayTests.swift */; };
+		3E0C280F228768390095533E /* XCTestCase+ProgrammerAssertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C27FB2286AFEA0095533E /* XCTestCase+ProgrammerAssertions.swift */; };
+		3E0C281122876B510095533E /* ProgrammerAssertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C27F92286AFAD0095533E /* ProgrammerAssertions.swift */; };
 		3E52F7792280C13F00E3A755 /* ADL_SinglyLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD085227EB21900B6540D /* ADL_SinglyLinkList.swift */; };
 		3E52F78422810B6300E3A755 /* ADL_DoublyLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E52F7802280FFB900E3A755 /* ADL_DoublyLinkList.swift */; };
 		3E52F78522810B6E00E3A755 /* DoublyLinkedListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E52F7772280C10C00E3A755 /* DoublyLinkedListTests.swift */; };
@@ -38,6 +40,8 @@
 /* Begin PBXFileReference section */
 		3E0A4074228488BE003F4470 /* ADL_Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Array.swift; sourceTree = "<group>"; };
 		3E0C27EE2286733F0095533E /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
+		3E0C27F92286AFAD0095533E /* ProgrammerAssertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammerAssertions.swift; sourceTree = "<group>"; };
+		3E0C27FB2286AFEA0095533E /* XCTestCase+ProgrammerAssertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+ProgrammerAssertions.swift"; sourceTree = "<group>"; };
 		3E52F7772280C10C00E3A755 /* DoublyLinkedListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoublyLinkedListTests.swift; sourceTree = "<group>"; };
 		3E52F7802280FFB900E3A755 /* ADL_DoublyLinkList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADL_DoublyLinkList.swift; sourceTree = "<group>"; };
 		3EEAD05F227EB1B400B6540D /* experiments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = experiments.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +119,7 @@
 				3EEAD077227EB1B500B6540D /* SinglyLinkedListTests.swift */,
 				3E52F7772280C10C00E3A755 /* DoublyLinkedListTests.swift */,
 				3EEAD079227EB1B500B6540D /* Info.plist */,
+				3E0C27FB2286AFEA0095533E /* XCTestCase+ProgrammerAssertions.swift */,
 			);
 			path = experimentsTests;
 			sourceTree = "<group>";
@@ -122,6 +127,7 @@
 		3EEAD082227EB1CC00B6540D /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				3E0C27F92286AFAD0095533E /* ProgrammerAssertions.swift */,
 				3E0A4074228488BE003F4470 /* ADL_Array.swift */,
 				3EEAD084227EB21900B6540D /* ADL_Collection.swift */,
 				3EEAD086227EB21900B6540D /* ADL_List.swift */,
@@ -241,6 +247,7 @@
 				3E52F7792280C13F00E3A755 /* ADL_SinglyLinkList.swift in Sources */,
 				3EEAD08C227EB23100B6540D /* Utilities.swift in Sources */,
 				3E52F78422810B6300E3A755 /* ADL_DoublyLinkList.swift in Sources */,
+				3E0C281122876B510095533E /* ProgrammerAssertions.swift in Sources */,
 				3EEAD088227EB23100B6540D /* ADL_Collection.swift in Sources */,
 				3EF595932283EB6D007A2AC8 /* ADL_Stack.swift in Sources */,
 				3EEAD08B227EB23100B6540D /* Int+Extensions.swift in Sources */,
@@ -253,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E0C27EF2286733F0095533E /* ArrayTests.swift in Sources */,
+				3E0C280F228768390095533E /* XCTestCase+ProgrammerAssertions.swift in Sources */,
 				3EEAD078227EB1B500B6540D /* SinglyLinkedListTests.swift in Sources */,
 				3E52F78522810B6E00E3A755 /* DoublyLinkedListTests.swift in Sources */,
 			);

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ADL_ArrayImplementation<Element> {
+public class ADL_ArrayImplementation<Element> {
     var array: UnsafeMutablePointer<Element>!
     private(set) public var capacity: Int = 0
     private(set) public var count: Int = 0
@@ -43,7 +43,9 @@ class ADL_ArrayImplementation<Element> {
     }
     
     public func insert(_ element: Element, at index: Int) {
-        precondition(0 <= index && index <= count, "index out of bounds")
+        guard 0 <= index && index <= count else {
+            preconditionFailure("index out of bounds")
+        }
         if count >= capacity {
             reallocateArray(minimumCapacity: capacity)
         }
@@ -138,8 +140,48 @@ extension ADL_ArrayImplementation: Sequence {
         }
     }
 
-    __consuming func makeIterator() -> ADL_ArrayImplementation<Element>.Iterator {
+    public __consuming func makeIterator() -> ADL_ArrayImplementation<Element>.Iterator {
         return Iterator(self)
+    }
+}
+
+extension ADL_ArrayImplementation: CustomStringConvertible {
+    public var description: String {
+        var s = "["
+        var separator = ""
+        let _ = self.reduce(into: s) { acc, e in
+            s += "\(separator)\(e)"
+            separator = ", "
+        }
+        s += "]"
+        
+        return s
+    }
+}
+
+extension ADL_ArrayImplementation: Equatable where Element: Equatable {
+    public static func == (lhs: ADL_ArrayImplementation<Element>, rhs: ADL_ArrayImplementation<Element>) -> Bool {
+        guard lhs.count == rhs.count else {
+            return false
+        }
+        
+        for (l,r) in zip (lhs, rhs) {
+            guard l == r else { return false }
+        }
+        
+        return true
+    }
+    
+    public static func == (lhs: ADL_ArrayImplementation<Element>, rhs: Array<Element>) -> Bool {
+        guard lhs.count == rhs.count else {
+            return false
+        }
+        
+        for (l, r) in zip(lhs, rhs) {
+            guard l == r else { return false}
+        }
+        
+        return true
     }
 }
 

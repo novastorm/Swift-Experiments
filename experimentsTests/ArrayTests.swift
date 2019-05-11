@@ -27,14 +27,18 @@ class ArrayTests: XCTestCase {
     }
     
     func test_arrayInsertion() {
-//        array.insert(1, at: 1)
-        array.insert(0, at: 0)
+        expectPreconditionFailure(expectedMessage: "index out of bounds") {
+            self.array.insert(1, at: 1)
+        }
+
+        self.array.insert(0, at: 0)
         XCTAssertFalse(array.isEmpty)
         XCTAssertEqual(array.capacity, 1)
         XCTAssertEqual(array.count, 1)
         XCTAssertEqual(array.first, 0)
         XCTAssertEqual(array.last, 0)
         XCTAssertEqual(array[0], 0)
+        XCTAssert(array == [0])
 
         array.insert(1, at: 1)
         XCTAssertFalse(array.isEmpty)
@@ -44,7 +48,8 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array.last, 1)
         XCTAssertEqual(array[0], 0)
         XCTAssertEqual(array[1], 1)
-        
+        XCTAssert(array == [0,1])
+
         array[2] = 2
         XCTAssertFalse(array.isEmpty)
         XCTAssertEqual(array.capacity, 3)
@@ -54,7 +59,8 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array[0], 0)
         XCTAssertEqual(array[1], 1)
         XCTAssertEqual(array[2], 2)
-        
+        XCTAssert(array == [0,1,2])
+
         array[3] = 3
         XCTAssertFalse(array.isEmpty)
         XCTAssertEqual(array.capacity, 6)
@@ -65,6 +71,8 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array[1], 1)
         XCTAssertEqual(array[2], 2)
         XCTAssertEqual(array[3], 3)
+        XCTAssert(array == [0,1,2,3])
+
     }
     
     func test_arrayAppend() {
@@ -72,11 +80,7 @@ class ArrayTests: XCTestCase {
             array.append(i)
         }
 
-        XCTAssertEqual(array[0], 0)
-        XCTAssertEqual(array[1], 1)
-        XCTAssertEqual(array[2], 2)
-        XCTAssertEqual(array[3], 3)
-        XCTAssertEqual(array[4], 4)
+        XCTAssert(array == [0,1,2,3,4])
     }
     
     func test_arrayRemoval() {
@@ -94,6 +98,7 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array[1], 1)
         XCTAssertEqual(array[2], 3)
         XCTAssertEqual(array[3], 4)
+        XCTAssert(array == [0,1,3,4])
         
         array.remove(at: 0)
         XCTAssertFalse(array.isEmpty)
@@ -104,6 +109,7 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array[0], 1)
         XCTAssertEqual(array[1], 3)
         XCTAssertEqual(array[2], 4)
+        XCTAssert(array == [1,3,4])
 
         array.removeLast()
         XCTAssertFalse(array.isEmpty)
@@ -113,6 +119,7 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array.last, 3)
         XCTAssertEqual(array[0], 1)
         XCTAssertEqual(array[1], 3)
+        XCTAssert(array == [1,3])
     }
     
     func test_arrayIterator() {
