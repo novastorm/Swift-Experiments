@@ -84,6 +84,10 @@ class ArrayTests: XCTestCase {
     }
     
     func test_arrayRemoval() {
+        expectPreconditionFailure(expectedMessage: "index out of bounds") {
+            self.array.remove(at: 1)
+        }
+        
         for i in 0 ..< 5 {
             array.append(i)
         }

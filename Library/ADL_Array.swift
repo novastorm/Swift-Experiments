@@ -60,7 +60,9 @@ public class ADL_ArrayImplementation<Element> {
     }
     
     public func getValue(at index: Int) -> Element {
-        precondition(0 <= index && index < count, "index out of bounds")
+        guard 0 <= index && index < count else {
+            preconditionFailure("index out of bounds")
+        }
         return array.advanced(by: index).pointee
     }
     
@@ -75,7 +77,9 @@ public class ADL_ArrayImplementation<Element> {
     
     @discardableResult
     public func remove(at index: Int) -> Element {
-        precondition(0 <= index && index < count, "index out of bounds")
+        guard 0 <= index && index < count else {
+            preconditionFailure("index out of bounds")
+        }
         let pointer = array.advanced(by: index)
         let results = pointer.pointee
         pointer.assign(from: pointer.advanced(by: 1), count: count - index)
