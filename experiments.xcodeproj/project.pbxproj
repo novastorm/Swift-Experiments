@@ -25,6 +25,7 @@
 		3EEAD08B227EB23100B6540D /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD083227EB21900B6540D /* Int+Extensions.swift */; };
 		3EEAD08C227EB23100B6540D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD087227EB21A00B6540D /* Utilities.swift */; };
 		3EF595932283EB6D007A2AC8 /* ADL_Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */; };
+		3EF768CB2287F4D800F3CC06 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF768CA2287F4D800F3CC06 /* StackTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		3EEAD086227EB21900B6540D /* ADL_List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_List.swift; sourceTree = "<group>"; };
 		3EEAD087227EB21A00B6540D /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Stack.swift; sourceTree = "<group>"; };
+		3EF768CA2287F4D800F3CC06 /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				3E0C27EE2286733F0095533E /* ArrayTests.swift */,
+				3EF768CA2287F4D800F3CC06 /* StackTests.swift */,
 				3EEAD077227EB1B500B6540D /* SinglyLinkedListTests.swift */,
 				3E52F7772280C10C00E3A755 /* DoublyLinkedListTests.swift */,
 				3EEAD079227EB1B500B6540D /* Info.plist */,
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EF768CB2287F4D800F3CC06 /* StackTests.swift in Sources */,
 				3E0C27EF2286733F0095533E /* ArrayTests.swift in Sources */,
 				3E0C280F228768390095533E /* XCTestCase+ProgrammerAssertions.swift in Sources */,
 				3EEAD078227EB1B500B6540D /* SinglyLinkedListTests.swift in Sources */,

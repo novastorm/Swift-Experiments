@@ -44,7 +44,11 @@ class ADL_Stack_SinglyLinkedList<Element>: ADL_Stack {
         stack.insert(element, at: 0)
     }
     
+    @discardableResult
     public func pop() -> Element? {
+        if stack.count == 0 {
+            preconditionFailure("pop empty stack")
+        }
         return stack.remove(at: 0)
     }
 }

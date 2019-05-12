@@ -19,7 +19,7 @@
 import XCTest
 @testable import experiments
 
-private let noReturnFailureWaitTime: Double = 2
+private let noReturnFailureWaitTime: Double = 4
 
 public extension XCTestCase {
     
