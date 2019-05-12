@@ -92,15 +92,6 @@ class DoublyLinkedListTests: XCTestCase {
         }
     }
     
-    func testListIterator() {
-        for i in 0 ... 5 {
-            list.append(i)
-        }
-        for (i, value) in list.enumerated() {
-            XCTAssertEqual(value, i)
-        }
-    }
-    
     func testListRemove() {
         expectPreconditionFailure(expectedMessage: "index out of bounds") {
             self.list.remove(at: 1)
@@ -124,6 +115,15 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssert(list == [1, 3, 4])
         XCTAssertEqual(list.first, 1)
         XCTAssertEqual(list.last, 4)
+    }
+    
+    func testListIterator() {
+        for i in 0 ... 5 {
+            list.append(i)
+        }
+        for (i, value) in list.enumerated() {
+            XCTAssertEqual(value, i)
+        }
     }
 
 //    func testPerformanceExample() {

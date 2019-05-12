@@ -46,7 +46,6 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array.count, 2)
         XCTAssertEqual(array.first, 0)
         XCTAssertEqual(array.last, 1)
-        XCTAssertEqual(array[0], 0)
         XCTAssertEqual(array[1], 1)
         XCTAssert(array == [0,1])
 
@@ -56,8 +55,6 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array.count, 3)
         XCTAssertEqual(array.first, 0)
         XCTAssertEqual(array.last, 2)
-        XCTAssertEqual(array[0], 0)
-        XCTAssertEqual(array[1], 1)
         XCTAssertEqual(array[2], 2)
         XCTAssert(array == [0,1,2])
 
@@ -67,17 +64,19 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array.count, 4)
         XCTAssertEqual(array.first, 0)
         XCTAssertEqual(array.last, 3)
-        XCTAssertEqual(array[0], 0)
-        XCTAssertEqual(array[1], 1)
-        XCTAssertEqual(array[2], 2)
         XCTAssertEqual(array[3], 3)
         XCTAssert(array == [0,1,2,3])
 
     }
     
     func test_arrayAppend() {
-        for i in 0 ... 4 {
+        let start = 0
+        let end = 4
+        for i in start ... end {
             array.append(i)
+            XCTAssertEqual(array[array.count-1], i)
+            XCTAssertEqual(array.first, start)
+            XCTAssertEqual(array.last, i)
         }
 
         XCTAssert(array == [0,1,2,3,4])

@@ -85,18 +85,6 @@ class SinglyLinkedListTests: XCTestCase {
         }
     }
     
-    func testListIterator() {
-        list.append(0)
-        list.append(1)
-        list.append(2)
-        list.append(3)
-        list.append(4)
-        list.append(5)
-        for (i, value) in list.enumerated() {
-            XCTAssertEqual(value, i)
-        }
-    }
-    
     func testListRemove() {
         expectPreconditionFailure(expectedMessage: "index out of bounds") {
             self.list.remove(at: 1)
@@ -123,6 +111,16 @@ class SinglyLinkedListTests: XCTestCase {
         XCTAssertEqual(list[0], 1)
     }
     
+    func testListIterator() {
+        for i in 0 ... 5 {
+            list.append(i)
+        }
+
+        for (i, value) in list.enumerated() {
+            XCTAssertEqual(value, i)
+        }
+    }
+
     func testListHeadAndTail() {
         list.append(0)
         list.append(1)
