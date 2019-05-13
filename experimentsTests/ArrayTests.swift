@@ -25,12 +25,6 @@ class ArrayTests: XCTestCase {
         XCTAssertNil(array.first)
         XCTAssertNil(array.last)
     }
-    
-//    func test_arrayInsertOutOfBounds() {
-//        expectPreconditionFailure(expectedMessage: "index out of bounds") {
-//            self.array.insert(1, at: 1)
-//        }
-//    }
 
     func test_arrayInsert() {
         self.array.insert(0, at: 0)
@@ -83,12 +77,6 @@ class ArrayTests: XCTestCase {
 
         XCTAssert(array == [0,1,2,3,4])
     }
-    
-//    func test_arrayRemovalOutOfBounds() {
-//        expectPreconditionFailure(expectedMessage: "index out of bounds") {
-//            self.array.remove(at: 1)
-//        }
-//    }
         
     func test_arrayRemoval() {
         for i in 0 ..< 5 {
