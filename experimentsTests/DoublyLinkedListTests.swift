@@ -33,7 +33,7 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssert(list == [])
     }
     
-    func testListInsertionAtIndex() {
+    func testListInsert() {
         list.insert(2, at: 0)
         XCTAssertFalse(list.isEmpty)
         XCTAssertEqual(list.count, 1)
@@ -87,22 +87,13 @@ class DoublyLinkedListTests: XCTestCase {
             XCTAssertEqual(list.last, i)
         }
     }
-    
-    func testListIterator() {
-        for i in 0 ... 5 {
-            list.append(i)
-        }
-        for (i, value) in list.enumerated() {
-            XCTAssertEqual(value, i)
-        }
-    }
-    
+
     func testListRemove() {
         for i in 0 ... 5 {
             list.append(i)
         }
 
-        list.remove(at: list.count-1)
+        list.removeLast()
         XCTAssert(list == [0, 1, 2, 3, 4])
         XCTAssertEqual(list.first, 0)
         XCTAssertEqual(list.last, 4)
@@ -116,6 +107,15 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssert(list == [1, 3, 4])
         XCTAssertEqual(list.first, 1)
         XCTAssertEqual(list.last, 4)
+    }
+    
+    func testListIterator() {
+        for i in 0 ... 5 {
+            list.append(i)
+        }
+        for (i, value) in list.enumerated() {
+            XCTAssertEqual(value, i)
+        }
     }
 
 //    func testPerformanceExample() {

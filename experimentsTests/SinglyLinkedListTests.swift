@@ -31,8 +31,8 @@ class SinglyLinkedListTests: XCTestCase {
         XCTAssertTrue(list.isEmpty)
         XCTAssert(list == [])
     }
-    
-    func testListInsertionAtIndex() {
+
+    func testListInsertAtIndex() {
         list.insert(2, at: 0)
         XCTAssertFalse(list.isEmpty)
         XCTAssertEqual(list.count, 1)
@@ -80,26 +80,11 @@ class SinglyLinkedListTests: XCTestCase {
             XCTAssertEqual(list.first, start)
         }
     }
-    
-    func testListIterator() {
-        list.append(0)
-        list.append(1)
-        list.append(2)
-        list.append(3)
-        list.append(4)
-        list.append(5)
-        for (i, value) in list.enumerated() {
-            XCTAssertEqual(value, i)
-        }
-    }
-    
+
     func testListRemove() {
-        list.append(0)
-        list.append(1)
-        list.append(2)
-        list.append(3)
-        list.append(4)
-        list.append(5)
+        for i in 0 ... 5 {
+            list.append(i)
+        }
         
         list.remove(at: list.count-1)
         XCTAssertEqual(list.count, 5)
@@ -118,6 +103,16 @@ class SinglyLinkedListTests: XCTestCase {
         XCTAssertEqual(list[0], 1)
     }
     
+    func testListIterator() {
+        for i in 0 ... 5 {
+            list.append(i)
+        }
+
+        for (i, value) in list.enumerated() {
+            XCTAssertEqual(value, i)
+        }
+    }
+
     func testListHeadAndTail() {
         list.append(0)
         list.append(1)

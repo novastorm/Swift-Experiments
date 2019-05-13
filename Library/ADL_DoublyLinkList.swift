@@ -21,7 +21,7 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
         }
         
         @discardableResult
-        mutating public func previous() -> Element? {
+        public mutating func previous() -> Element? {
             guard let previousNode = node?.previous else {
                 return nil
             }
@@ -30,7 +30,7 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
         }
 
         @discardableResult
-        mutating public func next() -> Element? {
+        public mutating func next() -> Element? {
             guard let nextNode = node?.next else {
                 return nil
             }
@@ -92,10 +92,8 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
         return Iterator(self)
     }
     
-    mutating public func insert(_ datum: Element, at index: Int) {
-        guard 0 <= index && index <= count else {
-            return
-        }
+    public mutating func insert(_ datum: Element, at index: Int) {
+        precondition(0 <= index && index <= count, "index out of bounds")
 
         let newNode = Node(datum)
 
@@ -134,11 +132,13 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
         count += 1
     }
 
-    mutating public func append(_ datum: Element) {
+    public mutating func append(_ datum: Element) {
         insert(datum, at: count)
     }
 
     public func getValue(at index: Int) -> Element {
+        precondition(0 <= index && index < count, "index out of bounds")
+        
         var nodeAtIndex = list
         for _ in 0 ..< index {
             nodeAtIndex = nodeAtIndex?.next
@@ -151,7 +151,9 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
     }
     
     @discardableResult
-    mutating public func remove(at index: Int) -> Element {
+    public mutating func remove(at index: Int) -> Element {
+        precondition(0 <= index && index < count, "index out of bounds")
+
         var node: Node? = startNode
 
         if index == 0 {
@@ -163,6 +165,14 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
                 endNode = nil
             }
         }
+        else if index == count - 1{
+            node = endNode
+            
+            let precedingNode = node?.previous
+            precedingNode?.next = nil
+            
+            endNode = precedingNode
+        }
         else {
             for _ in 1 ... index {
                 node = node?.next
@@ -172,14 +182,17 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
             
             precedingNode?.next = followingNode
             followingNode?.previous = precedingNode
-            
-            if index == count - 1 {
-                endNode = precedingNode
-            }
         }
 
         count -= 1
         return node!.data
+    }
+    
+    @discardableResult
+    public mutating func removeLast() -> Element {
+        precondition(!isEmpty, "Can't remove last element from an empty collection")
+        
+        return remove(at: count-1)
     }
 }
 
