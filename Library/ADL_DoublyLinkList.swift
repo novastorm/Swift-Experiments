@@ -1,10 +1,10 @@
 import Foundation
 
-public struct ADL_SinglyLinkList<Element>: Sequence {
+public struct ADL_DoublyLinkList<Element>: Sequence {
     
-
     class Node {
         var data: Element
+        var previous: Node?
         var next: Node?
         init(_ data: Element) {
             self.data = data
@@ -12,14 +12,23 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
     }
 
     public struct Iterator: IteratorProtocol {
-        private var linkedList: ADL_SinglyLinkList<Element>!
+        private var linkedList: ADL_DoublyLinkList<Element>!
         var node: Node?
         
-        init(_ list: ADL_SinglyLinkList<Element>) {
+        init(_ list: ADL_DoublyLinkList<Element>) {
             self.linkedList = list
             self.node = linkedList.list
         }
         
+        @discardableResult
+        public mutating func previous() -> Element? {
+            guard let previousNode = node?.previous else {
+                return nil
+            }
+            defer{ node = previousNode }
+            return node?.data
+        }
+
         @discardableResult
         public mutating func next() -> Element? {
             guard let nextNode = node?.next else {
@@ -32,7 +41,7 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
     }
     
     private(set) public var count = 0
-   
+    
     private var startNode: Node?
     private var endNode: Node?
     private var list: Node? {
@@ -57,21 +66,28 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
         return node.data
     }
     
+    public var last: Element? {
+        guard count > 0, let node = endNode else {
+            return nil
+        }
+        return node.data
+    }
+
     public var head: Element? {
         return first
     }
     
-    public var tail: ADL_SinglyLinkList<Element>? {
+    public var tail: ADL_DoublyLinkList<Element>? {
         guard let list = list, count > 1 else {
             return nil
         }
-        var newList = ADL_SinglyLinkList()
+        var newList = ADL_DoublyLinkList()
         newList.list = list.next
         newList.count = count - 1
         return newList
     }
     
-    public __consuming func makeIterator() -> ADL_SinglyLinkList<Element>.Iterator {
+    public __consuming func makeIterator() -> ADL_DoublyLinkList<Element>.Iterator {
 
         return Iterator(self)
     }
@@ -82,6 +98,10 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
         let newNode = Node(datum)
 
         if index == 0 {
+            if let nextNode = startNode?.next {
+                nextNode.previous = newNode
+            }
+            
             newNode.next = startNode
             
             startNode = newNode
@@ -96,7 +116,12 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
                 nodeAtIndex = nodeAtIndex?.next
             }
             
+            if let nextNode = nodeAtIndex?.next {
+                nextNode.previous = newNode
+            }
+            
             newNode.next = nodeAtIndex?.next
+            newNode.previous = nodeAtIndex
             
             nodeAtIndex?.next = newNode
             
@@ -113,7 +138,7 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
 
     public func getValue(at index: Int) -> Element {
         precondition(0 <= index && index < count, "index out of bounds")
-
+        
         var nodeAtIndex = list
         for _ in 0 ..< index {
             nodeAtIndex = nodeAtIndex?.next
@@ -129,34 +154,49 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
     public mutating func remove(at index: Int) -> Element {
         precondition(0 <= index && index < count, "index out of bounds")
 
-        var node: Node!
-        
+        var node: Node? = startNode
+
         if index == 0 {
-            node = startNode
             startNode = startNode?.next
+            
+            startNode?.previous = nil
             
             if count == 1 {
                 endNode = nil
             }
         }
-        else {
-            var precedingNode = startNode
-            for _ in 1 ..< index {
-                precedingNode = precedingNode?.next
-            }
-            node = precedingNode?.next
-            precedingNode?.next = node?.next
+        else if index == count - 1{
+            node = endNode
             
-            if index == count - 1 {
-                endNode = precedingNode
-            }
+            let precedingNode = node?.previous
+            precedingNode?.next = nil
+            
+            endNode = precedingNode
         }
+        else {
+            for _ in 1 ... index {
+                node = node?.next
+            }
+            let precedingNode = node?.previous
+            let followingNode = node?.next
+            
+            precedingNode?.next = followingNode
+            followingNode?.previous = precedingNode
+        }
+
         count -= 1
-        return node.data
+        return node!.data
+    }
+    
+    @discardableResult
+    public mutating func removeLast() -> Element {
+        precondition(!isEmpty, "Can't remove last element from an empty collection")
+        
+        return remove(at: count-1)
     }
 }
 
-extension ADL_SinglyLinkList: CustomStringConvertible {
+extension ADL_DoublyLinkList: CustomStringConvertible {
     public var description: String {
         var s = "["
         var separator = ""
@@ -169,8 +209,8 @@ extension ADL_SinglyLinkList: CustomStringConvertible {
     }
 }
 
-extension ADL_SinglyLinkList: Equatable where Element: Equatable {
-    public static func == (lhs: ADL_SinglyLinkList<Element>, rhs: ADL_SinglyLinkList<Element>) -> Bool {
+extension ADL_DoublyLinkList: Equatable where Element: Equatable {
+    public static func == (lhs: ADL_DoublyLinkList<Element>, rhs: ADL_DoublyLinkList<Element>) -> Bool {
         guard lhs.count == rhs.count else {
             return false
         }
@@ -182,7 +222,7 @@ extension ADL_SinglyLinkList: Equatable where Element: Equatable {
         return true
     }
     
-    public static func == (lhs: ADL_SinglyLinkList<Element>, rhs: Array<Element>) -> Bool {
+    public static func == (lhs: ADL_DoublyLinkList<Element>, rhs: Array<Element>) -> Bool {
         guard lhs.count == rhs.count else {
             return false
         }
