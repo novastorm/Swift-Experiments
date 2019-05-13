@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ADL_Stack {
+protocol ADL_StackProtocol {
     associatedtype Element
     var isEmpty: Bool { get }
     var count: Int { get }
@@ -20,7 +20,7 @@ protocol ADL_Stack {
     
 }
 
-class ADL_Stack_SinglyLinkedList<Element>: ADL_Stack {
+class ADL_Stack_SinglyLinkedList<Element>: ADL_StackProtocol {
     
     private var stack: ADL_SinglyLinkList<Element>!
     
@@ -46,14 +46,14 @@ class ADL_Stack_SinglyLinkedList<Element>: ADL_Stack {
     
     @discardableResult
     public func pop() -> Element? {
-        if stack.count == 0 {
-            preconditionFailure("pop empty stack")
+        guard !stack.isEmpty else {
+            return nil
         }
         return stack.remove(at: 0)
     }
 }
 
-class ADL_Stack_DoublyLinkedList<Element>: ADL_Stack {
+class ADL_Stack_DoublyLinkedList<Element>: ADL_StackProtocol {
     private var stack: ADL_DoublyLinkList<Element>!
     
     public init() {
@@ -76,12 +76,16 @@ class ADL_Stack_DoublyLinkedList<Element>: ADL_Stack {
         stack.append(element)
     }
     
+    @discardableResult
     public func pop() -> Element? {
+        guard !stack.isEmpty else {
+            return nil
+        }
         return stack.removeLast()
     }
 }
 
-class ADL_Stack_Array<Element>: ADL_Stack {
+class ADL_Stack_Array<Element>: ADL_StackProtocol {
     private var stack = [Element]()
     
     public init() { }
@@ -102,8 +106,9 @@ class ADL_Stack_Array<Element>: ADL_Stack {
         stack.append(element)
     }
     
+    @discardableResult
     func pop() -> Element? {
-        return stack.removeLast()
+        return stack.popLast()
     }
     
     

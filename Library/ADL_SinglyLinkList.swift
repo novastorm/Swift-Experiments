@@ -77,9 +77,7 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
     }
     
     public mutating func insert(_ datum: Element, at index: Int) {
-        guard 0 <= index && index <= count else {
-            preconditionFailure("index out of bounds")
-        }
+        precondition(0 <= index && index <= count, "index out of bounds")
 
         let newNode = Node(datum)
 
@@ -114,9 +112,7 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
     }
 
     public func getValue(at index: Int) -> Element {
-        guard 0 <= index && index < count else {
-            preconditionFailure("index out of bounds")
-        }
+        precondition(0 <= index && index < count, "index out of bounds")
 
         var nodeAtIndex = list
         for _ in 0 ..< index {
@@ -131,9 +127,7 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
     
     @discardableResult
     public mutating func remove(at index: Int) -> Element {
-        guard 0 <= index && index < count else {
-            preconditionFailure("index out of bounds")
-        }
+        precondition(0 <= index && index < count, "index out of bounds")
 
         var node: Node!
         

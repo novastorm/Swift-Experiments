@@ -33,11 +33,13 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssert(list == [])
     }
     
-    func testListInsertionAtIndex() {
-        expectPreconditionFailure(expectedMessage: "index out of bounds") {
-            self.list.insert(1, at: 1)
-        }
-
+//    func testListInsertOutOfBounds() {
+//        expectPreconditionFailure(expectedMessage: "index out of bounds") {
+//            self.list.insert(1, at: 1)
+//        }
+//    }
+    
+    func testListInsert() {
         list.insert(2, at: 0)
         XCTAssertFalse(list.isEmpty)
         XCTAssertEqual(list.count, 1)
@@ -92,11 +94,13 @@ class DoublyLinkedListTests: XCTestCase {
         }
     }
     
-    func testListRemove() {
-        expectPreconditionFailure(expectedMessage: "index out of bounds") {
-            self.list.remove(at: 1)
-        }
+//    func testListRemoveOutOfBounds() {
+//        expectPreconditionFailure(expectedMessage: "index out of bounds") {
+//            self.list.remove(at: 1)
+//        }
+//    }
 
+    func testListRemove() {
         for i in 0 ... 5 {
             list.append(i)
         }

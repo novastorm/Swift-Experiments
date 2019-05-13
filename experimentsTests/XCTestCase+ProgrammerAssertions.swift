@@ -19,7 +19,7 @@
 import XCTest
 @testable import experiments
 
-private let noReturnFailureWaitTime: Double = 4
+private let noReturnFailureWaitTime: Double = 2
 
 public extension XCTestCase {
     
@@ -39,15 +39,20 @@ public extension XCTestCase {
         testCase: @escaping () -> Void
         ) {
         
-        expectAssertionReturnFunction(functionName: "assert", file: file, line: line, function: { (caller) -> () in
-            
-            Assertions.assertClosure = { condition, message, _, _ in
-                caller(condition, message)
-            }
-            
-        }, expectedMessage: expectedMessage, testCase: testCase) { () -> () in
-            Assertions.assertClosure = Assertions.swiftAssertClosure
-        }
+        expectAssertionReturnFunction(
+            functionName: "assert",
+            file: file,
+            line: line,
+            function: { (caller) -> () in
+                Assertions.assertClosure = { condition, message, _, _ in
+                    caller(condition, message)
+                }
+            },
+            expectedMessage: expectedMessage,
+            testCase: testCase,
+            cleanUp: { () -> () in
+                Assertions.assertClosure = Assertions.swiftAssertClosure
+            })
     }
     
     /**
@@ -66,15 +71,20 @@ public extension XCTestCase {
         testCase: @escaping () -> Void
         ) {
         
-        expectAssertionReturnFunction(functionName: "assertionFailure", file: file, line: line, function: { (caller) -> () in
-            
-            Assertions.assertionFailureClosure = { message, _, _ in
-                caller(false, message)
-            }
-            
-        }, expectedMessage: expectedMessage, testCase: testCase) { () -> () in
-            Assertions.assertionFailureClosure = Assertions.swiftAssertionFailureClosure
-        }
+        expectAssertionReturnFunction(
+            functionName: "assertionFailure",
+            file: file,
+            line: line,
+            function: { (caller) -> () in
+                Assertions.assertionFailureClosure = { message, _, _ in
+                    caller(false, message)
+                }
+            },
+            expectedMessage: expectedMessage,
+            testCase: testCase,
+            cleanUp: { () -> () in
+                Assertions.assertionFailureClosure = Assertions.swiftAssertionFailureClosure
+            })
     }
     
     /**
@@ -97,18 +107,16 @@ public extension XCTestCase {
             functionName: "precondition",
             file: file,
             line: line,
-            function: {
-                (caller) -> () in
-            
-                    Assertions.preconditionClosure = { condition, message, _, _ in
-                        caller(condition, message)
-                    }
-                },
+            function: { (caller) -> () in
+                Assertions.preconditionClosure = { condition, message, _, _ in
+                    caller(condition, message)
+                }
+            },
             expectedMessage: expectedMessage,
-            testCase: testCase
-        ) { () -> () in
-            Assertions.preconditionClosure = Assertions.swiftPreconditionClosure
-        }
+            testCase: testCase,
+            cleanUp: { () -> () in
+                Assertions.preconditionClosure = Assertions.swiftPreconditionClosure
+            })
     }
     
     /**
@@ -131,19 +139,16 @@ public extension XCTestCase {
             functionName: "preconditionFailure",
             file: file,
             line: line,
-            function: {
-                (caller) -> () in
-            
-                    Assertions.preconditionFailureClosure = { message, _, _ in
-                        caller(message)
-                    }
-                
-                },
+            function: { (caller) -> () in
+                Assertions.preconditionFailureClosure = { message, _, _ in
+                    caller(message)
+                }
+            },
             expectedMessage: expectedMessage,
-            testCase: testCase
-        ) { () -> () in
-            Assertions.preconditionFailureClosure = Assertions.swiftPreconditionFailureClosure
-        }
+            testCase: testCase,
+            cleanUp: { () -> () in
+                Assertions.preconditionFailureClosure = Assertions.swiftPreconditionFailureClosure
+            })
     }
     
     /**
@@ -159,24 +164,25 @@ public extension XCTestCase {
         expectedMessage: String? = nil,
         file: StaticString = #file,
         line: UInt = #line,
-        testCase: @escaping () -> Void) {
+        testCase: @escaping () -> Void
+        ) {
         
         expectAssertionNoReturnFunction(
             functionName: "fatalError",
             file: file,
             line: line,
-            function: {
-                (caller) -> () in
-                    Assertions.fatalErrorClosure = { message, _, _ in
-                        caller(message)
-                    }
-                },
+            function: { (caller) -> () in
+                Assertions.fatalErrorClosure = { message, _, _ in
+                    caller(message)
+                }
+            },
             expectedMessage: expectedMessage,
-            testCase: testCase
-        ) { () -> () in
-            Assertions.fatalErrorClosure = Assertions.swiftFatalErrorClosure
-        }
+            testCase: testCase,
+            cleanUp: { () -> () in
+                Assertions.fatalErrorClosure = Assertions.swiftFatalErrorClosure
+            })
     }
+    
     
     // MARK:- Private Methods
     
@@ -184,9 +190,7 @@ public extension XCTestCase {
         functionName: String,
         file: StaticString,
         line: UInt,
-        function: (
-            _ caller: @escaping (Bool, String) -> Void
-            ) -> Void,
+        function: (_ caller: @escaping (Bool, String) -> Void) -> Void,
         expectedMessage: String? = nil,
         testCase: @escaping () -> Void,
         cleanUp: @escaping () -> ()
@@ -203,34 +207,32 @@ public extension XCTestCase {
         // perform on the same thread since it will return
         testCase()
         
-        waitForExpectations(timeout: 0) { _ in
+        waitForExpectations(
+            timeout: 0,
+            handler: { _ in
             
-            defer {
-                // clean up
-                cleanUp()
-            }
-            
-            guard let assertion = assertion else {
-                XCTFail(functionName + " is expected to be called.", file: file, line: line)
-                return
-            }
-            
-            XCTAssertFalse(assertion.condition, functionName + " condition expected to be false", file: file, line: line)
-            
-            if let expectedMessage = expectedMessage {
-                // assert only if not nil
-                XCTAssertEqual(assertion.message, expectedMessage, functionName + " called with incorrect message.", file: file, line: line)
-            }
-        }
+                defer {
+                    cleanUp()
+                }
+                
+                guard let assertion = assertion else {
+                    XCTFail(functionName + " is expected to be called.", file: file, line: line)
+                    return
+                }
+                
+                XCTAssertFalse(assertion.condition, functionName + " condition expected to be false", file: file, line: line)
+                
+                if let expectedMessage = expectedMessage {
+                    XCTAssertEqual(assertion.message, expectedMessage, functionName + " called with incorrect message.", file: file, line: line)
+                }
+            })
     }
     
     private func expectAssertionNoReturnFunction(
         functionName: String,
         file: StaticString,
         line: UInt,
-        function: (
-            _ caller: @escaping (String) -> Never
-        ) -> Void,
+        function: (_ caller: @escaping (String) -> Never) -> Void,
         expectedMessage: String? = nil,
         testCase: @escaping () -> Void,
         cleanUp: @escaping () -> ()
@@ -248,23 +250,25 @@ public extension XCTestCase {
         // act, perform on separate thead because a call to function runs forever
         DispatchQueue.global(qos: .userInitiated).async(execute: testCase)
         
-        waitForExpectations(timeout: noReturnFailureWaitTime) { _ in
-            
-            defer {
-                // clean up
-                cleanUp()
-            }
-            
-            guard let assertionMessage = assertionMessage else {
-                XCTFail(functionName + " is expected to be called.", file: file, line: line)
-                return
-            }
-            
-            if let expectedMessage = expectedMessage {
-                // assert only if not nil
-                XCTAssertEqual(assertionMessage, expectedMessage, functionName + " called with incorrect message.", file: file, line: line)
-            }
-        }
+        waitForExpectations(
+            timeout: noReturnFailureWaitTime,
+            handler: { _ in
+                
+                defer {
+                    // clean up
+                    cleanUp()
+                }
+                
+                guard let assertionMessage = assertionMessage else {
+                    XCTFail(functionName + " is expected to be called.", file: file, line: line)
+                    return
+                }
+                
+                if let expectedMessage = expectedMessage {
+                    // assert only if not nil
+                    XCTAssertEqual(assertionMessage, expectedMessage, functionName + " called with incorrect message.", file: file, line: line)
+                }
+            })
     }
     
     private func unreachable() -> Never {
