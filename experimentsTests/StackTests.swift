@@ -12,7 +12,7 @@ import XCTest
 //protocol StackProtocolTests {
 //    associatedtype TestType
 //
-//    var stack: ADL_StackProtocol { get set } where TestType: Element
+//    var stack: ADL_AnyStack<TestType> { get }
 //
 //    func test_stackInitialization()
 //    func test_stackPush()
@@ -24,9 +24,7 @@ import XCTest
 //        XCTAssertTrue(stack.isEmpty)
 //        XCTAssertEqual(stack.count, 0)
 //        XCTAssertNil(stack.peek)
-//        expectPreconditionFailure(expectedMessage: "pop empty stack") {
-//            self.stack.pop()
-//        }
+//        XCTAssertNil(self.stack.pop())
 //    }
 //
 //    func test_stackPush() {
@@ -55,10 +53,10 @@ import XCTest
 
 class SinglyLinkedListStackTests: XCTestCase {
     typealias TestType = Int
-    var stack: ADL_Stack_SinglyLinkedList<TestType>!
+    var stack: ADL_AnyStack<TestType>!
     
     override func setUp() {
-        stack = ADL_Stack_SinglyLinkedList<TestType>()
+        stack = ADL_AnyStack(ADL_Stack_SinglyLinkedList<TestType>())
     }
     
     override func tearDown() {
@@ -104,10 +102,10 @@ class SinglyLinkedListStackTests: XCTestCase {
 
 class DoublyLinkedListStackTests: XCTestCase {
     typealias TestType = Int
-    var stack: ADL_Stack_DoublyLinkedList<TestType>!
+    var stack: ADL_AnyStack<TestType>!
     
     override func setUp() {
-        stack = ADL_Stack_DoublyLinkedList<TestType>()
+        stack = ADL_AnyStack(ADL_Stack_DoublyLinkedList<TestType>())
     }
     
     override func tearDown() {
@@ -155,10 +153,10 @@ class DoublyLinkedListStackTests: XCTestCase {
 
 class ArrayStackTests: XCTestCase {
     typealias TestType = Int
-    var stack: ADL_Stack_Array<TestType>!
+    var stack: ADL_AnyStack<TestType>!
     
     override func setUp() {
-        stack = ADL_Stack_Array<TestType>()
+        stack = ADL_AnyStack(ADL_Stack_Array<TestType>())
     }
     
     override func tearDown() {
@@ -170,9 +168,6 @@ class ArrayStackTests: XCTestCase {
         XCTAssertEqual(stack.count, 0)
         XCTAssertNil(stack.peek)
         XCTAssertNil(stack.pop())
-//        expectFatalError(expectedMessage: "Can't remove last element from an empty collection") {
-//            self.stack.pop()
-//        }
     }
     
     func test_stackPush() {

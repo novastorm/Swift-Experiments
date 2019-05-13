@@ -32,6 +32,12 @@ class SinglyLinkedListTests: XCTestCase {
         XCTAssert(list == [])
     }
 
+    func test_listInsertOutOfBounds() {
+        expectFatalError(expectedMessage: "index out of bounds") {
+            self.list.insert(1, at: 1)
+        }
+    }
+
     func testListInsertAtIndex() {
         list.insert(2, at: 0)
         XCTAssertFalse(list.isEmpty)
@@ -78,6 +84,12 @@ class SinglyLinkedListTests: XCTestCase {
             list.append(i)
             XCTAssertEqual(list[list.count-1], i)
             XCTAssertEqual(list.first, start)
+        }
+    }
+    
+    func test_arrayRemovalOutOfBounds() {
+        expectFatalError(expectedMessage: "index out of bounds") {
+            self.list.remove(at: 1)
         }
     }
 

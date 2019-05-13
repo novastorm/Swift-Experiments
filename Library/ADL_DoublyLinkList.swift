@@ -93,7 +93,9 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
     }
     
     public mutating func insert(_ datum: Element, at index: Int) {
-        precondition(0 <= index && index <= count, "index out of bounds")
+        guard 0 <= index && index <= count else {
+            fatalError("index out of bounds")
+        }
 
         let newNode = Node(datum)
 
@@ -137,8 +139,10 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
     }
 
     public func getValue(at index: Int) -> Element {
-        precondition(0 <= index && index < count, "index out of bounds")
-        
+        guard 0 <= index && index < count else {
+            fatalError("index out of bounds")
+        }
+
         var nodeAtIndex = list
         for _ in 0 ..< index {
             nodeAtIndex = nodeAtIndex?.next
@@ -152,7 +156,9 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
     
     @discardableResult
     public mutating func remove(at index: Int) -> Element {
-        precondition(0 <= index && index < count, "index out of bounds")
+        guard 0 <= index && index < count else {
+            fatalError("index out of bounds")
+        }
 
         var node: Node? = startNode
 
@@ -190,7 +196,9 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
     
     @discardableResult
     public mutating func removeLast() -> Element {
-        precondition(!isEmpty, "Can't remove last element from an empty collection")
+        guard !isEmpty else {
+            fatalError("Can't remove last element from an empty collection")
+        }
         
         return remove(at: count-1)
     }

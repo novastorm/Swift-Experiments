@@ -43,7 +43,9 @@ public class ADL_ArrayImplementation<Element> {
     }
     
     public func insert(_ element: Element, at index: Int) {
-        precondition(0 <= index && index <= count, "index out of bounds")
+        guard 0 <= index && index <= count else {
+            fatalError("index out of bounds")
+        }
         
         if count >= capacity {
             reallocateArray(minimumCapacity: capacity)
@@ -59,7 +61,9 @@ public class ADL_ArrayImplementation<Element> {
     }
     
     public func getValue(at index: Int) -> Element {
-        precondition(0 <= index && index < count, "index out of bounds")
+        guard 0 <= index && index < count else {
+            fatalError("index out of bounds")
+        }
         
         return array.advanced(by: index).pointee
     }
@@ -75,10 +79,13 @@ public class ADL_ArrayImplementation<Element> {
     
     @discardableResult
     public func remove(at index: Int) -> Element {
-        precondition(0 <= index && index < count, "index out of bounds")
+        guard 0 <= index && index < count else {
+            fatalError("index out of bounds")
+        }
         
         let pointer = array.advanced(by: index)
         let results = pointer.pointee
+
         pointer.assign(from: pointer.advanced(by: 1), count: count - index)
         
         count -= 1
@@ -88,8 +95,10 @@ public class ADL_ArrayImplementation<Element> {
     
     @discardableResult
     public func removeLast() -> Element {
-        precondition(!isEmpty)
-        
+        guard !isEmpty else {
+            fatalError("Can't remove last element from an empty collection")
+        }
+
         return remove(at: count-1)
     }
 
