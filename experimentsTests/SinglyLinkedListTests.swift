@@ -12,12 +12,12 @@ import XCTest
 class SinglyLinkedListTests: XCTestCase {
     
     typealias TestType = Int
-    var list: ADL_SinglyLinkList<TestType>!
-    var iter: ADL_SinglyLinkList<TestType>.Iterator!
+    var list: ADL_SinglyLinkedList<TestType>!
+    var iter: ADL_SinglyLinkedList<TestType>.Iterator!
 
     
     override func setUp() {
-        list = ADL_SinglyLinkList<TestType>()
+        list = ADL_SinglyLinkedList<TestType>()
     }
 
     override func tearDown() {

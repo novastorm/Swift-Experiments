@@ -9,47 +9,6 @@
 import XCTest
 @testable import experiments
 
-//protocol StackProtocolTests {
-//    associatedtype TestType
-//
-//    var stack: ADL_AnyStack<TestType> { get }
-//
-//    func test_stackInitialization()
-//    func test_stackPush()
-//    func test_stackPop()
-//}
-//
-//extension StackProtocolTests {
-//    func test_stackInitialization() {
-//        XCTAssertTrue(stack.isEmpty)
-//        XCTAssertEqual(stack.count, 0)
-//        XCTAssertNil(stack.peek)
-//        XCTAssertNil(self.stack.pop())
-//    }
-//
-//    func test_stackPush() {
-//        for i in 0 ..< 3 {
-//            stack.push(i)
-//            XCTAssertFalse(stack.isEmpty)
-//            XCTAssertEqual(stack.peek, i)
-//            XCTAssertEqual(stack.count, i+1)
-//        }
-//    }
-//
-//    func test_stackPop() {
-//        for i in 0 ..< 3 {
-//            stack.push(i)
-//            XCTAssertEqual(stack.peek, i)
-//        }
-//
-//        for i in stride(from: 2, through: 0, by: -1) {
-//            XCTAssertEqual(stack.peek, i)
-//            XCTAssertEqual(stack.pop(), i)
-//            XCTAssertEqual(stack.count, i)
-//        }
-//    }
-//}
-
 
 class SinglyLinkedListStackTests: XCTestCase {
     typealias TestType = Int

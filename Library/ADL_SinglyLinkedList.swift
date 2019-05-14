@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ADL_SinglyLinkList<Element>: Sequence {
+public struct ADL_SinglyLinkedList<Element>: Sequence {
     
 
     class Node {
@@ -12,10 +12,10 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
     }
 
     public struct Iterator: IteratorProtocol {
-        private var linkedList: ADL_SinglyLinkList<Element>!
+        private var linkedList: ADL_SinglyLinkedList<Element>!
         var node: Node?
         
-        init(_ list: ADL_SinglyLinkList<Element>) {
+        init(_ list: ADL_SinglyLinkedList<Element>) {
             self.linkedList = list
             self.node = linkedList.list
         }
@@ -61,17 +61,17 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
         return first
     }
     
-    public var tail: ADL_SinglyLinkList<Element>? {
+    public var tail: ADL_SinglyLinkedList<Element>? {
         guard let list = list, count > 1 else {
             return nil
         }
-        var newList = ADL_SinglyLinkList()
+        var newList = ADL_SinglyLinkedList()
         newList.list = list.next
         newList.count = count - 1
         return newList
     }
     
-    public __consuming func makeIterator() -> ADL_SinglyLinkList<Element>.Iterator {
+    public __consuming func makeIterator() -> ADL_SinglyLinkedList<Element>.Iterator {
 
         return Iterator(self)
     }
@@ -162,7 +162,7 @@ public struct ADL_SinglyLinkList<Element>: Sequence {
     }
 }
 
-extension ADL_SinglyLinkList: CustomStringConvertible {
+extension ADL_SinglyLinkedList: CustomStringConvertible {
     public var description: String {
         var s = "["
         var separator = ""
@@ -175,8 +175,8 @@ extension ADL_SinglyLinkList: CustomStringConvertible {
     }
 }
 
-extension ADL_SinglyLinkList: Equatable where Element: Equatable {
-    public static func == (lhs: ADL_SinglyLinkList<Element>, rhs: ADL_SinglyLinkList<Element>) -> Bool {
+extension ADL_SinglyLinkedList: Equatable where Element: Equatable {
+    public static func == (lhs: ADL_SinglyLinkedList<Element>, rhs: ADL_SinglyLinkedList<Element>) -> Bool {
         guard lhs.count == rhs.count else {
             return false
         }
@@ -188,7 +188,7 @@ extension ADL_SinglyLinkList: Equatable where Element: Equatable {
         return true
     }
     
-    public static func == (lhs: ADL_SinglyLinkList<Element>, rhs: Array<Element>) -> Bool {
+    public static func == (lhs: ADL_SinglyLinkedList<Element>, rhs: Array<Element>) -> Bool {
         guard lhs.count == rhs.count else {
             return false
         }

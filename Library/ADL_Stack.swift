@@ -8,15 +8,6 @@
 
 import Foundation
 
-@inline(never)
-@usableFromInline
-internal func _abstract(
-    file: StaticString = #file,
-    line: UInt = #line
-    ) -> Never {
-    fatalError("Method must be overridden", file: file, line: line)
-}
-
 protocol ADL_Stack {
     associatedtype Element
     var isEmpty: Bool { get }
@@ -115,10 +106,10 @@ final class ADL_AnyStack<Element>: ADL_Stack {
 
 class ADL_Stack_SinglyLinkedList<Element>: ADL_Stack {
     
-    private var stack: ADL_SinglyLinkList<Element>!
+    private var stack: ADL_SinglyLinkedList<Element>!
     
     public init() {
-        stack = ADL_SinglyLinkList<Element>()
+        stack = ADL_SinglyLinkedList<Element>()
     }
     
     public var isEmpty: Bool {
