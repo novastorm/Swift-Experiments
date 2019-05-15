@@ -110,12 +110,12 @@ extension ADL_SinglyLinkedList: ADL_Queue {
         return first
     }
 
-    public mutating func enqueue(_ element: Element) {
+    public func enqueue(_ element: Element) {
         append(element)
     }
     
     @discardableResult
-    public mutating func dequeue() -> Element? {
+    public func dequeue() -> Element? {
         guard !isEmpty else {
             return nil
         }

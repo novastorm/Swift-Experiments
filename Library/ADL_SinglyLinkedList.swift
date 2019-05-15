@@ -1,49 +1,29 @@
 import Foundation
 
-public struct ADL_SinglyLinkedList<Element>: Sequence {
+public class ADL_SinglyLinkedList<Element>: Sequence {
     
+    var value: Element!
+    var next: ADL_SinglyLinkedList?
 
-    class Node {
-        var data: Element
-        var next: Node?
-        init(_ data: Element) {
-            self.data = data
-        }
-    }
-
-    public struct Iterator: IteratorProtocol {
-        private var linkedList: ADL_SinglyLinkedList<Element>!
-        var node: Node?
+    public class Iterator: IteratorProtocol {
+        private var node: ADL_SinglyLinkedList?
         
-        init(_ list: ADL_SinglyLinkedList<Element>) {
-            self.linkedList = list
-            self.node = linkedList.list
+        init(_ list: ADL_SinglyLinkedList) {
+            self.node = list.next
         }
         
         @discardableResult
-        public mutating func next() -> Element? {
-            guard let nextNode = node?.next else {
-                return nil
-            }
-            defer{ node = nextNode }
-            return node?.data
+        public func next() -> Element? {
+            defer{ node = node?.next }
+            return node?.value
         }
         
     }
     
-    private(set) public var count = 0
-   
-    private var startNode: Node?
-    private var endNode: Node?
-    private var list: Node? {
-        get {
-            return startNode
-        }
-        set {
-            startNode = newValue
-        }
+    public var count: Int {
+        return (value != nil ? 1 : 0) + (next?.count ?? 0)
     }
-
+   
     public init() {}
  
     public var isEmpty: Bool {
@@ -51,49 +31,46 @@ public struct ADL_SinglyLinkedList<Element>: Sequence {
     }
     
     public var first: Element? {
-        guard count > 0, let node = startNode else {
+        guard count > 0, let node = next else {
             return nil
         }
-        return node.data
+        return node.value
     }
     
     public var head: Element? {
-        return first
+        return next?.value
     }
     
-    public var tail: ADL_SinglyLinkedList<Element>? {
-        guard let list = list, count > 1 else {
+    public var tail: ADL_SinglyLinkedList? {
+        if next == nil {
             return nil
         }
-        var newList = ADL_SinglyLinkedList()
-        newList.list = list.next
-        newList.count = count - 1
+        
+        let newList = ADL_SinglyLinkedList()
+
+        newList.next = next?.next
+        
         return newList
     }
     
     public __consuming func makeIterator() -> ADL_SinglyLinkedList<Element>.Iterator {
-
         return Iterator(self)
     }
     
-    public mutating func insert(_ datum: Element, at index: Int) {
+    public func insert(_ value: Element, at index: Int) {
         guard 0 <= index && index <= count else {
             fatalError("index out of bounds")
         }
 
-        let newNode = Node(datum)
+        let newNode = ADL_SinglyLinkedList()
+        newNode.value = value
 
         if index == 0 {
-            newNode.next = startNode
-            
-            startNode = newNode
-            
-            if count == 0 {
-                endNode = newNode
-            }
+            newNode.next = next
+            next = newNode
         }
         else {
-            var nodeAtIndex = startNode
+            var nodeAtIndex = next
             for _ in 1 ..< index {
                 nodeAtIndex = nodeAtIndex?.next
             }
@@ -101,16 +78,11 @@ public struct ADL_SinglyLinkedList<Element>: Sequence {
             newNode.next = nodeAtIndex?.next
             
             nodeAtIndex?.next = newNode
-            
-            if index == count {
-                endNode = newNode
-            }
         }
-        count += 1
     }
 
-    public mutating func append(_ datum: Element) {
-        insert(datum, at: count)
+    public func append(_ value: Element) {
+        insert(value, at: count)
     }
 
     public func getValue(at index: Int) -> Element {
@@ -118,11 +90,11 @@ public struct ADL_SinglyLinkedList<Element>: Sequence {
             fatalError("index out of bounds")
         }
 
-        var nodeAtIndex = list
+        var nodeAtIndex = next
         for _ in 0 ..< index {
             nodeAtIndex = nodeAtIndex?.next
         }
-        return nodeAtIndex!.data
+        return nodeAtIndex!.value
     }
 
     public subscript(index: Int) -> Element {
@@ -130,35 +102,25 @@ public struct ADL_SinglyLinkedList<Element>: Sequence {
     }
     
     @discardableResult
-    public mutating func remove(at index: Int) -> Element {
+    public func remove(at index: Int) -> Element {
         guard 0 <= index && index < count else {
             fatalError("index out of bounds")
         }
 
-        var node: Node!
+        var node = next
         
         if index == 0 {
-            node = startNode
-            startNode = startNode?.next
-            
-            if count == 1 {
-                endNode = nil
-            }
+            next = node?.next
         }
         else {
-            var precedingNode = startNode
+            var precedingNode = next
             for _ in 1 ..< index {
                 precedingNode = precedingNode?.next
             }
             node = precedingNode?.next
             precedingNode?.next = node?.next
-            
-            if index == count - 1 {
-                endNode = precedingNode
-            }
         }
-        count -= 1
-        return node.data
+        return node!.value
     }
 }
 
