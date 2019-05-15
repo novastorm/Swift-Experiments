@@ -123,36 +123,22 @@ extension ADL_SinglyLinkedList: ADL_Queue {
     }
 }
 
-class ADL_Queue_DoublyLinkedList<Element>: ADL_Queue {
-    
-    private var queue: ADL_DoublyLinkList<Element>!
-    
-    public init() {
-        queue = ADL_DoublyLinkList<Element>()
-    }
-    
-    public var isEmpty: Bool {
-        return queue.isEmpty
-    }
-    
-    public var count: Int {
-        return queue.count
-    }
+extension ADL_DoublyLinkedList: ADL_Queue {
     
     public var peek: Element? {
-        return queue.first
+        return first
     }
     
     public func enqueue(_ element: Element) {
-        queue.append(element)
+        append(element)
     }
     
     @discardableResult
     public func dequeue() -> Element? {
-        guard !queue.isEmpty else {
+        guard !isEmpty else {
             return nil
         }
-        return queue.remove(at: 0)
+        return remove(at: 0)
     }
 }
 

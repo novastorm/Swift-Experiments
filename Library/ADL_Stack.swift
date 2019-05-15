@@ -138,10 +138,10 @@ class ADL_Stack_SinglyLinkedList<Element>: ADL_Stack {
 }
 
 class ADL_Stack_DoublyLinkedList<Element>: ADL_Stack {
-    private var stack: ADL_DoublyLinkList<Element>!
+    private var stack: ADL_DoublyLinkedList<Element>!
     
     public init() {
-        stack = ADL_DoublyLinkList<Element>()
+        stack = ADL_DoublyLinkedList<Element>()
     }
     
     public var isEmpty: Bool {

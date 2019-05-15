@@ -1,15 +1,15 @@
 import Foundation
 
-public class ADL_DoublyLinkList<Element>: Sequence {
+public class ADL_DoublyLinkedList<Element>: Sequence {
     
-    var previous: ADL_DoublyLinkList?
-    var next: ADL_DoublyLinkList?
+    var previous: ADL_DoublyLinkedList?
+    var next: ADL_DoublyLinkedList?
     var value: Element!
 
     public class Iterator: IteratorProtocol {
-        private var node: ADL_DoublyLinkList?
+        private var node: ADL_DoublyLinkedList?
         
-        init(_ list: ADL_DoublyLinkList<Element>) {
+        init(_ list: ADL_DoublyLinkedList<Element>) {
             self.node = list.next
         }
         
@@ -31,8 +31,8 @@ public class ADL_DoublyLinkList<Element>: Sequence {
         return (value == nil ? 0 : 1) + (next?.count ?? 0)
     }
     
-    private var startNode: ADL_DoublyLinkList?
-    private var endNode: ADL_DoublyLinkList?
+    private var startNode: ADL_DoublyLinkedList?
+    private var endNode: ADL_DoublyLinkedList?
 
     public init() {}
  
@@ -52,16 +52,16 @@ public class ADL_DoublyLinkList<Element>: Sequence {
         return first
     }
     
-    public var tail: ADL_DoublyLinkList<Element>? {
+    public var tail: ADL_DoublyLinkedList<Element>? {
         guard next == nil else {
             return nil
         }
-        let newList = ADL_DoublyLinkList()
+        let newList = ADL_DoublyLinkedList()
         newList.next = next?.next
         return newList
     }
     
-    public __consuming func makeIterator() -> ADL_DoublyLinkList<Element>.Iterator {
+    public __consuming func makeIterator() -> ADL_DoublyLinkedList<Element>.Iterator {
         return Iterator(self)
     }
     
@@ -70,7 +70,7 @@ public class ADL_DoublyLinkList<Element>: Sequence {
             fatalError("index out of bounds")
         }
 
-        let newNode = ADL_DoublyLinkList()
+        let newNode = ADL_DoublyLinkedList()
         newNode.value = value
 
         if index == 0 {
@@ -179,7 +179,7 @@ public class ADL_DoublyLinkList<Element>: Sequence {
     }
 }
 
-extension ADL_DoublyLinkList: CustomStringConvertible {
+extension ADL_DoublyLinkedList: CustomStringConvertible {
     public var description: String {
         var s = "["
         var separator = ""
@@ -192,8 +192,8 @@ extension ADL_DoublyLinkList: CustomStringConvertible {
     }
 }
 
-extension ADL_DoublyLinkList: Equatable where Element: Equatable {
-    public static func == (lhs: ADL_DoublyLinkList<Element>, rhs: ADL_DoublyLinkList<Element>) -> Bool {
+extension ADL_DoublyLinkedList: Equatable where Element: Equatable {
+    public static func == (lhs: ADL_DoublyLinkedList<Element>, rhs: ADL_DoublyLinkedList<Element>) -> Bool {
         guard lhs.count == rhs.count else {
             return false
         }
@@ -205,7 +205,7 @@ extension ADL_DoublyLinkList: Equatable where Element: Equatable {
         return true
     }
     
-    public static func == (lhs: ADL_DoublyLinkList<Element>, rhs: Array<Element>) -> Bool {
+    public static func == (lhs: ADL_DoublyLinkedList<Element>, rhs: Array<Element>) -> Bool {
         guard lhs.count == rhs.count else {
             return false
         }

@@ -12,12 +12,12 @@ import XCTest
 class DoublyLinkedListTests: XCTestCase {
     
     typealias TestType = Int
-    var list: ADL_DoublyLinkList<TestType>!
-    var iter: ADL_DoublyLinkList<TestType>.Iterator!
+    var list: ADL_DoublyLinkedList<TestType>!
+    var iter: ADL_DoublyLinkedList<TestType>.Iterator!
 
     
     override func setUp() {
-        list = ADL_DoublyLinkList<TestType>()
+        list = ADL_DoublyLinkedList<TestType>()
     }
 
     override func tearDown() {
