@@ -142,33 +142,21 @@ extension ADL_DoublyLinkedList: ADL_Queue {
     }
 }
 
-class ADL_Queue_Array<Element>: ADL_Queue {
-    
-    private var queue = ADL_ArrayImplementation<Element>()
-    
-    public init() { }
-    
-    var isEmpty: Bool {
-        return queue.isEmpty
-    }
-    
-    var count: Int {
-        return queue.count
-    }
+extension ADL_ArrayImplementation: ADL_Queue {
     
     var peek: Element? {
-        return queue.first
+        return first
     }
     
     func enqueue(_ element: Element) {
-        queue.append(element)
+        append(element)
     }
     
     @discardableResult
     func dequeue() -> Element? {
-        guard !queue.isEmpty else {
+        guard !isEmpty else {
             return nil
         }
-        return queue.remove(at: 0)
+        return remove(at: 0)
     }
 }
