@@ -2,8 +2,8 @@ import Foundation
 
 public class ADL_SinglyLinkedList<Element>: Sequence {
     
-    var value: Element!
     var next: ADL_SinglyLinkedList?
+    var value: Element!
 
     public class Iterator: IteratorProtocol {
         private var node: ADL_SinglyLinkedList?

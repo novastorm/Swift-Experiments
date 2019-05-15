@@ -1,57 +1,38 @@
 import Foundation
 
-public struct ADL_DoublyLinkList<Element>: Sequence {
+public class ADL_DoublyLinkList<Element>: Sequence {
     
-    class Node {
-        var data: Element
-        var previous: Node?
-        var next: Node?
-        init(_ data: Element) {
-            self.data = data
-        }
-    }
+    var previous: ADL_DoublyLinkList?
+    var next: ADL_DoublyLinkList?
+    var value: Element!
 
-    public struct Iterator: IteratorProtocol {
-        private var linkedList: ADL_DoublyLinkList<Element>!
-        var node: Node?
+    public class Iterator: IteratorProtocol {
+        private var node: ADL_DoublyLinkList?
         
         init(_ list: ADL_DoublyLinkList<Element>) {
-            self.linkedList = list
-            self.node = linkedList.list
+            self.node = list.next
         }
         
         @discardableResult
-        public mutating func previous() -> Element? {
-            guard let previousNode = node?.previous else {
-                return nil
-            }
-            defer{ node = previousNode }
-            return node?.data
+        public func previous() -> Element? {
+            defer{ node = node?.previous }
+            return node?.value
         }
 
         @discardableResult
-        public mutating func next() -> Element? {
-            guard let nextNode = node?.next else {
-                return nil
-            }
-            defer{ node = nextNode }
-            return node?.data
+        public func next() -> Element? {
+            defer{ node = node?.next }
+            return node?.value
         }
         
     }
     
-    private(set) public var count = 0
-    
-    private var startNode: Node?
-    private var endNode: Node?
-    private var list: Node? {
-        get {
-            return startNode
-        }
-        set {
-            startNode = newValue
-        }
+    public var count: Int {
+        return (value == nil ? 0 : 1) + (next?.count ?? 0)
     }
+    
+    private var startNode: ADL_DoublyLinkList?
+    private var endNode: ADL_DoublyLinkList?
 
     public init() {}
  
@@ -60,17 +41,11 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
     }
     
     public var first: Element? {
-        guard count > 0, let node = startNode else {
-            return nil
-        }
-        return node.data
+        return startNode?.value
     }
     
     public var last: Element? {
-        guard count > 0, let node = endNode else {
-            return nil
-        }
-        return node.data
+        return endNode?.value
     }
 
     public var head: Element? {
@@ -78,39 +53,39 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
     }
     
     public var tail: ADL_DoublyLinkList<Element>? {
-        guard let list = list, count > 1 else {
+        guard next == nil else {
             return nil
         }
-        var newList = ADL_DoublyLinkList()
-        newList.list = list.next
-        newList.count = count - 1
+        let newList = ADL_DoublyLinkList()
+        newList.next = next?.next
         return newList
     }
     
     public __consuming func makeIterator() -> ADL_DoublyLinkList<Element>.Iterator {
-
         return Iterator(self)
     }
     
-    public mutating func insert(_ datum: Element, at index: Int) {
+    public func insert(_ value: Element, at index: Int) {
         guard 0 <= index && index <= count else {
             fatalError("index out of bounds")
         }
 
-        let newNode = Node(datum)
+        let newNode = ADL_DoublyLinkList()
+        newNode.value = value
 
         if index == 0 {
-            if let nextNode = startNode?.next {
+            if let nextNode = startNode {
                 nextNode.previous = newNode
             }
-            
-            newNode.next = startNode
-            
-            startNode = newNode
-            
             if count == 0 {
                 endNode = newNode
             }
+
+            newNode.next = next
+            next = newNode
+            
+            startNode = next
+            
         }
         else {
             var nodeAtIndex = startNode
@@ -121,20 +96,20 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
             if let nextNode = nodeAtIndex?.next {
                 nextNode.previous = newNode
             }
-            
+
+            if index == count {
+                endNode = newNode
+            }
+
             newNode.next = nodeAtIndex?.next
             newNode.previous = nodeAtIndex
             
             nodeAtIndex?.next = newNode
             
-            if index == count {
-                endNode = newNode
-            }
         }
-        count += 1
     }
 
-    public mutating func append(_ datum: Element) {
+    public func append(_ datum: Element) {
         insert(datum, at: count)
     }
 
@@ -143,11 +118,11 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
             fatalError("index out of bounds")
         }
 
-        var nodeAtIndex = list
+        var nodeAtIndex = next
         for _ in 0 ..< index {
             nodeAtIndex = nodeAtIndex?.next
         }
-        return nodeAtIndex!.data
+        return nodeAtIndex!.value
     }
 
     public subscript(index: Int) -> Element {
@@ -155,19 +130,20 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
     }
     
     @discardableResult
-    public mutating func remove(at index: Int) -> Element {
+    public func remove(at index: Int) -> Element {
         guard 0 <= index && index < count else {
             fatalError("index out of bounds")
         }
 
-        var node: Node? = startNode
+        var node = startNode
 
         if index == 0 {
             startNode = startNode?.next
             
             startNode?.previous = nil
+            next = startNode
             
-            if count == 1 {
+            if count == 0 {
                 endNode = nil
             }
         }
@@ -190,12 +166,11 @@ public struct ADL_DoublyLinkList<Element>: Sequence {
             followingNode?.previous = precedingNode
         }
 
-        count -= 1
-        return node!.data
+        return node!.value
     }
     
     @discardableResult
-    public mutating func removeLast() -> Element {
+    public func removeLast() -> Element {
         guard !isEmpty else {
             fatalError("Can't remove last element from an empty collection")
         }
