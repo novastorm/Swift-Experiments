@@ -12,10 +12,10 @@ import XCTest
 class ArrayTests: XCTestCase {
 
     typealias TestType = Int
-    var array: ADL_ArrayImplementation<TestType>!
+    var array: ADL_Array<TestType>!
     
     override func setUp() {
-        array = ADL_ArrayImplementation<TestType>()
+        array = ADL_Array<TestType>()
     }
     
     func test_newArray() {

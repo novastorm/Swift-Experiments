@@ -83,6 +83,6 @@ class DoublyLinkedListQueueTests: BaseQueueTests {
 
 class ArrayQueueTests: BaseQueueTests {
     override func setUp() {
-        queue = ADL_AnyQueue(ADL_ArrayImplementation<TestType>())
+        queue = ADL_AnyQueue(ADL_Array<TestType>())
     }
 }

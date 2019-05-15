@@ -170,7 +170,7 @@ class ADL_Stack_DoublyLinkedList<Element>: ADL_Stack {
 }
 
 class ADL_Stack_Array<Element>: ADL_Stack {
-    private var stack = ADL_ArrayImplementation<Element>()
+    private var stack = ADL_Array<Element>()
     
     public init() { }
     

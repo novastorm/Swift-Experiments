@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ADL_ArrayImplementation<Element> {
+public class ADL_Array<Element> {
     var array: UnsafeMutablePointer<Element>!
     private(set) public var capacity: Int = 0
     private(set) public var count: Int = 0
@@ -132,12 +132,12 @@ public class ADL_ArrayImplementation<Element> {
     }
 }
 
-extension ADL_ArrayImplementation: Sequence {
+extension ADL_Array: Sequence {
     public struct Iterator: IteratorProtocol {
-        private var array: ADL_ArrayImplementation<Element>!
+        private var array: ADL_Array<Element>!
         private var index: Int = 0
         
-        init(_ array: ADL_ArrayImplementation<Element>) {
+        init(_ array: ADL_Array<Element>) {
             self.array = array
         }
         
@@ -150,12 +150,12 @@ extension ADL_ArrayImplementation: Sequence {
         }
     }
 
-    public __consuming func makeIterator() -> ADL_ArrayImplementation<Element>.Iterator {
+    public __consuming func makeIterator() -> ADL_Array<Element>.Iterator {
         return Iterator(self)
     }
 }
 
-extension ADL_ArrayImplementation: CustomStringConvertible {
+extension ADL_Array: CustomStringConvertible {
     public var description: String {
         var s = "["
         var separator = ""
@@ -169,8 +169,8 @@ extension ADL_ArrayImplementation: CustomStringConvertible {
     }
 }
 
-extension ADL_ArrayImplementation: Equatable where Element: Equatable {
-    public static func == (lhs: ADL_ArrayImplementation<Element>, rhs: ADL_ArrayImplementation<Element>) -> Bool {
+extension ADL_Array: Equatable where Element: Equatable {
+    public static func == (lhs: ADL_Array<Element>, rhs: ADL_Array<Element>) -> Bool {
         guard lhs.count == rhs.count else {
             return false
         }
@@ -182,7 +182,7 @@ extension ADL_ArrayImplementation: Equatable where Element: Equatable {
         return true
     }
     
-    public static func == (lhs: ADL_ArrayImplementation<Element>, rhs: Array<Element>) -> Bool {
+    public static func == (lhs: ADL_Array<Element>, rhs: Array<Element>) -> Bool {
         guard lhs.count == rhs.count else {
             return false
         }
@@ -193,10 +193,4 @@ extension ADL_ArrayImplementation: Equatable where Element: Equatable {
         
         return true
     }
-}
-
-struct ADL_Array<Element> {
-    private var array = ADL_ArrayImplementation<Element>()
-    
-    
 }

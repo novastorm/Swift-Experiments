@@ -142,7 +142,7 @@ extension ADL_DoublyLinkedList: ADL_Queue {
     }
 }
 
-extension ADL_ArrayImplementation: ADL_Queue {
+extension ADL_Array: ADL_Queue {
     
     var peek: Element? {
         return first
