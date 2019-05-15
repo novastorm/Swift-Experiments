@@ -158,7 +158,7 @@ class ADL_Queue_DoublyLinkedList<Element>: ADL_Queue {
 
 class ADL_Queue_Array<Element>: ADL_Queue {
     
-    private var queue = [Element]()
+    private var queue = ADL_ArrayImplementation<Element>()
     
     public init() { }
     

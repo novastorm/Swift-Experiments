@@ -170,7 +170,7 @@ class ADL_Stack_DoublyLinkedList<Element>: ADL_Stack {
 }
 
 class ADL_Stack_Array<Element>: ADL_Stack {
-    private var stack = [Element]()
+    private var stack = ADL_ArrayImplementation<Element>()
     
     public init() { }
     
@@ -192,7 +192,10 @@ class ADL_Stack_Array<Element>: ADL_Stack {
     
     @discardableResult
     func pop() -> Element? {
-        return stack.popLast()
+        guard !stack.isEmpty else {
+            return nil
+        }
+        return stack.removeLast()
     }
     
     
