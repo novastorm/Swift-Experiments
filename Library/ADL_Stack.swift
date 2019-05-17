@@ -104,99 +104,56 @@ final class ADL_AnyStack<Element>: ADL_Stack {
     
 }
 
-class ADL_Stack_SinglyLinkedList<Element>: ADL_Stack {
-    
-    private var stack: ADL_SinglyLinkedList<Element>!
-    
-    public init() {
-        stack = ADL_SinglyLinkedList<Element>()
-    }
-    
-    public var isEmpty: Bool {
-        return stack.isEmpty
-    }
-    
-    public var count: Int {
-        return stack.count
-    }
-    
+class ADL_Stack_SinglyLinkedList<Element>: ADL_SinglyLinkedList<Element>, ADL_Stack {
     public var peek: Element? {
-        return stack.first
+        return first
     }
 
     public func push(_ element: Element) {
-        stack.insert(element, at: 0)
+        insert(element, at: 0)
     }
     
     @discardableResult
     public func pop() -> Element? {
-        guard !stack.isEmpty else {
+        guard !isEmpty else {
             return nil
         }
-        return stack.remove(at: 0)
+        return remove(at: 0)
     }
 }
 
-class ADL_Stack_DoublyLinkedList<Element>: ADL_Stack {
-    private var stack: ADL_DoublyLinkedList<Element>!
-    
-    public init() {
-        stack = ADL_DoublyLinkedList<Element>()
-    }
-    
-    public var isEmpty: Bool {
-        return stack.isEmpty
-    }
-    
-    public var count: Int {
-        return stack.count
-    }
-    
+class ADL_Stack_DoublyLinkedList<Element>: ADL_DoublyLinkedList<Element>, ADL_Stack {
     public var peek: Element? {
-        return stack.last
+        return last
     }
     
     public func push(_ element: Element) {
-        stack.append(element)
+        append(element)
     }
     
     @discardableResult
     public func pop() -> Element? {
-        guard !stack.isEmpty else {
+        guard !isEmpty else {
             return nil
         }
-        return stack.removeLast()
+        return removeLast()
     }
 }
 
-class ADL_Stack_Array<Element>: ADL_Stack {
-    private var stack = ADL_Array<Element>()
-    
-    public init() { }
-    
-    var isEmpty: Bool {
-        return stack.isEmpty
-    }
-    
-    var count: Int {
-        return stack.count
-    }
-    
+class ADL_Stack_Array<Element>: ADL_Array<Element>, ADL_Stack {
     var peek: Element? {
-        return stack.last
+        return last
     }
     
     func push(_ element: Element) {
-        stack.append(element)
+        append(element)
     }
     
     @discardableResult
     func pop() -> Element? {
-        guard !stack.isEmpty else {
+        guard !isEmpty else {
             return nil
         }
-        return stack.removeLast()
+        return removeLast()
     }
-    
-    
 }
