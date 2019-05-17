@@ -104,7 +104,7 @@ final class ADL_AnyQueue<Element>: ADL_Queue {
     }
 }
 
-extension ADL_SinglyLinkedList: ADL_Queue {
+class ADL_Queue_SinglyLinkedList<Element>: ADL_SinglyLinkedList<Element>, ADL_Queue {
     
     public var peek: Element? {
         return first
@@ -123,7 +123,7 @@ extension ADL_SinglyLinkedList: ADL_Queue {
     }
 }
 
-extension ADL_DoublyLinkedList: ADL_Queue {
+class ADL_Queue_DoublyLinkedList<Element>: ADL_DoublyLinkedList<Element>, ADL_Queue {
     
     public var peek: Element? {
         return first
@@ -142,7 +142,7 @@ extension ADL_DoublyLinkedList: ADL_Queue {
     }
 }
 
-extension ADL_Array: ADL_Queue {
+class ADL_Queue_Array<Element>: ADL_Array<Element>, ADL_Queue {
     
     var peek: Element? {
         return first

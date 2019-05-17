@@ -71,18 +71,18 @@ class BaseQueueTests: XCTestCase {
 
 class SinglyLinkedListQueueTests: BaseQueueTests {
     override func setUp() {
-        queue = ADL_AnyQueue(ADL_SinglyLinkedList<TestType>())
+        queue = ADL_AnyQueue(ADL_Queue_SinglyLinkedList<TestType>())
     }
 }
 
 class DoublyLinkedListQueueTests: BaseQueueTests {
     override func setUp() {
-        queue = ADL_AnyQueue(ADL_DoublyLinkedList<TestType>())
+        queue = ADL_AnyQueue(ADL_Queue_DoublyLinkedList<TestType>())
     }
 }
 
 class ArrayQueueTests: BaseQueueTests {
     override func setUp() {
-        queue = ADL_AnyQueue(ADL_Array<TestType>())
+        queue = ADL_AnyQueue(ADL_Queue_Array<TestType>())
     }
 }
