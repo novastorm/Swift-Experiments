@@ -1,24 +1,9 @@
 import Foundation
 
-public class ADL_SinglyLinkedList<Element>: Sequence {
+public class ADL_SinglyLinkedList<Element> {
     
     var next: ADL_SinglyLinkedList?
     var value: Element!
-
-    public class Iterator: IteratorProtocol {
-        private var node: ADL_SinglyLinkedList?
-        
-        init(_ list: ADL_SinglyLinkedList) {
-            self.node = list.next
-        }
-        
-        @discardableResult
-        public func next() -> Element? {
-            defer{ node = node?.next }
-            return node?.value
-        }
-        
-    }
     
     public var count: Int {
         return (value != nil ? 1 : 0) + (next?.count ?? 0)
@@ -51,10 +36,6 @@ public class ADL_SinglyLinkedList<Element>: Sequence {
         newList.next = next?.next
         
         return newList
-    }
-    
-    public __consuming func makeIterator() -> ADL_SinglyLinkedList<Element>.Iterator {
-        return Iterator(self)
     }
     
     public func insert(_ value: Element, at index: Int) {
@@ -160,5 +141,26 @@ extension ADL_SinglyLinkedList: Equatable where Element: Equatable {
         }
         
         return true
+    }
+}
+
+extension ADL_SinglyLinkedList: Sequence {
+
+    public class Iterator: IteratorProtocol {
+        private var node: ADL_SinglyLinkedList?
+        
+        init(_ list: ADL_SinglyLinkedList) {
+            self.node = list.next
+        }
+        
+        @discardableResult
+        public func next() -> Element? {
+            defer{ node = node?.next }
+            return node?.value
+        }
+    }
+    
+    public __consuming func makeIterator() -> ADL_SinglyLinkedList<Element>.Iterator {
+        return Iterator(self)
     }
 }
