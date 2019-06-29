@@ -12,12 +12,12 @@ import XCTest
 class SinglyLinkedListTests: XCTestCase {
     
     typealias TestType = Int
-    var list: ADL_SinglyLinkList<TestType>!
-    var iter: ADL_SinglyLinkList<TestType>.Iterator!
+    var list: ADL_SinglyLinkedList<TestType>!
+    var iter: ADL_SinglyLinkedList<TestType>.Iterator!
 
     
     override func setUp() {
-        list = ADL_SinglyLinkList<TestType>()
+        list = ADL_SinglyLinkedList<TestType>()
     }
 
     override func tearDown() {
@@ -30,6 +30,12 @@ class SinglyLinkedListTests: XCTestCase {
         XCTAssertNil(list.head)
         XCTAssertTrue(list.isEmpty)
         XCTAssert(list == [])
+    }
+
+    func test_listInsertOutOfBounds() {
+        expectFatalError(expectedMessage: "index out of bounds") {
+            self.list.insert(1, at: 1)
+        }
     }
 
     func testListInsertAtIndex() {
@@ -78,6 +84,12 @@ class SinglyLinkedListTests: XCTestCase {
             list.append(i)
             XCTAssertEqual(list[list.count-1], i)
             XCTAssertEqual(list.first, start)
+        }
+    }
+    
+    func test_arrayRemovalOutOfBounds() {
+        expectFatalError(expectedMessage: "index out of bounds") {
+            self.list.remove(at: 1)
         }
     }
 

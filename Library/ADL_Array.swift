@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ADL_ArrayImplementation<Element> {
+public class ADL_Array<Element> {
     var array: UnsafeMutablePointer<Element>!
     private(set) public var capacity: Int = 0
     private(set) public var count: Int = 0
@@ -43,7 +43,9 @@ public class ADL_ArrayImplementation<Element> {
     }
     
     public func insert(_ element: Element, at index: Int) {
-        precondition(0 <= index && index <= count, "index out of bounds")
+        guard 0 <= index && index <= count else {
+            fatalError("index out of bounds")
+        }
         
         if count >= capacity {
             reallocateArray(minimumCapacity: capacity)
@@ -59,7 +61,9 @@ public class ADL_ArrayImplementation<Element> {
     }
     
     public func getValue(at index: Int) -> Element {
-        precondition(0 <= index && index < count, "index out of bounds")
+        guard 0 <= index && index < count else {
+            fatalError("index out of bounds")
+        }
         
         return array.advanced(by: index).pointee
     }
@@ -75,10 +79,13 @@ public class ADL_ArrayImplementation<Element> {
     
     @discardableResult
     public func remove(at index: Int) -> Element {
-        precondition(0 <= index && index < count, "index out of bounds")
+        guard 0 <= index && index < count else {
+            fatalError("index out of bounds")
+        }
         
         let pointer = array.advanced(by: index)
         let results = pointer.pointee
+
         pointer.assign(from: pointer.advanced(by: 1), count: count - index)
         
         count -= 1
@@ -88,8 +95,10 @@ public class ADL_ArrayImplementation<Element> {
     
     @discardableResult
     public func removeLast() -> Element {
-        precondition(!isEmpty)
-        
+        guard !isEmpty else {
+            fatalError("Can't remove last element from an empty collection")
+        }
+
         return remove(at: count-1)
     }
 
@@ -123,12 +132,12 @@ public class ADL_ArrayImplementation<Element> {
     }
 }
 
-extension ADL_ArrayImplementation: Sequence {
+extension ADL_Array: Sequence {
     public struct Iterator: IteratorProtocol {
-        private var array: ADL_ArrayImplementation<Element>!
+        private var array: ADL_Array<Element>!
         private var index: Int = 0
         
-        init(_ array: ADL_ArrayImplementation<Element>) {
+        init(_ array: ADL_Array<Element>) {
             self.array = array
         }
         
@@ -141,12 +150,12 @@ extension ADL_ArrayImplementation: Sequence {
         }
     }
 
-    public __consuming func makeIterator() -> ADL_ArrayImplementation<Element>.Iterator {
+    public __consuming func makeIterator() -> ADL_Array<Element>.Iterator {
         return Iterator(self)
     }
 }
 
-extension ADL_ArrayImplementation: CustomStringConvertible {
+extension ADL_Array: CustomStringConvertible {
     public var description: String {
         var s = "["
         var separator = ""
@@ -160,8 +169,8 @@ extension ADL_ArrayImplementation: CustomStringConvertible {
     }
 }
 
-extension ADL_ArrayImplementation: Equatable where Element: Equatable {
-    public static func == (lhs: ADL_ArrayImplementation<Element>, rhs: ADL_ArrayImplementation<Element>) -> Bool {
+extension ADL_Array: Equatable where Element: Equatable {
+    public static func == (lhs: ADL_Array<Element>, rhs: ADL_Array<Element>) -> Bool {
         guard lhs.count == rhs.count else {
             return false
         }
@@ -173,7 +182,7 @@ extension ADL_ArrayImplementation: Equatable where Element: Equatable {
         return true
     }
     
-    public static func == (lhs: ADL_ArrayImplementation<Element>, rhs: Array<Element>) -> Bool {
+    public static func == (lhs: ADL_Array<Element>, rhs: Array<Element>) -> Bool {
         guard lhs.count == rhs.count else {
             return false
         }
@@ -184,10 +193,4 @@ extension ADL_ArrayImplementation: Equatable where Element: Equatable {
         
         return true
     }
-}
-
-struct ADL_Array<Element> {
-    private var array = ADL_ArrayImplementation<Element>()
-    
-    
 }

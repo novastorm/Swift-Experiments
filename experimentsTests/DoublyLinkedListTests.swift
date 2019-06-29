@@ -12,12 +12,12 @@ import XCTest
 class DoublyLinkedListTests: XCTestCase {
     
     typealias TestType = Int
-    var list: ADL_DoublyLinkList<TestType>!
-    var iter: ADL_DoublyLinkList<TestType>.Iterator!
+    var list: ADL_DoublyLinkedList<TestType>!
+    var iter: ADL_DoublyLinkedList<TestType>.Iterator!
 
     
     override func setUp() {
-        list = ADL_DoublyLinkList<TestType>()
+        list = ADL_DoublyLinkedList<TestType>()
     }
 
     override func tearDown() {
@@ -32,7 +32,13 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertNil(list.head)
         XCTAssert(list == [])
     }
-    
+
+    func test_arrayInsertOutOfBounds() {
+        expectFatalError(expectedMessage: "index out of bounds") {
+            self.list.insert(1, at: 1)
+        }
+    }
+
     func testListInsert() {
         list.insert(2, at: 0)
         XCTAssertFalse(list.isEmpty)
@@ -85,6 +91,15 @@ class DoublyLinkedListTests: XCTestCase {
             XCTAssertEqual(list[list.count-1], i)
             XCTAssertEqual(list.first, start)
             XCTAssertEqual(list.last, i)
+        }
+    }
+    
+    func test_arrayRemovalOutOfBounds() {
+        expectFatalError(expectedMessage: "index out of bounds") {
+            self.list.remove(at: 1)
+        }
+        expectFatalError(expectedMessage: "Can't remove last element from an empty collection") {
+            self.list.removeLast()
         }
     }
 

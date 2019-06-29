@@ -12,10 +12,10 @@ import XCTest
 class ArrayTests: XCTestCase {
 
     typealias TestType = Int
-    var array: ADL_ArrayImplementation<TestType>!
+    var array: ADL_Array<TestType>!
     
     override func setUp() {
-        array = ADL_ArrayImplementation<TestType>()
+        array = ADL_Array<TestType>()
     }
     
     func test_newArray() {
@@ -26,6 +26,12 @@ class ArrayTests: XCTestCase {
         XCTAssertNil(array.last)
     }
 
+    func test_arrayInsertOutOfBounds() {
+        expectFatalError(expectedMessage: "index out of bounds") {
+            self.array.insert(1, at: 1)
+        }
+    }
+    
     func test_arrayInsert() {
         self.array.insert(0, at: 0)
         XCTAssertFalse(array.isEmpty)
@@ -78,6 +84,15 @@ class ArrayTests: XCTestCase {
         XCTAssert(array == [0,1,2,3,4])
     }
         
+    func test_arrayRemovalOutOfBounds() {
+        expectFatalError(expectedMessage: "index out of bounds") {
+            self.array.remove(at: 1)
+        }
+        expectAssertionFailure(expectedMessage: "Can't remove last element from an empty collection") {
+            self.array.removeLast()
+        }
+    }
+
     func test_arrayRemoval() {
         for i in 0 ..< 5 {
             array.append(i)
