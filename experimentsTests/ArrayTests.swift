@@ -88,7 +88,7 @@ class ArrayTests: XCTestCase {
         expectFatalError(expectedMessage: "index out of bounds") {
             self.array.remove(at: 1)
         }
-        expectFatalError(expectedMessage: "Can't remove last element from an empty collection") {
+        expectAssertionFailure(expectedMessage: "Can't remove last element from an empty collection") {
             self.array.removeLast()
         }
     }

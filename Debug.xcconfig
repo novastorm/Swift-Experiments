@@ -1,0 +1,11 @@
+//
+//  Debug.xcconfig
+//  experiments
+//
+//  Created by Bahlreighn on 6/1/19.
+//  Copyright © 2019 4MFD. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+MFD_CONFIG_NAME = Debug
