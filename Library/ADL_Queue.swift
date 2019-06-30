@@ -142,8 +142,7 @@ class ADL_Queue_DoublyLinkedList<Element>: ADL_DoublyLinkedList<Element>, ADL_Qu
     }
 }
 
-class ADL_Queue_Array<Element>: ADL_Array<Element>, ADL_Queue {
-    
+class ADL_Queue_ADL_Array<Element>: ADL_Array<Element>, ADL_Queue {
     var peek: Element? {
         return first
     }
@@ -158,5 +157,54 @@ class ADL_Queue_Array<Element>: ADL_Array<Element>, ADL_Queue {
             return nil
         }
         return remove(at: 0)
+    }
+}
+
+struct ADL_Queue_Array<Element>: ADL_Queue {
+    fileprivate var array = Array<Element?>()
+    fileprivate var headIndex = 0
+    fileprivate let loadCountThreshold = 50
+    fileprivate let loadThreshold = 0.34
+    
+    var count: Int {
+        return array.count - headIndex
+    }
+    
+    var isEmpty: Bool {
+        return count == 0
+    }
+
+    var peek: Element? {
+        if isEmpty {
+            return nil
+        }
+        return array[headIndex]
+    }
+    
+    mutating func enqueue(_ element: Element) {
+        array.append(element)
+    }
+    
+    @discardableResult
+    mutating func dequeue() -> Element? {
+        guard headIndex < array.count, let returnValue = array[headIndex] else {
+            return nil
+        }
+        
+        headIndex += 1
+        
+        return returnValue
+    }
+    
+    var load: Double {
+        return Double(headIndex) / Double(array.count)
+    }
+    
+    mutating func optimize() {
+        guard array.count > loadCountThreshold && load > loadThreshold else {
+            return
+        }
+        array.removeFirst(headIndex)
+        headIndex = 0
     }
 }
