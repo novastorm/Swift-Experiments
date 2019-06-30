@@ -44,6 +44,9 @@
 /* Begin PBXFileReference section */
 		3E0A4074228488BE003F4470 /* ADL_Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Array.swift; sourceTree = "<group>"; };
 		3E0C27EE2286733F0095533E /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
+		3E1666F722C917C000AFF2C7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3E1666F822C917DF00AFF2C7 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		3E1666FA22C918D100AFF2C7 /* BIBLIO.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BIBLIO.txt; sourceTree = "<group>"; };
 		3E52E9FF2289E97200723A26 /* QueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTests.swift; sourceTree = "<group>"; };
 		3E52EA012289EAFD00723A26 /* ADL_Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADL_Queue.swift; sourceTree = "<group>"; };
 		3E52EA042289EB6300723A26 /* Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
@@ -94,6 +97,9 @@
 		3EEAD056227EB1B400B6540D = {
 			isa = PBXGroup;
 			children = (
+				3E1666F722C917C000AFF2C7 /* README.md */,
+				3E1666F822C917DF00AFF2C7 /* LICENSE.txt */,
+				3E1666FA22C918D100AFF2C7 /* BIBLIO.txt */,
 				3EC1BA6C22A38E4500E1F53A /* Debug.xcconfig */,
 				3EC1BA6D22A38E4E00E1F53A /* Release.xcconfig */,
 				3EC1BA6822A38DD600E1F53A /* Staging.xcconfig */,
