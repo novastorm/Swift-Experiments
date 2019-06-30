@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E0A4075228488BE003F4470 /* ADL_Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A4074228488BE003F4470 /* ADL_Array.swift */; };
 		3E0C27EF2286733F0095533E /* ArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C27EE2286733F0095533E /* ArrayTests.swift */; };
+		3E1666F622C9124A00AFF2C7 /* ADL_BinarySearchTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1666F522C9124A00AFF2C7 /* ADL_BinarySearchTree.swift */; };
 		3E52EA002289E97200723A26 /* QueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E52E9FF2289E97200723A26 /* QueueTests.swift */; };
 		3E52EA032289EB0700723A26 /* ADL_Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E52EA012289EAFD00723A26 /* ADL_Queue.swift */; };
 		3E52EA052289EB6300723A26 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E52EA042289EB6300723A26 /* Misc.swift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		3E0A4074228488BE003F4470 /* ADL_Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Array.swift; sourceTree = "<group>"; };
 		3E0C27EE2286733F0095533E /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
+		3E1666F522C9124A00AFF2C7 /* ADL_BinarySearchTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADL_BinarySearchTree.swift; sourceTree = "<group>"; };
 		3E1666F722C917C000AFF2C7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3E1666F822C917DF00AFF2C7 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		3E1666FA22C918D100AFF2C7 /* BIBLIO.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BIBLIO.txt; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				3EEAD085227EB21900B6540D /* ADL_SinglyLinkedList.swift */,
 				3E52F7802280FFB900E3A755 /* ADL_DoublyLinkedList.swift */,
 				3ED2EC63228B1CAD00AEA2F5 /* ADL_BinaryTree.swift */,
+				3E1666F522C9124A00AFF2C7 /* ADL_BinarySearchTree.swift */,
 				3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */,
 				3E52EA012289EAFD00723A26 /* ADL_Queue.swift */,
 				3EEAD083227EB21900B6540D /* Int+Extensions.swift */,
@@ -277,6 +280,7 @@
 				3EEAD088227EB23100B6540D /* ADL_Collection.swift in Sources */,
 				3EF595932283EB6D007A2AC8 /* ADL_Stack.swift in Sources */,
 				3EEAD08B227EB23100B6540D /* Int+Extensions.swift in Sources */,
+				3E1666F622C9124A00AFF2C7 /* ADL_BinarySearchTree.swift in Sources */,
 				3EEAD063227EB1B400B6540D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
