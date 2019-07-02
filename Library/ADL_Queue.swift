@@ -10,8 +10,8 @@ import Foundation
 
 protocol ADL_Queue {
     associatedtype Element
-    var isEmpty: Bool { get }
     var count: Int { get }
+    var isEmpty: Bool { get }
     
     var peek: Element? { get }
     
@@ -104,59 +104,124 @@ final class ADL_AnyQueue<Element>: ADL_Queue {
     }
 }
 
-class ADL_Queue_SinglyLinkedList<Element>: ADL_SinglyLinkedList<Element>, ADL_Queue {
+class ADL_Queue_SinglyLinkedList<Element>: ADL_Queue {
+    fileprivate var start: ADL_SinglyLinkedList<Element>?
+    fileprivate var end: ADL_SinglyLinkedList<Element>?
+
+    var count: Int {
+        return start?.count ?? 0
+    }
+    
+    var isEmpty: Bool {
+        return count == 0
+    }
     
     public var peek: Element? {
-        return first
+        return start?.value
     }
 
-    public func enqueue(_ element: Element) {
-        append(element)
-    }
-    
-    @discardableResult
-    public func dequeue() -> Element? {
-        guard !isEmpty else {
-            return nil
-        }
-        return remove(at: 0)
-    }
-}
-
-class ADL_Queue_DoublyLinkedList<Element>: ADL_DoublyLinkedList<Element>, ADL_Queue {
-    
-    public var peek: Element? {
-        return first
-    }
-    
-    public func enqueue(_ element: Element) {
-        append(element)
-    }
-    
-    @discardableResult
-    public func dequeue() -> Element? {
-        guard !isEmpty else {
-            return nil
-        }
-        return remove(at: 0)
-    }
-}
-
-class ADL_Queue_ADL_Array<Element>: ADL_Array<Element>, ADL_Queue {
-    var peek: Element? {
-        return first
-    }
-    
     func enqueue(_ element: Element) {
-        append(element)
+        let newNode = ADL_SinglyLinkedList(element)
+        if let end = end {
+            end.next = newNode
+        }
+        else {
+            start = newNode
+        }
+        end = newNode
     }
     
     @discardableResult
     func dequeue() -> Element? {
+        let result = start?.value
+        
+        start = start?.next
+        
+        return result
+    }
+}
+
+class ADL_Queue_DoublyLinkedList<Element>: ADL_Queue {
+    fileprivate var buffer = ADL_DoublyLinkedList<Element>()
+    
+    var count: Int {
+        return buffer.count
+    }
+    
+    var isEmpty: Bool {
+        return buffer.isEmpty
+    }
+    
+    public var peek: Element? {
+        return buffer.first
+    }
+    
+    public func enqueue(_ element: Element) {
+        buffer.append(element)
+    }
+    
+    @discardableResult
+    public func dequeue() -> Element? {
         guard !isEmpty else {
             return nil
         }
-        return remove(at: 0)
+        return buffer.remove(at: 0)
+    }
+}
+
+struct ADL_Queue_ADL_Array<Element>: ADL_Queue {
+    fileprivate var bufferArray = ADL_Array<Element?>()
+    fileprivate var headIndex = 0
+    fileprivate let loadCountThreshold = 50
+    fileprivate let loadThreshold = 0.34
+    
+    var count: Int {
+        return bufferArray.count - headIndex
+    }
+
+    var isEmpty: Bool {
+        return count == 0
+    }
+    
+    var peek: Element? {
+        if isEmpty {
+            return nil
+        }
+        return bufferArray[headIndex]
+    }
+    
+    mutating func enqueue(_ element: Element) {
+        bufferArray.append(element)
+    }
+    
+    @discardableResult
+    mutating func dequeue() -> Element? {
+        guard !bufferArray.isEmpty, let returnValue = bufferArray[headIndex] else {
+            return nil
+        }
+        
+        headIndex += 1
+        
+        optimize()
+        
+        return returnValue
+    }
+    
+    var load: Double {
+        return Double(headIndex) / Double(bufferArray.count)
+    }
+    
+    mutating func optimize() {
+        guard bufferArray.count > loadCountThreshold, load > loadThreshold else {
+            return
+        }
+        let newBufferArray = ADL_Array<Element?>()
+        newBufferArray.reserveCapacity(bufferArray.count)
+        for i in 0 ..< count {
+            newBufferArray.append(bufferArray[headIndex+i])
+        }
+        bufferArray = newBufferArray
+        headIndex = 0
     }
 }
 
@@ -178,6 +243,7 @@ struct ADL_Queue_Array<Element>: ADL_Queue {
         if isEmpty {
             return nil
         }
+
         return array[headIndex]
     }
     
@@ -192,6 +258,8 @@ struct ADL_Queue_Array<Element>: ADL_Queue {
         }
         
         headIndex += 1
+        
+        optimize()
         
         return returnValue
     }
