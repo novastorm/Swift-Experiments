@@ -9,7 +9,7 @@
 import XCTest
 @testable import experiments
 
-class ArrayTests: XCTestCase {
+class ADL_ArrayTests: XCTestCase {
 
     typealias TestType = Int
     var array: ADL_Array<TestType>!
@@ -27,9 +27,8 @@ class ArrayTests: XCTestCase {
     }
 
     func test_arrayInsertOutOfBounds() {
-        expectFatalError(expectedMessage: "index out of bounds") {
-            self.array.insert(1, at: 1)
-        }
+//        Precondition failed: Array index is out of range
+//        array.insert(1, at: 1)
     }
     
     func test_arrayInsert() {
@@ -51,7 +50,7 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array[1], 1)
         XCTAssert(array == [0,1])
 
-        array[2] = 2
+        array.insert(2, at: 2)
         XCTAssertFalse(array.isEmpty)
         XCTAssertEqual(array.capacity, 3)
         XCTAssertEqual(array.count, 3)
@@ -60,7 +59,7 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(array[2], 2)
         XCTAssert(array == [0,1,2])
 
-        array[3] = 3
+        array.insert(3, at: 3)
         XCTAssertFalse(array.isEmpty)
         XCTAssertEqual(array.capacity, 6)
         XCTAssertEqual(array.count, 4)
@@ -85,12 +84,11 @@ class ArrayTests: XCTestCase {
     }
         
     func test_arrayRemovalOutOfBounds() {
-        expectFatalError(expectedMessage: "index out of bounds") {
-            self.array.remove(at: 1)
-        }
-        expectAssertionFailure(expectedMessage: "Can't remove last element from an empty collection") {
-            self.array.removeLast()
-        }
+//        Precondition failed: Array index is out of range
+//        array.remove(at: 1)
+//        Precondition failed: Can't remove last element from an empty collection
+//        array.removeLast()
+//        Fatal error: Can't remove last element from an empty collection
     }
 
     func test_arrayRemoval() {

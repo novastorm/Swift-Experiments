@@ -9,7 +9,7 @@
 import Foundation
 
 public class ADL_Array<Element> {
-    var array: UnsafeMutablePointer<Element>!
+    fileprivate var buffer: UnsafeMutablePointer<Element>!
     private(set) public var capacity: Int = 0
     private(set) public var count: Int = 0
     public var isEmpty: Bool {
@@ -17,41 +17,47 @@ public class ADL_Array<Element> {
     }
     
     init() {
-        array = UnsafeMutablePointer<Element>.allocate(capacity: 0)
+        buffer = UnsafeMutablePointer<Element>.allocate(capacity: 0)
     }
     
     deinit {
-        array.deallocate()
-    }
-    
-    public func reserveCapacity(_ minimumCapacity: Int) {
-        reallocateArray(minimumCapacity: minimumCapacity)
+        buffer.deallocate()
     }
     
     public var first: Element? {
         guard count > 0 else {
             return nil
         }
-        return array.pointee
+        return buffer.pointee as Element
     }
     
     public var last: Element? {
         guard count > 0 else {
             return nil
         }
-        return array.advanced(by: count - 1).pointee
+        return buffer.advanced(by: count - 1).pointee as Element
     }
     
+    public var startIndex: Int {
+        return 0
+    }
+    
+    public var endIndex: Int {
+        return count
+    }
+    
+    public func reserveCapacity(_ minimumCapacity: Int) {
+        reallocateArray(minimumCapacity: minimumCapacity)
+    }
+
     public func insert(_ element: Element, at index: Int) {
-        guard 0 <= index && index <= count else {
-            fatalError("index out of bounds")
-        }
+        precondition(0 <= index && index <= count, "Array index is out of range")
         
         if count >= capacity {
             reallocateArray(minimumCapacity: capacity)
         }
 
-        array.advanced(by: index).pointee = element
+        buffer.advanced(by: index).pointee = element
         
         count += 1
     }
@@ -61,11 +67,9 @@ public class ADL_Array<Element> {
     }
     
     public func getValue(at index: Int) -> Element {
-        guard 0 <= index && index < count else {
-            fatalError("index out of bounds")
-        }
+        precondition(0 <= index && index < count, "Array index is out of range")
         
-        return array.advanced(by: index).pointee
+        return buffer.advanced(by: index).pointee
     }
     
     public subscript(index: Int) -> Element {
@@ -73,19 +77,18 @@ public class ADL_Array<Element> {
             return getValue(at: index)
         }
         set {
+            precondition(0 <= index && index < count, "Array index is out of range")
             insert(newValue, at: index)
         }
     }
     
     @discardableResult
     public func remove(at index: Int) -> Element {
-        guard 0 <= index && index < count else {
-            fatalError("index out of bounds")
-        }
+        precondition(0 <= index && index < count, "Array index is out of range")
         
-        let pointer = array.advanced(by: index)
+        let pointer = buffer.advanced(by: index)
         let results = pointer.pointee
-
+        
         pointer.assign(from: pointer.advanced(by: 1), count: count - index)
         
         count -= 1
@@ -95,9 +98,7 @@ public class ADL_Array<Element> {
     
     @discardableResult
     public func removeLast() -> Element {
-        guard !isEmpty else {
-            fatalError("Can't remove last element from an empty collection")
-        }
+        precondition(!isEmpty, "Can't remove last element from an empty collection")
 
         return remove(at: count-1)
     }
@@ -108,12 +109,12 @@ public class ADL_Array<Element> {
         let newCapacity = nextCapacity(after: minimumCapacity)
         let newArray = UnsafeMutablePointer<Element>.allocate(capacity: newCapacity)
         
-        newArray.assign(from: array, count: count)
+        newArray.assign(from: buffer, count: count)
         
-        array.deallocate()
+        buffer.deallocate()
         
         capacity = newCapacity
-        array = newArray
+        buffer = newArray
     }
     
     private func nextCapacity(after n: Int) -> Int {
