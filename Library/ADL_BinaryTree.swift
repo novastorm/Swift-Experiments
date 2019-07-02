@@ -11,15 +11,11 @@ class ADL_BinaryTree<Element> {
     }
     
     public var count: Int {
-        return (left?.count ?? 0) + 1 + (right?.count ?? 0)
-    }
-
-    public var isEmpty: Bool {
-        return count == 0
+        return 1 + (left?.count ?? 0) + (right?.count ?? 0)
     }
 
     public func traverseBreadthFirst(_ process: (Element) -> Void) {
-        let pending = ADL_Queue_Array<ADL_BinaryTree<Element>>()
+        var pending = ADL_Queue_Array<ADL_BinaryTree<Element>>()
         pending.enqueue(self)
         
         while let current = pending.dequeue() {
