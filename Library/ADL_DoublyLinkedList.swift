@@ -66,9 +66,7 @@ public class ADL_DoublyLinkedList<Element>: Sequence {
     }
     
     public func insert(_ value: Element, at index: Int) {
-        guard 0 <= index && index <= count else {
-            fatalError("index out of bounds")
-        }
+        precondition(0 <= index && index <= count, "DoublyLinkedList index is out of range")
 
         let newNode = ADL_DoublyLinkedList()
         newNode.value = value
@@ -114,9 +112,7 @@ public class ADL_DoublyLinkedList<Element>: Sequence {
     }
 
     public func getValue(at index: Int) -> Element {
-        guard 0 <= index && index < count else {
-            fatalError("index out of bounds")
-        }
+        precondition(0 <= index && index < count, "DoublyLinkedList index is out of range")
 
         var nodeAtIndex = next
         for _ in 0 ..< index {
@@ -131,9 +127,7 @@ public class ADL_DoublyLinkedList<Element>: Sequence {
     
     @discardableResult
     public func remove(at index: Int) -> Element {
-        guard 0 <= index && index < count else {
-            fatalError("index out of bounds")
-        }
+        precondition(0 <= index && index < count, "DoublyLinkedList index is out of range")
 
         var node = startNode
 
@@ -171,9 +165,7 @@ public class ADL_DoublyLinkedList<Element>: Sequence {
     
     @discardableResult
     public func removeLast() -> Element {
-        guard !isEmpty else {
-            fatalError("Can't remove last element from an empty collection")
-        }
+        precondition(!isEmpty, "Can't remove last element from an empty collection")
         
         return remove(at: count-1)
     }
