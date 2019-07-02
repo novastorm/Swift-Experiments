@@ -53,3 +53,13 @@ class ADL_BinaryTree<Element> {
         left?.traverseOutOrder(process)
     }
 }
+
+extension ADL_BinaryTree {
+    public static func count(_ tree: ADL_BinaryTree<Element>?) -> Int {
+        return tree?.count ?? 0
+    }
+    
+    public static func isEmpty(_ tree: ADL_BinaryTree<Element>?) -> Bool {
+        return tree == nil
+    }
+}
