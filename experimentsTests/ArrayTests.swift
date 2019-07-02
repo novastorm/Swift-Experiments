@@ -9,7 +9,7 @@
 import XCTest
 @testable import experiments
 
-class ADL_ArrayTests: XCTestCase {
+class ArrayTests: XCTestCase {
 
     typealias TestType = Int
     var array: ADL_Array<TestType>!
