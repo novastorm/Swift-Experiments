@@ -187,13 +187,13 @@ public extension XCTestCase {
     // MARK:- Private Methods
     
     private func expectAssertionReturnFunction(
-        functionName: String,
-        file: StaticString,
-        line: UInt,
-        function: (_ caller: @escaping (Bool, String) -> Void) -> Void,
+           functionName: String,
+                   file: StaticString,
+                   line: UInt,
+               function: (_ caller: @escaping (Bool, String) -> Void) -> Void,
         expectedMessage: String? = nil,
-        testCase: @escaping () -> Void,
-        cleanUp: @escaping () -> ()
+               testCase: @escaping () -> Void,
+                cleanUp: @escaping () -> ()
         ) {
         
         let aExpectation = expectation(description: functionName + "-Expectation")
@@ -229,13 +229,13 @@ public extension XCTestCase {
     }
     
     private func expectAssertionNoReturnFunction(
-        functionName: String,
-        file: StaticString,
-        line: UInt,
-        function: (_ caller: @escaping (String) -> Never) -> Void,
+           functionName: String,
+                   file: StaticString,
+                   line: UInt,
+               function: (_ caller: @escaping (String) -> Never) -> Void,
         expectedMessage: String? = nil,
-        testCase: @escaping () -> Void,
-        cleanUp: @escaping () -> ()
+               testCase: @escaping () -> Void,
+                cleanUp: @escaping () -> ()
         ) {
         
         let aExpectation = expectation(description: functionName + "-Expectation")
