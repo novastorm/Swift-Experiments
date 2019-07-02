@@ -10,8 +10,8 @@ import Foundation
 
 protocol ADL_Stack {
     associatedtype Element
-    var isEmpty: Bool { get }
     var count: Int { get }
+    var isEmpty: Bool { get }
     
     var peek: Element? { get }
     
@@ -104,21 +104,33 @@ final class ADL_AnyStack<Element>: ADL_Stack {
     
 }
 
-class ADL_Stack_SinglyLinkedList<Element>: ADL_SinglyLinkedList<Element>, ADL_Stack {
+class ADL_Stack_SinglyLinkedList<Element>: ADL_Stack {
+    fileprivate var buffer: ADL_SinglyLinkedList<Element>?
+    
+    var count: Int {
+        return buffer?.count ?? 0
+    }
+    
+    var isEmpty: Bool {
+        return buffer == nil
+    }
+    
     public var peek: Element? {
-        return first
+        return buffer?.value
     }
 
     public func push(_ element: Element) {
-        insert(element, at: 0)
+        let newNode = ADL_SinglyLinkedList(element)
+        newNode.next = buffer
+        buffer = newNode
     }
     
     @discardableResult
     public func pop() -> Element? {
-        guard !isEmpty else {
-            return nil
-        }
-        return remove(at: 0)
+        let result = buffer?.value
+        buffer = buffer?.next
+        
+        return result
     }
 }
 
