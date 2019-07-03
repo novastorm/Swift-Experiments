@@ -158,3 +158,23 @@ extension ADL_SinglyLinkedList: Sequence {
         return Iterator(self)
     }
 }
+
+extension ADL_SinglyLinkedList {
+    public static func reverse(
+        _ list: inout ADL_SinglyLinkedList<Element>.Element
+        ) {
+        var newHead: ADL_SinglyLinkedList<Element>!
+        var currNode: ADL_SinglyLinkedList<Element>? = list
+        var nextNode: ADL_SinglyLinkedList<Element>? = list.next
+        
+        while currNode != nil {
+            currNode?.next = newHead
+            newHead = currNode
+            
+            currNode = nextNode
+            nextNode = currNode?.next
+        }
+        
+        list = newHead
+    }
+}
