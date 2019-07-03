@@ -19,16 +19,6 @@ extension ADL_SinglyLinkedList {
     }
 }
 
-//extension ADL_SinglyLinkedList {
-//    public var head: Element? {
-//        return value
-//    }
-//
-//    public var tail: ADL_SinglyLinkedList<Element>? {
-//        return next
-//    }
-//}
-
 extension ADL_SinglyLinkedList {
     public func get(at index: Int) -> ADL_SinglyLinkedList<Element> {
         precondition(0 <= index && index < count, "SinglyLinkedList index is out of range")
@@ -39,16 +29,6 @@ extension ADL_SinglyLinkedList {
         }
         return nodeAtIndex
     }
-//    public subscript(index: Int) -> Element {
-//        get {
-//            return getValue(at: index)
-//        }
-//        set {
-//            precondition(0 <= index && index < count, "Array index is out of range")
-//            precondition(index >= startIndex, "Negative Array index is out of range")
-//            ADL_SinglyLinkedList.insert(self, newValue, at: index)
-//        }
-//    }
 }
 
 extension ADL_SinglyLinkedList {

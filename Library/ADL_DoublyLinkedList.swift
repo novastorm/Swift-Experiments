@@ -49,22 +49,6 @@ extension ADL_DoublyLinkedList {
         }
         return self
     }
-
-//    public var first: Element? {
-//        return startNode?.value
-//    }
-//
-//    public var last: Element? {
-//        return endNode?.value
-//    }
-//
-//    public var head: Element? {
-//        return first
-//    }
-//
-//    public var tail: ADL_DoublyLinkedList<Element>? {
-//        return startNode?.next
-//    }
 }
 extension ADL_DoublyLinkedList {
     // Assumes Acyclical
@@ -79,10 +63,6 @@ extension ADL_DoublyLinkedList {
         }
         return nodeAtIndex
     }
-//
-//    public subscript(index: Int) -> Element {
-//        return getValue(at: index)
-//    }
 }
 
 extension ADL_DoublyLinkedList {
