@@ -168,6 +168,15 @@ class SinglyLinkedListTests: XCTestCase {
         ADL_SinglyLinkedList.reverse(&list)
         XCTAssert(list == [5,4,3,2,1,0])
     }
+    
+    func testDescription() {
+        for i in 0 ... 5 {
+            let node = ADL_SinglyLinkedList(i)
+            ADL_SinglyLinkedList.append(&list, node)
+        }
+        
+        XCTAssertEqual(list.description, "[0, 1, 2, 3, 4, 5]")
+    }
 
 //    func testPerformanceExample() {
 //        // This is an example of a performance test case.

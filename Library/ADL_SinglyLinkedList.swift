@@ -103,8 +103,8 @@ extension ADL_SinglyLinkedList: CustomStringConvertible {
     public var description: String {
         var s = "["
         var separator = ""
-        let _ = self.reduce(into: s, { (acc, e) in
-            s += "\(separator)\(e)"
+        let _ = self.reduce(into: s, { (acc, node) in
+            s += "\(separator)\(node.value)"
             separator = ", "
         })
         s += "]"
