@@ -67,7 +67,7 @@ class DoublyLinkedListTests: XCTestCase {
         XCTAssertEqual(list.count, 3)
         XCTAssertEqual(list.startNode?.value, 0)
         XCTAssertEqual(list.endNode?.value, 4)
-        XCTAssertEqual(list.get(at:listCount).value, 4)
+        XCTAssertEqual(list.get(at: listCount).value, 4)
         XCTAssert(list == [0, 2, 4])
 
         let node1 = ADL_DoublyLinkedList(1)
