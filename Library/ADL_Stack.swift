@@ -134,21 +134,35 @@ class ADL_Stack_SinglyLinkedList<Element>: ADL_Stack {
     }
 }
 
-class ADL_Stack_DoublyLinkedList<Element>: ADL_DoublyLinkedList<Element>, ADL_Stack {
+class ADL_Stack_DoublyLinkedList<Element>: ADL_Stack {
+    fileprivate var buffer: ADL_DoublyLinkedList<Element>?
+    
+    var count: Int {
+        return ADL_DoublyLinkedList.count(buffer)
+    }
+    
+    var isEmpty: Bool {
+        return ADL_DoublyLinkedList.isEmpty(buffer)
+    }
+    
     public var peek: Element? {
-        return last
+        return buffer?.value
     }
     
     public func push(_ element: Element) {
-        append(element)
+        let newNode = ADL_DoublyLinkedList(element)
+        ADL_DoublyLinkedList.insert(&buffer, newNode, at: 0)
     }
     
     @discardableResult
     public func pop() -> Element? {
-        guard !isEmpty else {
+        if buffer == nil {
             return nil
         }
-        return removeLast()
+        
+        let result = ADL_DoublyLinkedList.remove(&buffer, at: 0)
+        
+        return result.value
     }
 }
 

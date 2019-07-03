@@ -17,7 +17,7 @@ class DoublyLinkedListTests: XCTestCase {
 
     
     override func setUp() {
-        list = ADL_DoublyLinkedList<TestType>()
+        list = nil
     }
 
     override func tearDown() {
@@ -25,59 +25,69 @@ class DoublyLinkedListTests: XCTestCase {
     }
 
     func testEmptyList() {
-        XCTAssertEqual(list.count, 0)
-        XCTAssertTrue(list.isEmpty)
-        XCTAssertNil(list.first)
-        XCTAssertNil(list.last)
-        XCTAssertNil(list.head)
-        XCTAssert(list == [])
+        XCTAssertEqual(ADL_DoublyLinkedList.count(list), 0)
+        XCTAssertTrue(ADL_DoublyLinkedList.isEmpty(list))
+        XCTAssertNil(list?.startNode)
+        XCTAssertNil(list?.endNode)
     }
 
-    func test_arrayInsertOutOfBounds() {
+    func testInsertOutOfBounds() {
 //        Precondition failed: DoublyLinkedList index is out of range
-//        self.list.insert(1, at: 1)
+//        let node1 = ADL_DoublyLinkedList(1)
+//        ADL_DoublyLinkedList.insert(&list, node1, at: 1)
     }
 
-    func testListInsert() {
-        list.insert(2, at: 0)
-        XCTAssertFalse(list.isEmpty)
+    func testInsert() {
+        
+        let node2 = ADL_DoublyLinkedList<TestType>(2)
+        ADL_DoublyLinkedList.insert(&list, node2, at: 0)
+        XCTAssertEqual(ADL_DoublyLinkedList.count(list), 1)
+        XCTAssertFalse(ADL_DoublyLinkedList.isEmpty(list))
         XCTAssertEqual(list.count, 1)
-        XCTAssertEqual(list.first, 2)
-        XCTAssertEqual(list.last, 2)
-        XCTAssertEqual(list[0], 2)
+        XCTAssertEqual(list.startNode?.value, 2)
+        XCTAssertEqual(list.endNode?.value, 2)
+        XCTAssertEqual(list.get(at: 0).value, 2)
         XCTAssert(list == [2])
 
-        list.insert(0, at: 0)
-        XCTAssertFalse(list.isEmpty)
+        let node0 = ADL_DoublyLinkedList(0)
+        ADL_DoublyLinkedList.insert(&list, node0, at: 0)
+        XCTAssertEqual(ADL_DoublyLinkedList.count(list), 2)
+        XCTAssertFalse(ADL_DoublyLinkedList.isEmpty(list))
         XCTAssertEqual(list.count, 2)
-        XCTAssertEqual(list.first, 0)
-        XCTAssertEqual(list.last, 2)
-        XCTAssertEqual(list[0], 0)
+        XCTAssertEqual(list.startNode?.value, 0)
+        XCTAssertEqual(list.endNode?.value, 2)
+        XCTAssertEqual(list.get(at:0).value, 0)
         XCTAssert(list == [0, 2])
 
+        let node4 = ADL_DoublyLinkedList(4)
         let listCount = list.count
-        list.insert(4, at: listCount)
-        XCTAssertFalse(list.isEmpty)
+        ADL_DoublyLinkedList.insert(&list, node4, at: listCount)
+        XCTAssertEqual(ADL_DoublyLinkedList.count(list), 3)
+        XCTAssertFalse(ADL_DoublyLinkedList.isEmpty(list))
         XCTAssertEqual(list.count, 3)
-        XCTAssertEqual(list.first, 0)
-        XCTAssertEqual(list.last, 4)
-        XCTAssertEqual(list[listCount], 4)
+        XCTAssertEqual(list.startNode?.value, 0)
+        XCTAssertEqual(list.endNode?.value, 4)
+        XCTAssertEqual(list.get(at:listCount).value, 4)
         XCTAssert(list == [0, 2, 4])
 
-        list.insert(1, at: 1)
-        XCTAssertFalse(list.isEmpty)
+        let node1 = ADL_DoublyLinkedList(1)
+        ADL_DoublyLinkedList.insert(&list, node1, at: 1)
+        XCTAssertEqual(ADL_DoublyLinkedList.count(list), 4)
+        XCTAssertFalse(ADL_DoublyLinkedList.isEmpty(list))
         XCTAssertEqual(list.count, 4)
-        XCTAssertEqual(list.first, 0)
-        XCTAssertEqual(list.last, 4)
-        XCTAssertEqual(list[1], 1)
+        XCTAssertEqual(list.startNode?.value, 0)
+        XCTAssertEqual(list.endNode?.value, 4)
+        XCTAssertEqual(list.get(at:1).value, 1)
         XCTAssert(list == [0, 1, 2, 4])
 
-        list.insert(3, at: 3)
-        XCTAssertFalse(list.isEmpty)
+        let node3 = ADL_DoublyLinkedList(3)
+        ADL_DoublyLinkedList.insert(&list, node3, at: 3)
+        XCTAssertEqual(ADL_DoublyLinkedList.count(list), 5)
+        XCTAssertFalse(ADL_DoublyLinkedList.isEmpty(list))
         XCTAssertEqual(list.count, 5)
-        XCTAssertEqual(list.first, 0)
-        XCTAssertEqual(list.last, 4)
-        XCTAssertEqual(list[3], 3)
+        XCTAssertEqual(list.startNode?.value, 0)
+        XCTAssertEqual(list.endNode?.value, 4)
+        XCTAssertEqual(list.get(at:3).value, 3)
         XCTAssert(list == [0, 1, 2, 3, 4])
     }
 
@@ -86,10 +96,13 @@ class DoublyLinkedListTests: XCTestCase {
         let end = 2
 
         for i in start ... end {
-            list.append(i)
-            XCTAssertEqual(list[list.count-1], i)
-            XCTAssertEqual(list.first, start)
-            XCTAssertEqual(list.last, i)
+            let node = ADL_DoublyLinkedList(i)
+            ADL_DoublyLinkedList.append(&list, node)
+            XCTAssertEqual(ADL_DoublyLinkedList.count(list), i+1)
+            XCTAssertEqual(list.count, i+1)
+            XCTAssertEqual(list.get(at: list.count-1).value, i)
+            XCTAssertEqual(list.startNode?.value, start)
+            XCTAssertEqual(list.endNode?.value, i)
         }
     }
     
@@ -102,31 +115,35 @@ class DoublyLinkedListTests: XCTestCase {
 
     func testListRemove() {
         for i in 0 ... 5 {
-            list.append(i)
+            let node = ADL_DoublyLinkedList(i)
+            ADL_DoublyLinkedList.append(&list, node)
         }
 
-        list.removeLast()
+        ADL_DoublyLinkedList.removeLast(&list)
         XCTAssert(list == [0, 1, 2, 3, 4])
-        XCTAssertEqual(list.first, 0)
-        XCTAssertEqual(list.last, 4)
+        XCTAssertEqual(list.startNode?.value, 0)
+        XCTAssertEqual(list.endNode?.value, 4)
 
-        list.remove(at: 2)
+
+        ADL_DoublyLinkedList.remove(&list, at: 2)
         XCTAssert(list == [0, 1, 3, 4])
-        XCTAssertEqual(list.first, 0)
-        XCTAssertEqual(list.last, 4)
+        XCTAssertEqual(list.startNode?.value, 0)
+        XCTAssertEqual(list.endNode?.value, 4)
 
-        list.remove(at: 0)
+        ADL_DoublyLinkedList.remove(&list, at: 0)
         XCTAssert(list == [1, 3, 4])
-        XCTAssertEqual(list.first, 1)
-        XCTAssertEqual(list.last, 4)
+        XCTAssertEqual(list.startNode?.value, 1)
+        XCTAssertEqual(list.endNode?.value, 4)
     }
     
     func testListIterator() {
         for i in 0 ... 5 {
-            list.append(i)
+            let node = ADL_DoublyLinkedList(i)
+            ADL_DoublyLinkedList.append(&list, node)
         }
-        for (i, value) in list.enumerated() {
-            XCTAssertEqual(value, i)
+        
+        for (i, node) in list.enumerated() {
+            XCTAssertEqual(node.value, i)
         }
     }
 

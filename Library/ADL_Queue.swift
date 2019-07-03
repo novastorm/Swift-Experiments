@@ -142,30 +142,63 @@ class ADL_Queue_SinglyLinkedList<Element>: ADL_Queue {
 }
 
 class ADL_Queue_DoublyLinkedList<Element>: ADL_Queue {
-    fileprivate var buffer = ADL_DoublyLinkedList<Element>()
-    
+    fileprivate var start: ADL_DoublyLinkedList<Element>?
+    fileprivate var end: ADL_DoublyLinkedList<Element>?
+
     var count: Int {
-        return buffer.count
+        return ADL_DoublyLinkedList.count(start)
     }
     
     var isEmpty: Bool {
-        return buffer.isEmpty
+        return ADL_DoublyLinkedList.isEmpty(start)
     }
     
     public var peek: Element? {
-        return buffer.first
+        return start?.value
     }
     
     public func enqueue(_ element: Element) {
-        buffer.append(element)
+        let newNode = ADL_DoublyLinkedList(element)
+        if let end = end {
+            let nodeAtIndex = end
+            
+            if let nextNode = nodeAtIndex.next {
+                nextNode.previous = newNode
+            }
+            
+            newNode.next = nodeAtIndex.next
+            newNode.previous = nodeAtIndex
+            
+            nodeAtIndex.next = newNode
+        }
+        else {
+            let nodeAtIndex = start
+
+            if let nextNode = nodeAtIndex?.next {
+                nextNode.previous = newNode
+            }
+            
+            newNode.next = nodeAtIndex?.next
+            newNode.previous = nodeAtIndex
+            
+            start = newNode
+        }
+        end = newNode
     }
     
     @discardableResult
     public func dequeue() -> Element? {
-        guard !isEmpty else {
-            return nil
+        let result = start?.value
+        
+        let nodeAtIndex = start
+        
+        if let nextNode = nodeAtIndex?.next {
+            nextNode.previous = nodeAtIndex?.previous
         }
-        return buffer.remove(at: 0)
+        
+        start = nodeAtIndex?.next
+        
+        return result
     }
 }
 

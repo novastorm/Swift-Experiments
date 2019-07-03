@@ -1,18 +1,23 @@
+/*
+ *** Assumes Acyclical Singly Linked List ***
+ */
+
 import Foundation
 
 public class ADL_SinglyLinkedList<Element> {
     
     var value: Element
     var next: ADL_SinglyLinkedList<Element>?
-    
-    public var count: Int {
-        return 1 + (next?.count ?? 0)
-    }
-    
+
     public init(_ value: Element) {
         self.value = value
     }
-    
+}
+extension ADL_SinglyLinkedList {
+    public var count: Int {
+        return 1 + (next?.count ?? 0)
+    }
+
     public var head: Element? {
         return value
     }
@@ -32,13 +37,13 @@ extension ADL_SinglyLinkedList {
         return list == nil
     }
     
-    public static func head(_ list: ADL_SinglyLinkedList<Element>?) -> Element? {
-        return list?.head
-    }
-
-    public static func tail(_ list: ADL_SinglyLinkedList<Element>?) -> ADL_SinglyLinkedList<Element>? {
-        return list?.tail
-    }
+//    public static func head(_ list: ADL_SinglyLinkedList<Element>?) -> Element? {
+//        return list?.head
+//    }
+//
+//    public static func tail(_ list: ADL_SinglyLinkedList<Element>?) -> ADL_SinglyLinkedList<Element>? {
+//        return list?.tail
+//    }
 
     public static func insert(_ list: inout ADL_SinglyLinkedList<Element>?, _ value: Element, at index: Int) {
         precondition(0 <= index && index <= ADL_SinglyLinkedList.count(list), "Array index is out of range")
@@ -69,7 +74,7 @@ extension ADL_SinglyLinkedList {
         precondition(0 <= index && index < ADL_SinglyLinkedList.count(list), "Array index is out of range")
         
         var nodeAtIndex: ADL_SinglyLinkedList<Element>! = list
-        for _ in 0 ..< index {
+        for _ in stride(from: index, to: 0, by: -1) {
             nodeAtIndex = nodeAtIndex.next
         }
         return nodeAtIndex.value

@@ -24,8 +24,6 @@ class SinglyLinkedListTests: XCTestCase {
     }
 
     func testEmptyList() {
-        XCTAssertNil(ADL_SinglyLinkedList.head(list))
-        XCTAssertNil(ADL_SinglyLinkedList.tail(list))
         XCTAssertEqual(ADL_SinglyLinkedList.count(list), 0)
         XCTAssertTrue(ADL_SinglyLinkedList.isEmpty(list))
     }
@@ -39,14 +37,14 @@ class SinglyLinkedListTests: XCTestCase {
         ADL_SinglyLinkedList.insert(&list, 2, at: 0)
         XCTAssertFalse(ADL_SinglyLinkedList.isEmpty(list))
         XCTAssertEqual(ADL_SinglyLinkedList.count(list), 1)
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 2)
+        XCTAssertEqual(list.head, 2)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: 0), 2)
         XCTAssert(list == [2])
         
         ADL_SinglyLinkedList.insert(&list, 0, at: 0)
         XCTAssertFalse(ADL_SinglyLinkedList.isEmpty(list))
         XCTAssertEqual(ADL_SinglyLinkedList.count(list), 2)
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 0)
+        XCTAssertEqual(list.head, 0)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: 0), 0)
         XCTAssert(list == [0, 2])
 
@@ -54,21 +52,21 @@ class SinglyLinkedListTests: XCTestCase {
         ADL_SinglyLinkedList.insert(&list, 4, at: listCount)
         XCTAssertFalse(ADL_SinglyLinkedList.isEmpty(list))
         XCTAssertEqual(ADL_SinglyLinkedList.count(list), 3)
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 0)
+        XCTAssertEqual(list.head, 0)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: listCount), 4)
         XCTAssert(list == [0, 2, 4])
         
         ADL_SinglyLinkedList.insert(&list, 1, at: 1)
         XCTAssertFalse(ADL_SinglyLinkedList.isEmpty(list))
         XCTAssertEqual(ADL_SinglyLinkedList.count(list), 4)
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 0)
+        XCTAssertEqual(list.head, 0)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: 1), 1)
         XCTAssert(list == [0, 1, 2, 4])
 
         ADL_SinglyLinkedList.insert(&list, 3, at: 3)
         XCTAssertFalse(ADL_SinglyLinkedList.isEmpty(list))
         XCTAssertEqual(ADL_SinglyLinkedList.count(list), 5)
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 0)
+        XCTAssertEqual(list.head, 0)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: 3), 3)
         XCTAssert(list == [0, 1, 2, 3, 4])
     }
@@ -106,19 +104,19 @@ class SinglyLinkedListTests: XCTestCase {
         ADL_SinglyLinkedList.update(list, value: 10, at: 0)
         XCTAssertEqual(list.count, 5)
         XCTAssert(list == [10, 1, 2, 3, 4])
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 10)
+        XCTAssertEqual(list.head, 10)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: 0), 10)
         
         ADL_SinglyLinkedList.update(list, value: 12, at: 2)
         XCTAssertEqual(list.count, 5)
         XCTAssert(list == [10, 1, 12, 3, 4])
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 10)
+        XCTAssertEqual(list.head, 10)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: 2), 12)
         
         ADL_SinglyLinkedList.update(list, value: 14, at: 4)
         XCTAssertEqual(list.count, 5)
         XCTAssert(list == [10, 1, 12, 3, 14])
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 10)
+        XCTAssertEqual(list.head, 10)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: 4), 14)
     }
 
@@ -135,17 +133,17 @@ class SinglyLinkedListTests: XCTestCase {
         ADL_SinglyLinkedList.remove(&list, at: list.count-1)
         XCTAssertEqual(list.count, 5)
         XCTAssert(list == [0, 1, 2, 3, 4])
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 0)
+        XCTAssertEqual(list.head, 0)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: list.count-1), 4)
         
         ADL_SinglyLinkedList.remove(&list, at: 2)
         XCTAssert(list == [0, 1, 3, 4])
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 0)
+        XCTAssertEqual(list.head, 0)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: 2), 3)
 
         ADL_SinglyLinkedList.remove(&list, at: 0)
         XCTAssert(list == [1, 3, 4])
-        XCTAssertEqual(ADL_SinglyLinkedList.head(list), 1)
+        XCTAssertEqual(list.head, 1)
         XCTAssertEqual(ADL_SinglyLinkedList.get(list, at: 0), 1)
     }
     

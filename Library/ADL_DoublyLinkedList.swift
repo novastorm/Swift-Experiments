@@ -1,153 +1,159 @@
 import Foundation
 
-public class ADL_DoublyLinkedList<Element>: Sequence {
+public class ADL_DoublyLinkedList<Element> {
+    var value: Element
     
     var previous: ADL_DoublyLinkedList?
     var next: ADL_DoublyLinkedList?
-    var value: Element!
-
-    public class Iterator: IteratorProtocol {
-        private var node: ADL_DoublyLinkedList?
-        
-        init(_ list: ADL_DoublyLinkedList<Element>) {
-            self.node = list.next
-        }
-        
-        @discardableResult
-        public func previous() -> Element? {
-            defer{ node = node?.previous }
-            return node?.value
-        }
-
-        @discardableResult
-        public func next() -> Element? {
-            defer{ node = node?.next }
-            return node?.value
-        }
-        
-    }
     
+    public init(_ value: Element) {
+        self.value = value
+    }
+}
+
+extension ADL_DoublyLinkedList {
     public var count: Int {
-        return (value == nil ? 0 : 1) + (next?.count ?? 0)
+        return previousNodesCount + 1 + nextNodesCount
     }
     
-    private var startNode: ADL_DoublyLinkedList?
-    private var endNode: ADL_DoublyLinkedList?
-
-    public init() {}
- 
-    public var isEmpty: Bool {
-        return count == 0
-    }
-    
-    public var first: Element? {
-        return startNode?.value
-    }
-    
-    public var last: Element? {
-        return endNode?.value
-    }
-
-    public var head: Element? {
-        return first
-    }
-    
-    public var tail: ADL_DoublyLinkedList<Element>? {
-        guard next == nil else {
-            return nil
+    // Assumes Acyclical
+    public var previousNodesCount: Int {
+        if let previous = previous {
+            return 1 + previous.previousNodesCount
         }
-        let newList = ADL_DoublyLinkedList()
-        newList.next = next?.next
-        return newList
+        return 0
     }
-    
-    public __consuming func makeIterator() -> ADL_DoublyLinkedList<Element>.Iterator {
-        return Iterator(self)
-    }
-    
-    public func insert(_ value: Element, at index: Int) {
-        precondition(0 <= index && index <= count, "DoublyLinkedList index is out of range")
 
-        let newNode = ADL_DoublyLinkedList()
-        newNode.value = value
+    // Assumes Acyclical
+    public var nextNodesCount: Int {
+        if let next = next {
+            return 1 + next.nextNodesCount
+        }
+        return 0
+    }
+}
+    
+extension ADL_DoublyLinkedList {
+    // Assumes Acyclical
+    public var startNode: ADL_DoublyLinkedList<Element>? {
+        if let previous = previous {
+            return previous.startNode
+        }
+        return self
+    }
+    
+    // Assumes Acyclical
+    public var endNode: ADL_DoublyLinkedList<Element>? {
+        if let next = next {
+            return next.endNode
+        }
+        return self
+    }
+
+//    public var first: Element? {
+//        return startNode?.value
+//    }
+//
+//    public var last: Element? {
+//        return endNode?.value
+//    }
+//
+//    public var head: Element? {
+//        return first
+//    }
+//
+//    public var tail: ADL_DoublyLinkedList<Element>? {
+//        return startNode?.next
+//    }
+}
+extension ADL_DoublyLinkedList {
+    // Assumes Acyclical
+    public func get(at index: Int) -> ADL_DoublyLinkedList<Element> {
+        precondition(0 <= index && index < count, "DoublyLinkedList index is out of range")
+        
+        var nodeAtIndex: ADL_DoublyLinkedList<Element>! = self
+        var index = index - 1
+        while index >= 0 {
+            nodeAtIndex = nodeAtIndex.next
+            index -= 1
+        }
+        return nodeAtIndex
+    }
+//
+//    public subscript(index: Int) -> Element {
+//        return getValue(at: index)
+//    }
+}
+
+extension ADL_DoublyLinkedList {
+    public static func count(_ list: ADL_DoublyLinkedList<Element>?) -> Int {
+        return list?.count ?? 0
+    }
+    
+    public static func isEmpty(_ list: ADL_DoublyLinkedList<Element>?) -> Bool {
+        return list == nil
+    }
+}
+
+extension ADL_DoublyLinkedList {
+    // Assumes Acyclical
+    // assumes list points at the start of list
+    public static func insert(
+        _ list: inout ADL_DoublyLinkedList<Element>?,
+        _ newNode: ADL_DoublyLinkedList<Element>,
+        at index: Int
+        ) {
+        precondition(0 <= index && index <= ADL_DoublyLinkedList.count(list), "DoublyLinkedList index is out of range")
 
         if index == 0 {
-            if let nextNode = startNode {
+            if let nextNode = list {
                 nextNode.previous = newNode
             }
-            if count == 0 {
-                endNode = newNode
-            }
-
-            newNode.next = next
-            next = newNode
             
-            startNode = next
-            
+            newNode.next = list
+            list = newNode
         }
         else {
-            var nodeAtIndex = startNode
+            var nodeAtIndex : ADL_DoublyLinkedList<Element>! = list
             for _ in 1 ..< index {
-                nodeAtIndex = nodeAtIndex?.next
+                nodeAtIndex = nodeAtIndex.next
             }
             
-            if let nextNode = nodeAtIndex?.next {
+            if let nextNode = nodeAtIndex.next {
                 nextNode.previous = newNode
             }
-
-            if index == count {
-                endNode = newNode
-            }
-
-            newNode.next = nodeAtIndex?.next
+            
+            newNode.next = nodeAtIndex.next
             newNode.previous = nodeAtIndex
             
-            nodeAtIndex?.next = newNode
-            
+            nodeAtIndex.next = newNode
         }
     }
 
-    public func append(_ datum: Element) {
-        insert(datum, at: count)
+    public static func append(
+        _ list: inout ADL_DoublyLinkedList<Element>?,
+        _ node: ADL_DoublyLinkedList<Element>
+        ) {
+        let count = ADL_DoublyLinkedList.count(list)
+        ADL_DoublyLinkedList.insert(&list, node, at: count)
     }
 
-    public func getValue(at index: Int) -> Element {
-        precondition(0 <= index && index < count, "DoublyLinkedList index is out of range")
-
-        var nodeAtIndex = next
-        for _ in 0 ..< index {
-            nodeAtIndex = nodeAtIndex?.next
-        }
-        return nodeAtIndex!.value
-    }
-
-    public subscript(index: Int) -> Element {
-        return getValue(at: index)
-    }
-    
+    // Assumes Acyclical
     @discardableResult
-    public func remove(at index: Int) -> Element {
-        precondition(0 <= index && index < count, "DoublyLinkedList index is out of range")
+    public static func remove(
+        _ list: inout ADL_DoublyLinkedList<Element>?,
+        at index: Int
+        ) -> ADL_DoublyLinkedList<Element> {
+        precondition(0 <= index && index < ADL_DoublyLinkedList.count(list), "DoublyLinkedList index is out of range")
 
-        var node = startNode
+        var node = list?.startNode
 
         if index == 0 {
-            startNode = startNode?.next
             
-            startNode?.previous = nil
-            next = startNode
+            let followingNode = node?.next
+            followingNode?.previous = nil
             
-            if count == 0 {
-                endNode = nil
-            }
-        }
-        else if index == count - 1{
-            node = endNode
-            
-            let precedingNode = node?.previous
-            precedingNode?.next = nil
-            
-            endNode = precedingNode
+            list = followingNode
         }
         else {
             for _ in 1 ... index {
@@ -160,14 +166,16 @@ public class ADL_DoublyLinkedList<Element>: Sequence {
             followingNode?.previous = precedingNode
         }
 
-        return node!.value
+        return node!
     }
     
     @discardableResult
-    public func removeLast() -> Element {
-        precondition(!isEmpty, "Can't remove last element from an empty collection")
+    static public func removeLast(
+        _ list: inout ADL_DoublyLinkedList<Element>?
+        ) -> ADL_DoublyLinkedList<Element> {
+        precondition(list != nil, "Can't remove last element from an empty collection")
         
-        return remove(at: count-1)
+        return ADL_DoublyLinkedList.remove(&list, at: list!.count-1)
     }
 }
 
@@ -176,7 +184,7 @@ extension ADL_DoublyLinkedList: CustomStringConvertible {
         var s = "["
         var separator = ""
         let _ = self.reduce(into: s, { (acc, e) in
-            s += "\(separator)\(e)"
+            s += "\(separator)\(e.value)"
             separator = ", "
         })
         s += "]"
@@ -191,7 +199,7 @@ extension ADL_DoublyLinkedList: Equatable where Element: Equatable {
         }
         
         for (l,r) in zip(lhs, rhs) {
-            if l != r { return false }
+            if l.value != r.value { return false }
         }
         
         return true
@@ -203,9 +211,35 @@ extension ADL_DoublyLinkedList: Equatable where Element: Equatable {
         }
         
         for (l,r) in zip(lhs, rhs) {
-            if l != r { return false }
+            if l.value != r { return false }
         }
         
         return true
+    }
+}
+
+extension ADL_DoublyLinkedList: Sequence {
+    public class Iterator: IteratorProtocol {
+        private var node: ADL_DoublyLinkedList?
+        
+        init(_ list: ADL_DoublyLinkedList<Element>) {
+            self.node = list
+        }
+        
+        @discardableResult
+        public func previous() -> ADL_DoublyLinkedList<Element>? {
+            defer{ node = node?.previous }
+            return node
+        }
+        
+        @discardableResult
+        public func next() -> ADL_DoublyLinkedList<Element>? {
+            defer{ node = node?.next }
+            return node
+        }
+    }
+    
+    public __consuming func makeIterator() -> ADL_DoublyLinkedList<Element>.Iterator {
+        return Iterator(self)
     }
 }
