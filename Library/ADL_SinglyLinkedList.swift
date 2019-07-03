@@ -17,14 +17,38 @@ extension ADL_SinglyLinkedList {
     public var count: Int {
         return 1 + (next?.count ?? 0)
     }
+}
 
-    public var head: Element? {
-        return value
+//extension ADL_SinglyLinkedList {
+//    public var head: Element? {
+//        return value
+//    }
+//
+//    public var tail: ADL_SinglyLinkedList<Element>? {
+//        return next
+//    }
+//}
+
+extension ADL_SinglyLinkedList {
+    public func get(at index: Int) -> ADL_SinglyLinkedList<Element> {
+        precondition(0 <= index && index < count, "SinglyLinkedList index is out of range")
+        
+        var nodeAtIndex: ADL_SinglyLinkedList<Element>! = self
+        for _ in stride(from: index, to: 0, by: -1) {
+            nodeAtIndex = nodeAtIndex.next
+        }
+        return nodeAtIndex
     }
-    
-    public var tail: ADL_SinglyLinkedList<Element>? {
-        return next
-    }
+//    public subscript(index: Int) -> Element {
+//        get {
+//            return getValue(at: index)
+//        }
+//        set {
+//            precondition(0 <= index && index < count, "Array index is out of range")
+//            precondition(index >= startIndex, "Negative Array index is out of range")
+//            ADL_SinglyLinkedList.insert(self, newValue, at: index)
+//        }
+//    }
 }
 
 extension ADL_SinglyLinkedList {
@@ -36,19 +60,15 @@ extension ADL_SinglyLinkedList {
     public static func isEmpty(_ list: ADL_SinglyLinkedList<Element>?) -> Bool {
         return list == nil
     }
+}
     
-//    public static func head(_ list: ADL_SinglyLinkedList<Element>?) -> Element? {
-//        return list?.head
-//    }
-//
-//    public static func tail(_ list: ADL_SinglyLinkedList<Element>?) -> ADL_SinglyLinkedList<Element>? {
-//        return list?.tail
-//    }
-
-    public static func insert(_ list: inout ADL_SinglyLinkedList<Element>?, _ value: Element, at index: Int) {
-        precondition(0 <= index && index <= ADL_SinglyLinkedList.count(list), "Array index is out of range")
-
-        let newNode = ADL_SinglyLinkedList(value)
+extension ADL_SinglyLinkedList {
+    public static func insert(
+        _ list: inout ADL_SinglyLinkedList<Element>?,
+        _ newNode: ADL_SinglyLinkedList<Element>,
+        at index: Int
+        ) {
+        precondition(0 <= index && index <= ADL_SinglyLinkedList.count(list), "SinglyLinkedList index is out of range")
 
         if index == 0 {
             newNode.next = list
@@ -66,33 +86,20 @@ extension ADL_SinglyLinkedList {
         }
     }
 
-    public static func append(_ list: inout ADL_SinglyLinkedList<Element>?, _ value: Element) {
-        ADL_SinglyLinkedList.insert(&list, value, at: ADL_SinglyLinkedList.count(list))
-    }
-    
-    public static func get(_ list: ADL_SinglyLinkedList<Element>?, at index: Int) -> Element {
-        precondition(0 <= index && index < ADL_SinglyLinkedList.count(list), "Array index is out of range")
-        
-        var nodeAtIndex: ADL_SinglyLinkedList<Element>! = list
-        for _ in stride(from: index, to: 0, by: -1) {
-            nodeAtIndex = nodeAtIndex.next
-        }
-        return nodeAtIndex.value
-    }
-    
-    public static func update(_ list: ADL_SinglyLinkedList<Element>?, value: Element, at index: Int) {
-        precondition(0 <= index && index < ADL_SinglyLinkedList.count(list), "Array index is out of range")
-        
-        var nodeAtIndex: ADL_SinglyLinkedList<Element>! = list
-        for _ in 0 ..< index {
-            nodeAtIndex = nodeAtIndex.next
-        }
-        nodeAtIndex.value = value
+    public static func append(
+        _ list: inout ADL_SinglyLinkedList<Element>?,
+        _ node: ADL_SinglyLinkedList<Element>
+        ) {
+        let count = ADL_SinglyLinkedList.count(list)
+        ADL_SinglyLinkedList.insert(&list, node, at: count)
     }
 
     @discardableResult
-    public static func remove(_ list: inout ADL_SinglyLinkedList<Element>?, at index: Int) -> Element {
-        precondition(0 <= index && index < ADL_SinglyLinkedList.count(list), "Array index is out of range")
+    public static func remove(
+        _ list: inout ADL_SinglyLinkedList<Element>?,
+        at index: Int
+        ) -> ADL_SinglyLinkedList<Element> {
+        precondition(0 <= index && index < ADL_SinglyLinkedList.count(list), "SinglyLinkedLink index is out of range")
 
         var node = list
         
@@ -107,25 +114,10 @@ extension ADL_SinglyLinkedList {
             node = precedingNode?.next
             precedingNode?.next = node?.next
         }
-        return node!.value
+        return node!
     }
     
 }
-extension ADL_SinglyLinkedList {
-
-//    public subscript(index: Int) -> Element {
-//        get {
-//            return getValue(at: index)
-//        }
-//        set {
-//            precondition(0 <= index && index < count, "Array index is out of range")
-//            precondition(index >= startIndex, "Negative Array index is out of range")
-//            ADL_SinglyLinkedList.insert(self, newValue, at: index)
-//        }
-//    }
-}
-//
-//}
 
 extension ADL_SinglyLinkedList: CustomStringConvertible {
     public var description: String {
@@ -159,7 +151,7 @@ extension ADL_SinglyLinkedList: Equatable where Element: Equatable {
         }
         
         for (l,r) in zip(lhs, rhs) {
-            if l != r { return false }
+            if l.value != r { return false }
         }
         
         return true
@@ -176,9 +168,9 @@ extension ADL_SinglyLinkedList: Sequence {
         }
         
         @discardableResult
-        public func next() -> Element? {
+        public func next() -> ADL_SinglyLinkedList? {
             defer{ node = node?.next }
-            return node?.value
+            return node
         }
     }
     
