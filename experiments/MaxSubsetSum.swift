@@ -149,30 +149,63 @@ class MaxSubsetSum {
     }
 
     // Recursively with index pointers
-    public static func recursiveTopDownIndexed(_ array: [Int], startIndex: Int = 0) -> Int {
+    public static func recursiveTopDownIndexed(_ array: [Int]) -> Int {
+        return recursiveTopDownIndexed(array, lastIndex: array.count-1)
+    }
+    
+    public static func recursiveTopDownIndexed(_ array: [Int], lastIndex: Int) -> Int {
         var result: Int!
         precondition(array.count > 2)
-        //        if startIndex > array.count - 3 {
-        //            fatalError("startIndex must notarray.count must be greater than 2")
-        //        }
-        //        else if startIndex == array.count - 3 {
-        if startIndex == array.count - 3 {
-            result = array[startIndex] + array[startIndex+2]
+        if lastIndex == 2 {
+            result = array[lastIndex] + array[lastIndex-2]
         }
-        else if startIndex == array.count - 4 {
+        else if lastIndex == 3 {
             result = max(
-                array[startIndex] + array[(startIndex+2)...].max()!,
-                recursiveTopDownIndexed(array, startIndex: startIndex+1)
+                array[lastIndex] + array[...(lastIndex-2)].max()!,
+                recursiveTopDownIndexed(array, lastIndex: lastIndex-1)
             )
         }
         else {
             result = max(
-                array[startIndex] + array[(startIndex+2)...].max()!,
-                array[startIndex] + recursiveTopDownIndexed(array, startIndex: startIndex+2),
-                recursiveTopDownIndexed(array, startIndex: startIndex+1)
+                array[lastIndex] + array[...(lastIndex-2)].max()!,
+                array[lastIndex] + recursiveTopDownIndexed(array, lastIndex: lastIndex-2),
+                recursiveTopDownIndexed(array, lastIndex: lastIndex-1)
             )
         }
         return result
+    }
+
+    // Recursively with index pointers
+    public static func recursiveTopDownIndexedMemoized(_ array: [Int]) -> Int {
+        var memo = [Int: Int]()
+        
+        func recurse(_ array: [Int], memo: inout [Int:Int], lastIndex: Int) -> Int {
+            var result: Int!
+            precondition(array.count > 2)
+            if let value = memo[lastIndex] {
+                return value
+            }
+            if lastIndex == 2 {
+                result = array[lastIndex] + array[lastIndex-2]
+            }
+            else if lastIndex == 3 {
+                result = max(
+                    array[lastIndex] + array[...(lastIndex-2)].max()!,
+                    recurse(array, memo: &memo, lastIndex: lastIndex-1)
+                )
+            }
+            else {
+                result = max(
+                    array[lastIndex] + array[...(lastIndex-2)].max()!,
+                    array[lastIndex] + recurse(array, memo: &memo, lastIndex: lastIndex-2),
+                    recurse(array, memo: &memo, lastIndex: lastIndex-1)
+                )
+            }
+            memo[lastIndex] = result
+            return result
+        }
+        
+        return recurse(array, memo: &memo, lastIndex: array.count-1)
     }
 
     // Iteratively build with memo

@@ -59,9 +59,15 @@ class MaxSubsetSumTests: XCTestCase {
         }
     }
 
-    func testRecursiveTopDownIndex() {
+    func testRecursiveTopDownIndexed() {
         for (array, result) in testCases {
             XCTAssertEqual(MaxSubsetSum.recursiveTopDownIndexed(array), result, "\(array)")
+        }
+    }
+
+    func testRecursiveTopDownIndexedMemoized() {
+        for (array, result) in testCases {
+            XCTAssertEqual(MaxSubsetSum.recursiveTopDownIndexedMemoized(array), result, "\(array)")
         }
     }
 
