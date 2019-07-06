@@ -128,20 +128,21 @@ class MaxSubsetSum {
         //        }
         //        else if array.count == 3 {
         precondition(array.count > 2)
+        let lastIndex = array.count-1
         if array.count == 3 {
-            result = array[array.count-1] + array[array.count-1-2]
+            result = array[lastIndex] + array[lastIndex-2]
         }
         else if array.count == 4 {
             result = max(
-                array[array.count-1] + array[...(array.count-1-2)].max()!,
-                recursiveTopDown(Array(array[...(array.count-1-1)]))
+                array[lastIndex] + array[...(lastIndex-2)].max()!,
+                recursiveTopDown(Array(array[...(lastIndex-1)]))
             )
         }
         else {
             result = max(
-                array[array.count-1] + array[...(array.count-1-2)].max()!,
-                array[array.count-1] + recursiveTopDown(Array(array[...(array.count-1-2)])),
-                recursiveTopDown(Array(array[...(array.count-1-1)]))
+                array[lastIndex] + array[...(lastIndex-2)].max()!,
+                array[lastIndex] + recursiveTopDown(Array(array[...(lastIndex-2)])),
+                recursiveTopDown(Array(array[...(lastIndex-1)]))
             )
         }
         return result
