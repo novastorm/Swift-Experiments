@@ -211,68 +211,88 @@ class MaxSubsetSum {
     // Iteratively build with memo
     public static func iterativeTopDownIndexedMemoized(_ array: [Int]) -> Int {
         var result: Int!
-        //    var memo = [Int: Int]()
-        var memo = [Int?](repeating: nil, count: array.count)
-        
-        for index in 0 ..< array.count {
-            if index < 2 {
-                result = array[index]
+        var memo = [Int: Int]()
+//        var memo = [Int?](repeating: nil, count: array.count)
+        var arrayMaxMemo = [Int:Int]()
+
+        for lastIndex in 2 ..< array.count {
+            if lastIndex == 2 {
+                result = array[lastIndex] + array[lastIndex-2]
+                arrayMaxMemo[lastIndex-2] = array[lastIndex-2]
+                arrayMaxMemo[lastIndex-1] = max(array[lastIndex-1], arrayMaxMemo[lastIndex-2]!)
+                arrayMaxMemo[lastIndex] = max(array[lastIndex], arrayMaxMemo[lastIndex-1]!)
             }
-            else {
+            else if lastIndex == 3 {
+                arrayMaxMemo[lastIndex] = max(array[lastIndex], arrayMaxMemo[lastIndex-1]!)
                 result = max(
-                    array[index],
-                    array[index] + array[index-2],
-                    array[index-1]
+                    array[lastIndex] + arrayMaxMemo[lastIndex-2]!,
+                    memo[lastIndex-1]!
                 )
             }
-            memo[index] = result
-            //        print(array, index, result!)
+            else {
+                arrayMaxMemo[lastIndex] = max(array[lastIndex], arrayMaxMemo[lastIndex-1]!)
+                result = max(
+                    array[lastIndex] + arrayMaxMemo[lastIndex-2]!,
+                    array[lastIndex] + memo[lastIndex-2]!,
+                    memo[lastIndex-1]!
+                )
+            }
+            memo[lastIndex] = result
         }
         return memo[array.count-1]!
     }
 
     // Iteratively build inplace
-    public static func iterativeTopDownIndexedInPlace(_ array: inout [Int]) -> Int {
-        var result: Int!
-        
-        for index in 0 ..< array.count {
-            if index < 2 {
-                result = array[index]
+    public static func iterativeTopDownSpaceEfficient(_ array: [Int]) -> Int {
+        struct CircularList<T> {
+            let size: Int
+            var headIndex: Int
+            var buffer: [T?]
+            
+            init(size: Int) {
+                self.size = size
+                buffer = [T?](repeating: nil, count: size)
+                headIndex = size - 1
             }
-            else {
+            
+            mutating func push(_ datum: T) {
+                headIndex = (headIndex + 1) % size
+                buffer[headIndex] = datum
+            }
+            
+            func peek(_ offset: Int = 0) -> T? {
+                let targetIndex = (((headIndex + offset) % 3) + size) % 3
+                return buffer[targetIndex]
+            }
+        }
+        var result: Int!
+        var memo = CircularList<Int>(size: 3)
+        var arrayMaxMemo = CircularList<Int>(size: 3)
+        
+        for lastIndex in 2 ..< array.count {
+            if lastIndex == 2 {
+                result = array[lastIndex] + array[lastIndex-2]
+                arrayMaxMemo.push(array[lastIndex-2])
+                arrayMaxMemo.push(max(array[lastIndex-1], arrayMaxMemo.peek()!))
+                arrayMaxMemo.push(max(array[lastIndex]  , arrayMaxMemo.peek()!))
+            }
+            else if lastIndex == 3 {
+                arrayMaxMemo.push(max(array[lastIndex], arrayMaxMemo.peek()!))
                 result = max(
-                    array[index],
-                    array[index] + array[index-2],
-                    array[index-1]
+                    array[lastIndex] + arrayMaxMemo.peek(-2)!,
+                    memo.peek()!
                 )
             }
-            array[index] = result
-            //        print(array, index, result!)
+            else {
+                arrayMaxMemo.push(max(array[lastIndex], arrayMaxMemo.peek()!))
+                result = max(
+                    array[lastIndex] + arrayMaxMemo.peek(-2)!,
+                    array[lastIndex] + memo.peek(-1)!,
+                    memo.peek()!
+                )
+            }
+            memo.push(result)
         }
-        return array.last!
+        return memo.peek()!
     }
-
 }
-
-//let array = [-2, 1, 3, -4, 5]
-//var isFirst = true
-//for version in MaxSubsetSumVersion.allCases {
-//    if !isFirst {
-//        print()
-//    }
-//    isFirst = false
-//    maxSubsetSum(array, version: version)
-//}
-
-//var a2 = [Int]()
-//let size = 1_000
-//a2.reserveCapacity(size)
-//for _ in 0 ..< size {
-//    a2.append(Int.random(in: -size ... size))
-//}
-//a2
-//
-//maxSubsetSum(a2, version: .v4)
-//maxSubsetSum(a2, version: .v3)
-
-//: [Next](@next)

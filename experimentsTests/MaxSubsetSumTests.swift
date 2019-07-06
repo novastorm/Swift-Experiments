@@ -77,10 +77,9 @@ class MaxSubsetSumTests: XCTestCase {
         }
     }
 
-    func testIterativeTopDownIndexedInPlace() {
+    func testIterativeTopDownSpaceEfficient() {
         for (array, result) in testCases {
-            var array = array
-            XCTAssertEqual(MaxSubsetSum.iterativeTopDownIndexedInPlace(&array), result)
+            XCTAssertEqual(MaxSubsetSum.iterativeTopDownSpaceEfficient(array), result)
         }
     }
 
