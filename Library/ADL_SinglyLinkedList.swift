@@ -82,6 +82,7 @@ extension ADL_SinglyLinkedList {
         precondition(0 <= index && index < ADL_SinglyLinkedList.count(list), "SinglyLinkedLink index is out of range")
 
         var node = list
+      
         
         if index == 0 {
             list = node?.next
