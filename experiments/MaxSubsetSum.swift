@@ -11,11 +11,10 @@
 import Foundation
 
 class MaxSubsetSum {
-    // Recursively
+    // iterative top down naive (fails test cases)
     public static func test(_ arr: [Int]) -> Int {
         var result: Int!
         var memo = [Int: Int]()
-        // var memo = [Int?](repeating: nil, count: arr.count)
         
         for index in 0 ..< arr.count {
             if index < 2 {
@@ -34,6 +33,7 @@ class MaxSubsetSum {
         return memo[arr.count-1]!
     }
     
+    // recursive bottom up
     public static func recursiveBottomUp(_ array: [Int]) -> Int {
         var result: Int!
 //        if array.count <= 2 {
@@ -60,7 +60,7 @@ class MaxSubsetSum {
         return result
     }
 
-    // Recursively with index pointers
+    // Recursively bottom up with index pointers
     public static func recursiveBottomUpIndexed(_ array: [Int], startIndex: Int = 0) -> Int {
         var result: Int!
         precondition(array.count > 2)
@@ -87,7 +87,7 @@ class MaxSubsetSum {
         return result
     }
 
-    // Recursively with memo and index pointers
+    // Recursively bottom up with memo and index pointers
     public static func recursiveBottomUpIndexedMemoized(_ array: [Int]) -> Int {
         var memo = [Int: Int]()
 
@@ -121,6 +121,7 @@ class MaxSubsetSum {
         return recurse(array, memo: &memo)
     }
 
+    // recursive top down
     public static func recursiveTopDown(_ array: [Int]) -> Int {
         var result: Int!
         //        if array.count <= 2 {
@@ -148,7 +149,7 @@ class MaxSubsetSum {
         return result
     }
 
-    // Recursively with index pointers
+    // Recursive top down with index pointers
     public static func recursiveTopDownIndexed(_ array: [Int]) -> Int {
         return recursiveTopDownIndexed(array, lastIndex: array.count-1)
     }
@@ -175,7 +176,7 @@ class MaxSubsetSum {
         return result
     }
 
-    // Recursively with index pointers
+    // Recursive top down memoized with index pointers
     public static func recursiveTopDownIndexedMemoized(_ array: [Int]) -> Int {
         var memo = [Int: Int]()
         
@@ -208,7 +209,7 @@ class MaxSubsetSum {
         return recurse(array, memo: &memo, lastIndex: array.count-1)
     }
 
-    // Iteratively build with memo
+    // Iteratively top down memoized
     public static func iterativeTopDownIndexedMemoized(_ array: [Int]) -> Int {
         var result: Int!
         var memo = [Int: Int]()
@@ -242,7 +243,7 @@ class MaxSubsetSum {
         return memo[array.count-1]!
     }
 
-    // Iteratively build inplace
+    // Iteratively top down memoized and space efficient
     public static func iterativeTopDownSpaceEfficient(_ array: [Int]) -> Int {
         struct CircularList<T> {
             let size: Int
@@ -261,12 +262,12 @@ class MaxSubsetSum {
             }
             
             func peek(_ offset: Int = 0) -> T? {
-                let targetIndex = (((headIndex + offset) % 3) + size) % 3
+                let targetIndex = (((headIndex + offset) % size) + size) % size
                 return buffer[targetIndex]
             }
         }
         var result: Int!
-        var memo = CircularList<Int>(size: 3)
+        var memo = CircularList<Int>(size: 2)
         var arrayMaxMemo = CircularList<Int>(size: 3)
         
         for lastIndex in 2 ..< array.count {

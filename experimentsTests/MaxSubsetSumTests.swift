@@ -11,22 +11,22 @@ import XCTest
 
 
 class MaxSubsetSumTests: XCTestCase {
-
+    
     let testCases = [
-        [-5, -5, -5, 10, -5]: 5,
-        [-5, 10, -5, -5, -5]: 5,
-        [-5, -5, -5, -5, -5]: -10,
-        [3, 5, -7, 8, 10]: 15,
+        ["input": [-5, -5, -5, 10, -5], "result": 5],
+        ["input": [-5, 10, -5, -5, -5], "result": 5],
+        ["input": [-5, -5, -5, -5, -5], "result": -10],
+        ["input": [3, 5, -7, 8, 10], "result": 15],
         
-        [3, 1, -2, -4, 5]: 8,
-        [-2, 1, 3, -4, 5]: 8,
-        [5, -4, -2, 1, 3]: 8,
-        [5, -4, 3, 1, -2]: 8,
+        ["input": [3, 1, -2, -4, 5], "result": 8],
+        ["input": [-2, 1, 3, -4, 5], "result": 8],
+        ["input": [5, -4, -2, 1, 3], "result": 8],
+        ["input": [5, -4, 3, 1, -2], "result": 8],
         
-        [3, 1, 2, 4, 5]: 10,
-        [2, 1, 3, 4, 5]: 10,
-        [5, 4, 2, 1, 3]: 10,
-        [5, 4, 3, 1, 2]: 10
+        ["input": [3, 1, 2, 4, 5], "result": 10],
+        ["input": [2, 1, 3, 4, 5], "result": 10],
+        ["input": [5, 4, 2, 1, 3], "result": 10],
+        ["input": [5, 4, 3, 1, 2], "result": 10]
     ]
 
 //    func test() {
@@ -36,49 +36,65 @@ class MaxSubsetSumTests: XCTestCase {
 //    }
 
     func testRecursiveBottomUp() {
-        for (array, result) in testCases {
+        for test in testCases {
+            let array = test["input"] as! [Int]
+            let result = test["result"] as! Int
             XCTAssertEqual(MaxSubsetSum.recursiveBottomUp(array), result, "\(array)")
         }
     }
 
     func testRecursiveBottomUpIndexed() {
-        for (array, result) in testCases {
+        for test in testCases {
+            let array = test["input"] as! [Int]
+            let result = test["result"] as! Int
             XCTAssertEqual(MaxSubsetSum.recursiveBottomUpIndexed(array), result)
         }
     }
 
     func testRecursiveBottomUpIndexedMemoized() {
-        for (array, result) in testCases {
+        for test in testCases {
+            let array = test["input"] as! [Int]
+            let result = test["result"] as! Int
             XCTAssertEqual(MaxSubsetSum.recursiveBottomUpIndexedMemoized(array), result)
         }
     }
 
     func testRecursiveTopDown() {
-        for (array, result) in testCases {
+        for test in testCases {
+            let array = test["input"] as! [Int]
+            let result = test["result"] as! Int
             XCTAssertEqual(MaxSubsetSum.recursiveTopDown(array), result, "\(array)")
         }
     }
 
     func testRecursiveTopDownIndexed() {
-        for (array, result) in testCases {
+        for test in testCases {
+            let array = test["input"] as! [Int]
+            let result = test["result"] as! Int
             XCTAssertEqual(MaxSubsetSum.recursiveTopDownIndexed(array), result, "\(array)")
         }
     }
 
     func testRecursiveTopDownIndexedMemoized() {
-        for (array, result) in testCases {
+        for test in testCases {
+            let array = test["input"] as! [Int]
+            let result = test["result"] as! Int
             XCTAssertEqual(MaxSubsetSum.recursiveTopDownIndexedMemoized(array), result, "\(array)")
         }
     }
 
     func testIterativeTopDownIndexedMemoized() {
-        for (array, result) in testCases {
+        for test in testCases {
+            let array = test["input"] as! [Int]
+            let result = test["result"] as! Int
             XCTAssertEqual(MaxSubsetSum.iterativeTopDownIndexedMemoized(array), result)
         }
     }
 
     func testIterativeTopDownSpaceEfficient() {
-        for (array, result) in testCases {
+        for test in testCases {
+            let array = test["input"] as! [Int]
+            let result = test["result"] as! Int
             XCTAssertEqual(MaxSubsetSum.iterativeTopDownSpaceEfficient(array), result)
         }
     }
@@ -86,7 +102,7 @@ class MaxSubsetSumTests: XCTestCase {
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
-            // Put the code you want to measure the time of here.
+//            MaxSubsetSum.iterativeTopDownSpaceEfficient(testCases[1])
         }
     }
 
