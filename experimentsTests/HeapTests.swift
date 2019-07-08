@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import experiments
 
 class HeapTests: XCTestCase {
 
@@ -21,6 +22,21 @@ class HeapTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        var pq = TaskPriorityQueue()
+        
+        pq.push(Task(priority: 3, name: "Clear drains"))
+        pq.push(Task(priority: 4, name: "Feed cat"))
+        pq.push(Task(priority: 5, name: "Make tea"))
+        pq.push(Task(priority: 1, name: "Solve RC tasks"))
+        pq.push(Task(priority: 2, name: "Tax return"))
+        
+        print(pq.count)
+        
+        print(pq.peek())
+        
+        while pq.count != 0 {
+            print(pq.pop())
+        }
     }
 
     func testPerformanceExample() {

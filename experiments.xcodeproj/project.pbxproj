@@ -18,6 +18,8 @@
 		3E52EA052289EB6300723A26 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E52EA042289EB6300723A26 /* Misc.swift */; };
 		3E52F7792280C13F00E3A755 /* ADL_SinglyLinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD085227EB21900B6540D /* ADL_SinglyLinkedList.swift */; };
 		3E52F78522810B6E00E3A755 /* DoublyLinkedListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E52F7772280C10C00E3A755 /* DoublyLinkedListTests.swift */; };
+		3E5A663722D334FF003B99F5 /* ADL_BinaryHeap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5A663622D334FF003B99F5 /* ADL_BinaryHeap.swift */; };
+		3E5A663922D34CCE003B99F5 /* HeapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5A663822D34CCE003B99F5 /* HeapTests.swift */; };
 		3E5D006022CC7CB5004E97CC /* BinaryTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5D005F22CC7CB5004E97CC /* BinaryTreeTests.swift */; };
 		3ED2EC64228B1CAD00AEA2F5 /* ADL_BinaryTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2EC63228B1CAD00AEA2F5 /* ADL_BinaryTree.swift */; };
 		3ED9706322CCA5B0000A95AC /* ADL_Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9706222CCA5B0000A95AC /* ADL_Graph.swift */; };
@@ -58,7 +60,10 @@
 		3E52EA042289EB6300723A26 /* Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
 		3E52F7772280C10C00E3A755 /* DoublyLinkedListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoublyLinkedListTests.swift; sourceTree = "<group>"; };
 		3E52F7802280FFB900E3A755 /* ADL_DoublyLinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADL_DoublyLinkedList.swift; sourceTree = "<group>"; };
+		3E5A663622D334FF003B99F5 /* ADL_BinaryHeap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_BinaryHeap.swift; sourceTree = "<group>"; };
+		3E5A663822D34CCE003B99F5 /* HeapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeapTests.swift; sourceTree = "<group>"; };
 		3E5D005F22CC7CB5004E97CC /* BinaryTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryTreeTests.swift; sourceTree = "<group>"; };
+		3E81A4D722D4066200565D98 /* .gitlab-ci.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".gitlab-ci.yml"; sourceTree = "<group>"; };
 		3EB35B6622893C5000542E97 /* ProgrammerAssertions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgrammerAssertions.swift; sourceTree = "<group>"; };
 		3EB35B6822893C8800542E97 /* XCTestCase+ProgrammerAssertions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+ProgrammerAssertions.swift"; sourceTree = "<group>"; };
 		3EC1BA6822A38DD600E1F53A /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
@@ -105,6 +110,7 @@
 		3EEAD056227EB1B400B6540D = {
 			isa = PBXGroup;
 			children = (
+				3E81A4D722D4066200565D98 /* .gitlab-ci.yml */,
 				3E1666F722C917C000AFF2C7 /* README.md */,
 				3E1666F822C917DF00AFF2C7 /* LICENSE.txt */,
 				3E1666FA22C918D100AFF2C7 /* BIBLIO.txt */,
@@ -153,6 +159,7 @@
 				3E5D005F22CC7CB5004E97CC /* BinaryTreeTests.swift */,
 				3EEAD079227EB1B500B6540D /* Info.plist */,
 				3E3914EA22CE84A1007C8125 /* MaxSubsetSumTests.swift */,
+				3E5A663822D34CCE003B99F5 /* HeapTests.swift */,
 			);
 			path = experimentsTests;
 			sourceTree = "<group>";
@@ -173,6 +180,7 @@
 				3EEAD083227EB21900B6540D /* Int+Extensions.swift */,
 				3EEAD087227EB21A00B6540D /* Utilities.swift */,
 				3E52EA042289EB6300723A26 /* Misc.swift */,
+				3E5A663622D334FF003B99F5 /* ADL_BinaryHeap.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -280,6 +288,7 @@
 			files = (
 				3EEAD065227EB1B400B6540D /* ViewController.swift in Sources */,
 				3E0A4075228488BE003F4470 /* ADL_Array.swift in Sources */,
+				3E5A663722D334FF003B99F5 /* ADL_BinaryHeap.swift in Sources */,
 				3ED9706322CCA5B0000A95AC /* ADL_Graph.swift in Sources */,
 				3E1666FF22CBBA8B00AFF2C7 /* ADL_DoublyLinkedList.swift in Sources */,
 				3E52F7792280C13F00E3A755 /* ADL_SinglyLinkedList.swift in Sources */,
@@ -303,6 +312,7 @@
 				3E5D006022CC7CB5004E97CC /* BinaryTreeTests.swift in Sources */,
 				3E3914EB22CE84A1007C8125 /* MaxSubsetSumTests.swift in Sources */,
 				3EF768CB2287F4D800F3CC06 /* StackTests.swift in Sources */,
+				3E5A663922D34CCE003B99F5 /* HeapTests.swift in Sources */,
 				3E52EA002289E97200723A26 /* QueueTests.swift in Sources */,
 				3E0C27EF2286733F0095533E /* ArrayTests.swift in Sources */,
 				3EEAD078227EB1B500B6540D /* SinglyLinkedListTests.swift in Sources */,

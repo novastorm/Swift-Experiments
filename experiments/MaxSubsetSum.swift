@@ -12,7 +12,7 @@ import Foundation
 
 class MaxSubsetSum {
     // iterative top down naive (fails test cases)
-    public static func test(_ arr: [Int]) -> Int {
+    public static func test_1(_ arr: [Int]) -> Int {
         var result: Int!
         var memo = [Int: Int]()
         
@@ -33,6 +33,33 @@ class MaxSubsetSum {
         return memo[arr.count-1]!
     }
     
+    public static func test_2(_ arr: [Int]) -> Int {
+        var a = 0
+        var b = 0
+        
+        for c in arr {
+            (a, b) = (b, max(b, a + c))
+        }
+        
+        return b
+    }
+    
+    public static func test_3(_ arr: [Int]) -> Int {
+        var memo = [Int:Int]()
+        let count = arr.count
+        
+        memo[0] = max(0, arr[0])
+        if count == 1 {
+            return memo[0]!
+        }
+        
+        for i in 1 ..< count {
+            memo[i] = max(memo[i-2]!, memo[i-1]!, memo[i-2]! + arr[i])
+        }
+        
+        return max(memo[count-1]!, memo[count-2]!)
+    }
+
     // recursive bottom up
     public static func recursiveBottomUp(_ array: [Int]) -> Int {
         var result: Int!

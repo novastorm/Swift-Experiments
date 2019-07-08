@@ -99,6 +99,22 @@ class MaxSubsetSumTests: XCTestCase {
         }
     }
 
+//    func test_2() {
+//        for test in testCases {
+//            let array = test["input"] as! [Int]
+//            let result = test["result"] as! Int
+//            XCTAssertEqual(MaxSubsetSum.test_2(array), result)
+//        }
+//    }
+
+//    func test_3() {
+//        for test in testCases {
+//            let array = test["input"] as! [Int]
+//            let result = test["result"] as! Int
+//            XCTAssertEqual(MaxSubsetSum.test_3(array), result)
+//        }
+//    }
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
