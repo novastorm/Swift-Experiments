@@ -4,7 +4,7 @@ stages:
 build_project:
   stage: build
   script:
-    - xcodebuild clean -project citest.xcodeproj -scheme citest | xcpretty
-    - xcodebuild test -project citest.xcodeproj -scheme citest -destination 'platform=iOS Simulator,name=iPhone XR,OS=12.1' | xcpretty -s
+    - xcodebuild clean -project experiments.xcodeproj -scheme experiments | xcpretty
+    - xcodebuild test -project experiments.xcodeproj -scheme experiments -destination 'platform=iOS Simulator,name=iPhone XR,OS=12.2' | xcpretty -s
   tags:
     - test
