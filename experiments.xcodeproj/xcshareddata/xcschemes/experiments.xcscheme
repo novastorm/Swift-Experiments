@@ -47,6 +47,9 @@
                <Test
                   Identifier = "BaseStackTests">
                </Test>
+               <Test
+                  Identifier = "HeapTests">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>
