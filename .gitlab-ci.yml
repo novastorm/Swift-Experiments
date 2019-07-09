@@ -6,5 +6,7 @@ build_project:
   script:
     - xcodebuild clean -project experiments.xcodeproj -scheme experiments | xcpretty
     - xcodebuild test -project experiments.xcodeproj -scheme experiments -destination 'platform=iOS Simulator,name=iPhone Xʀ,OS=12.2' | xcpretty -s
+  only:
+    - develop
   tags:
     - test
