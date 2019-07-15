@@ -248,7 +248,7 @@ struct ADL_Queue_ADL_Array<Element>: ADL_Queue {
         guard bufferArray.count > loadCountThreshold, load > loadThreshold else {
             return
         }
-        let newBufferArray = ADL_Array<Element?>()
+        var newBufferArray = ADL_Array<Element?>()
         newBufferArray.reserveCapacity(bufferArray.count)
         for i in 0 ..< count {
             newBufferArray.append(bufferArray[headIndex+i])

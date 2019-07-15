@@ -166,13 +166,52 @@ class ADL_Stack_DoublyLinkedList<Element>: ADL_Stack {
     }
 }
 
-class ADL_Stack_Array<Element>: ADL_Array<Element>, ADL_Stack {
+class ADL_Stack_ADL_Array<Element>: ADL_Stack {
+    fileprivate var array = ADL_Array<Element>()
+    
+    var count: Int {
+        return array.count
+    }
+    
+    var isEmpty: Bool {
+        return array.isEmpty
+    }
+    
     var peek: Element? {
-        return last
+        return array.last
     }
     
     func push(_ element: Element) {
-        append(element)
+        array.append(element)
+    }
+    
+    func pop() -> Element? {
+        guard !isEmpty else {
+            return nil
+        }
+        return array.removeLast()
+    }
+    
+    
+}
+
+class ADL_Stack_Array<Element>: ADL_Stack {
+    fileprivate var array = Array<Element>()
+    
+    var count: Int {
+        return array.count
+    }
+    
+    var isEmpty: Bool {
+        return array.isEmpty
+    }
+    
+    var peek: Element? {
+        return array.last
+    }
+    
+    func push(_ element: Element) {
+        array.append(element)
     }
     
     @discardableResult
@@ -180,6 +219,6 @@ class ADL_Stack_Array<Element>: ADL_Array<Element>, ADL_Stack {
         guard !isEmpty else {
             return nil
         }
-        return removeLast()
+        return array.removeLast()
     }
 }

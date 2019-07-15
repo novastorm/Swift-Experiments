@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ADL_Array<Element> {
+public struct ADL_Array<Element> {
     fileprivate var buffer: UnsafeMutablePointer<Element>!
     private(set) public var capacity: Int = 0
     private(set) public var count: Int = 0
@@ -20,9 +20,9 @@ public class ADL_Array<Element> {
         buffer = UnsafeMutablePointer<Element>.allocate(capacity: 0)
     }
     
-    deinit {
-        buffer.deallocate()
-    }
+//    deinit {
+//        buffer.deallocate()
+//    }
     
     public var first: Element? {
         guard count > 0 else {
@@ -46,11 +46,11 @@ public class ADL_Array<Element> {
         return count
     }
     
-    public func reserveCapacity(_ minimumCapacity: Int) {
+    public mutating func reserveCapacity(_ minimumCapacity: Int) {
         reallocateArray(minimumCapacity: minimumCapacity)
     }
 
-    public func insert(_ element: Element, at index: Int) {
+    public mutating func insert(_ element: Element, at index: Int) {
         precondition(0 <= index && index <= count, "Array index is out of range")
         
         if count >= capacity {
@@ -62,7 +62,7 @@ public class ADL_Array<Element> {
         count += 1
     }
     
-    public func append(_ element: Element) {
+    public mutating func append(_ element: Element) {
         insert(element, at: count)
     }
     
@@ -83,7 +83,7 @@ public class ADL_Array<Element> {
     }
     
     @discardableResult
-    public func remove(at index: Int) -> Element {
+    public mutating func remove(at index: Int) -> Element {
         precondition(0 <= index && index < count, "Array index is out of range")
         
         let pointer = buffer.advanced(by: index)
@@ -97,7 +97,7 @@ public class ADL_Array<Element> {
     }
     
     @discardableResult
-    public func removeLast() -> Element {
+    public mutating func removeLast() -> Element {
         precondition(!isEmpty, "Can't remove last element from an empty collection")
 
         return remove(at: count-1)
@@ -105,7 +105,7 @@ public class ADL_Array<Element> {
 
     // MARK: - Helpers
     
-    private func reallocateArray(minimumCapacity: Int) {
+    private mutating func reallocateArray(minimumCapacity: Int) {
         let newCapacity = nextCapacity(after: minimumCapacity)
         let newArray = UnsafeMutablePointer<Element>.allocate(capacity: newCapacity)
         
