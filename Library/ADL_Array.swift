@@ -118,7 +118,11 @@ public struct ADL_Array<Element> {
     }
     
     private func nextCapacity(after n: Int) -> Int {
-        return next3x2byn(after: n)
+        return nextDoubled(after: n)
+    }
+    
+    private func nextDoubled(after n: Int) -> Int {
+        return Int(pow(2, n > 0 ? log2(Double(n))+1 : 1.0))
     }
     
     private func next3x2byn(after n: Int) -> Int {
