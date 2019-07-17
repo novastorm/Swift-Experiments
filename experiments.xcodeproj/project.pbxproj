@@ -36,7 +36,6 @@
 		3EF04A0822DC4DC2007B1E8B /* BubbleSortTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0722DC4DC2007B1E8B /* BubbleSortTests.swift */; };
 		3EF04A0A22DC6539007B1E8B /* Array+InsertionSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0922DC6539007B1E8B /* Array+InsertionSort.swift */; };
 		3EF04A0C22DEB0D5007B1E8B /* ADL_Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0B22DEB0D5007B1E8B /* ADL_Dictionary.swift */; };
-		3EF04A0E22DECF57007B1E8B /* ADL_HashTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0D22DECF57007B1E8B /* ADL_HashTable.swift */; };
 		3EF595932283EB6D007A2AC8 /* ADL_Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */; };
 		3EF768CB2287F4D800F3CC06 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF768CA2287F4D800F3CC06 /* StackTests.swift */; };
 /* End PBXBuildFile section */
@@ -94,7 +93,6 @@
 		3EF04A0722DC4DC2007B1E8B /* BubbleSortTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSortTests.swift; sourceTree = "<group>"; };
 		3EF04A0922DC6539007B1E8B /* Array+InsertionSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+InsertionSort.swift"; sourceTree = "<group>"; };
 		3EF04A0B22DEB0D5007B1E8B /* ADL_Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Dictionary.swift; sourceTree = "<group>"; };
-		3EF04A0D22DECF57007B1E8B /* ADL_HashTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_HashTable.swift; sourceTree = "<group>"; };
 		3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Stack.swift; sourceTree = "<group>"; };
 		3EF768CA2287F4D800F3CC06 /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -181,7 +179,6 @@
 				3EB35B6622893C5000542E97 /* ProgrammerAssertions.swift */,
 				3E0A4074228488BE003F4470 /* ADL_Array.swift */,
 				3EF04A0B22DEB0D5007B1E8B /* ADL_Dictionary.swift */,
-				3EF04A0D22DECF57007B1E8B /* ADL_HashTable.swift */,
 				3EF04A0522DC47AF007B1E8B /* Array+BubbleSort.swift */,
 				3EF04A0922DC6539007B1E8B /* Array+InsertionSort.swift */,
 				3E5A663622D334FF003B99F5 /* ADL_BinaryHeap.swift */,
@@ -319,7 +316,6 @@
 				3E3914E922CE7C17007C8125 /* MaxSubsetSum.swift in Sources */,
 				3EEAD08B227EB23100B6540D /* Int+Extensions.swift in Sources */,
 				3E1666F622C9124A00AFF2C7 /* ADL_BinarySearchTree.swift in Sources */,
-				3EF04A0E22DECF57007B1E8B /* ADL_HashTable.swift in Sources */,
 				3EEAD063227EB1B400B6540D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,6 +9,9 @@
 import Foundation
 
 public struct ADL_Dictionary<Key, Value> where Key: Hashable {
+    
+    public typealias Element = (key: Key, value: Value)
+    
     fileprivate var buffer: Array<Value>
     public var capacity: Int {
         return buffer.capacity
