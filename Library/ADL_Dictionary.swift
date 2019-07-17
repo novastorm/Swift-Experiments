@@ -12,7 +12,7 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
     
     public typealias Element = (key: Key, value: Value)
     
-    fileprivate var buffer: Array<Value>
+    fileprivate var buffer: Array<Element?>
     public var capacity: Int {
         return buffer.capacity
     }
@@ -22,7 +22,7 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
     }
     
     init() {
-        buffer = Array<Value>()
+        buffer = Array<Element>()
     }
     
 //    init(minimumCapacity: Int) {
@@ -31,14 +31,14 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
 
 //    private mutating func reallocateArray(minimumCapacity: Int) {
 //        let newCapacity = nextCapacity(after: minimumCapacity)
-//        let newArray = Array<Value>()
+//        var newArray = Array<Element>()
 //        newArray.reserveCapacity(newCapacity)
 //
 //        for e in buffer {
 //
 //        }
 //
-//        capacity = newCapacity
+////        capacity = newCapacity
 //        buffer = newArray
 //    }
     
@@ -55,4 +55,20 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
         let exponent = floor(l2) + 1
         
         return Int(3 * pow(2.0, exponent))
-    }}
+    }
+    
+    @discardableResult
+    public func getValue(forKey key: Key) -> Value? {
+        abort()
+    }
+
+    @discardableResult
+    public mutating func updateValue(_ value: Value, forKey key: Key) -> Value? {
+        abort()
+    }
+    
+    @discardableResult
+    public mutating func removeValue(forKey key: Key) -> Value? {
+        abort()
+    }
+}
