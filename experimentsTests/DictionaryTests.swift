@@ -23,20 +23,50 @@ class DictionaryTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        print(dict.capacity)
-        print(dict.count)
-        print()
+    func testInitialize() {
+        XCTAssertEqual(dict.capacity, 0)
+        XCTAssertEqual(dict.count, 0)
+        XCTAssertTrue(dict.isEmpty)
+        XCTAssertNil(dict.getValue(forKey: "aaa"))
+    }
+ 
+    func testInsert() {
+        XCTAssertNil(dict.updateValue("AAA", forKey: "aaa"))
+        XCTAssertEqual(dict.capacity, 1)
+        XCTAssertEqual(dict.count, 1)
+        XCTAssertFalse(dict.isEmpty)
+
+        XCTAssertEqual(dict.getValue(forKey: "aaa"), "AAA")
+
+        XCTAssertNil(dict.updateValue("BBB", forKey: "bbb"))
+        XCTAssertEqual(dict.capacity, 3)
+        XCTAssertEqual(dict.count, 2)
+        XCTAssertFalse(dict.isEmpty)
         
-        dict.updateValue("AAA", forKey: "aaa")
-        print(dict.capacity)
-        print(dict.count)
-        print(dict.getValue(forKey: "aaa"))
+        XCTAssertEqual(dict.getValue(forKey: "bbb"), "BBB")
+
+        XCTAssertNil(dict.updateValue("CCC", forKey: "ccc"))
+        XCTAssertEqual(dict.capacity, 3)
+        XCTAssertEqual(dict.count, 3)
+        XCTAssertFalse(dict.isEmpty)
         
-        dict.updateValue("BBB", forKey: "bbb")
-        print(dict.capacity)
-        print(dict.count)
-        print(dict.getValue(forKey: "bbb"))
+        XCTAssertEqual(dict.getValue(forKey: "ccc"), "CCC")
+
+        XCTAssertNil(dict.updateValue("DDD", forKey: "ddd"))
+        XCTAssertEqual(dict.capacity, 6)
+        XCTAssertEqual(dict.count, 4)
+        XCTAssertFalse(dict.isEmpty)
+        
+        XCTAssertEqual(dict.getValue(forKey: "ddd"), "DDD")
+    }
+
+    func testUpdate() {
+        XCTAssertNil(dict.updateValue("AAA", forKey: "aaa"))
+
+        XCTAssertEqual(dict.updateValue("AAAAAA", forKey: "aaa"), "AAA")
+        XCTAssertFalse(dict.isEmpty)
+
+        XCTAssertEqual(dict.getValue(forKey: "aaa"), "AAAAAA")
     }
 
     func testPerformanceExample() {

@@ -12,37 +12,40 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
     
     public typealias Element = (key: Key, value: Value)
     
-    fileprivate var buffer = Array<Element?>()
-    private(set) public var capacity: Int = 0
-    private(set) public var count: Int = 0
+    fileprivate var buffer: Array<Element?>
+    private(set) public var capacity: Int
+    private(set) public var count: Int
     public var isEmpty: Bool {
         return count == 0
     }
     
     init() {
-        self.init(minimumCapacity: 0)
+        buffer = Array<Element?>()
+        capacity = 0
+        count = 0
     }
     
     init(minimumCapacity: Int) {
+        self.init()
         capacity = nextCapacity(after: minimumCapacity)
         buffer = Array<Element?>(repeating: nil, count: capacity)
     }
 
     private mutating func reallocateArray(minimumCapacity: Int) {
-        let newCapacity = nextCapacity(after: minimumCapacity)
-        var newArray = Array<Element?>(repeating: nil, count: newCapacity)
+        var newArray = Array<Element?>(repeating: nil, count: minimumCapacity)
+
+        capacity = minimumCapacity
 
         var i: Int
         for e in buffer {
             guard let e = e else { continue }
             i = getIndexForKey(e.key)
             while newArray[i] != nil {
-                i = (i + 1) % newCapacity
+                i = (i + 1) % capacity
             }
             newArray[i] = e
         }
 
-        capacity = newCapacity
         buffer = newArray
     }
     
@@ -63,6 +66,8 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
     
     @discardableResult
     public func getValue(forKey key: Key) -> Value? {
+        if isEmpty { return nil }
+        
         var i: Int = getIndexForKey(key)
         guard buffer[i] != nil else { return nil }
 
@@ -99,6 +104,7 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
     
     @discardableResult
     public mutating func removeValue(forKey key: Key) -> Value? {
+        if isEmpty { return nil }
         abort()
     }
     
