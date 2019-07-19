@@ -66,27 +66,21 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
     
     @discardableResult
     public func getValue(forKey key: Key) -> Value? {
-        if isEmpty { return nil }
         
-        var i: Int = getIndexForKey(key)
-        guard buffer[i] != nil else { return nil }
-
-        if buffer[i]?.key == key {
-            return buffer[i]?.value
+        guard let i = getValueIndexForKey(key) else {
+            return nil
         }
-        let j = i
-        i += 1
-        while i != j && buffer[i]?.key != key {
-            i = (i+1) % capacity
-        }
-        
-        if i == j { return nil }
         
         return buffer[i]?.value
     }
 
     @discardableResult
-    public mutating func updateValue(_ value: Value, forKey key: Key) -> Value? {
+    public mutating func updateValue(_ value: Value?, forKey key: Key) -> Value? {
+        
+        guard let value = value else {
+            return removeValue(forKey: key)
+        }
+        
         if count == capacity {
             reallocateArray(minimumCapacity: nextCapacity(after: capacity))
         }
@@ -104,11 +98,44 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
     
     @discardableResult
     public mutating func removeValue(forKey key: Key) -> Value? {
-        if isEmpty { return nil }
-        abort()
+        guard let i = getValueIndexForKey(key) else {
+            return nil
+        }
+        let prev = buffer[i]
+        buffer[i] = nil
+        if prev != nil {
+            count -= 1
+        }
+        return prev?.value
     }
     
     fileprivate func getIndexForKey(_ key: Key) -> Int {
         return (((key.hashValue) % capacity) + capacity) % capacity
+    }
+    
+    fileprivate func getValueIndexForKey(_ key: Key) -> Int? {
+        if isEmpty { return nil }
+        var i: Int = getIndexForKey(key)
+//        guard buffer[i] != nil else { return nil }
+        
+        if buffer[i]?.key != key {
+            let j = i
+            i += 1
+            while i != j && buffer[i]?.key != key {
+                i = (i+1) % capacity
+            }
+            
+            if i == j { return nil }
+        }
+        return i
+    }
+
+    public subscript(key: Key) -> Value? {
+        get {
+            return getValue(forKey: key)
+        }
+        set {
+            updateValue(newValue, forKey: key)
+        }
     }
 }

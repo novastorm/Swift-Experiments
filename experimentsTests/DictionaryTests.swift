@@ -27,9 +27,12 @@ class DictionaryTests: XCTestCase {
         XCTAssertEqual(dict.capacity, 0)
         XCTAssertEqual(dict.count, 0)
         XCTAssertTrue(dict.isEmpty)
-        XCTAssertNil(dict.getValue(forKey: "aaa"))
     }
  
+    func testGetNonexistantKey() {
+        XCTAssertNil(dict.getValue(forKey: "aaa"))
+    }
+    
     func testInsert() {
         XCTAssertNil(dict.updateValue("AAA", forKey: "aaa"))
         XCTAssertEqual(dict.capacity, 1)
@@ -59,7 +62,7 @@ class DictionaryTests: XCTestCase {
         
         XCTAssertEqual(dict.getValue(forKey: "ddd"), "DDD")
     }
-
+    
     func testUpdate() {
         XCTAssertNil(dict.updateValue("AAA", forKey: "aaa"))
 
@@ -67,6 +70,37 @@ class DictionaryTests: XCTestCase {
         XCTAssertFalse(dict.isEmpty)
 
         XCTAssertEqual(dict.getValue(forKey: "aaa"), "AAAAAA")
+    }
+    
+    func testRemoveNonexistantKey() {
+        XCTAssertNil(dict.removeValue(forKey: "aaa"))
+    }
+
+    func testSubscript() {
+        XCTAssertNil(dict["aaa"])
+        dict["aaa"] = "AAA"
+        XCTAssertEqual(dict["aaa"], "AAA")
+        dict["aaa"] = nil
+        XCTAssertNil(dict["aaa"])
+    }
+
+    func testRemove() {
+        XCTAssertNil(dict.updateValue("AAA", forKey: "aaa"))
+        XCTAssertNil(dict.updateValue("BBB", forKey: "bbb"))
+
+        XCTAssertEqual(dict.removeValue(forKey: "aaa"), "AAA")
+        XCTAssertFalse(dict.isEmpty)
+        XCTAssertEqual(dict.count, 1)
+
+        XCTAssertNil(dict.getValue(forKey: "aaa"))
+
+        XCTAssertEqual(dict.removeValue(forKey: "bbb"), "BBB")
+        XCTAssertTrue(dict.isEmpty)
+        XCTAssertEqual(dict.count, 0)
+        
+        XCTAssertNil(dict.getValue(forKey: "bbb"))
+
+        XCTAssertNil(dict.removeValue(forKey: "bbb"), "BBB")
     }
 
     func testPerformanceExample() {
