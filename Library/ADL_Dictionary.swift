@@ -12,35 +12,39 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
     
     public typealias Element = (key: Key, value: Value)
     
-    fileprivate var buffer: Array<Element?>
-    public var capacity: Int {
-        return buffer.capacity
-    }
+    fileprivate var buffer = Array<Element?>()
+    private(set) public var capacity: Int = 0
     private(set) public var count: Int = 0
     public var isEmpty: Bool {
         return count == 0
     }
     
     init() {
-        buffer = Array<Element>()
+        self.init(minimumCapacity: 0)
     }
     
-//    init(minimumCapacity: Int) {
-//        
-//    }
+    init(minimumCapacity: Int) {
+        capacity = nextCapacity(after: minimumCapacity)
+        buffer = Array<Element?>(repeating: nil, count: capacity)
+    }
 
-//    private mutating func reallocateArray(minimumCapacity: Int) {
-//        let newCapacity = nextCapacity(after: minimumCapacity)
-//        var newArray = Array<Element>()
-//        newArray.reserveCapacity(newCapacity)
-//
-//        for e in buffer {
-//
-//        }
-//
-////        capacity = newCapacity
-//        buffer = newArray
-//    }
+    private mutating func reallocateArray(minimumCapacity: Int) {
+        let newCapacity = nextCapacity(after: minimumCapacity)
+        var newArray = Array<Element?>(repeating: nil, count: newCapacity)
+
+        var i: Int
+        for e in buffer {
+            guard let e = e else { continue }
+            i = (e.key.hashValue) % newCapacity
+            while newArray[i] != nil {
+                i = (i + 1) % newCapacity
+            }
+            newArray[i] = e
+        }
+
+        capacity = newCapacity
+        buffer = newArray
+    }
     
     private func nextCapacity(after n: Int) -> Int {
         return next3x2byn(after: n)
