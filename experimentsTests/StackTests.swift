@@ -67,6 +67,12 @@ class DoublyLinkedListStackTests: BaseStackTests {
     }
 }
 
+class ADLArrayStackTests: BaseStackTests {
+    override func setUp() {
+        stack = ADL_AnyStack(ADL_Stack_ADL_Array<TestType>())
+    }
+}
+
 class ArrayStackTests: BaseStackTests {
     override func setUp() {
         stack = ADL_AnyStack(ADL_Stack_Array<TestType>())

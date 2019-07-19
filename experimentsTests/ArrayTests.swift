@@ -34,7 +34,7 @@ class ArrayTests: XCTestCase {
     func test_arrayInsert() {
         self.array.insert(0, at: 0)
         XCTAssertFalse(array.isEmpty)
-        XCTAssertEqual(array.capacity, 1)
+        XCTAssertEqual(array.capacity, 2)
         XCTAssertEqual(array.count, 1)
         XCTAssertEqual(array.first, 0)
         XCTAssertEqual(array.last, 0)
@@ -43,7 +43,7 @@ class ArrayTests: XCTestCase {
 
         array.insert(1, at: 1)
         XCTAssertFalse(array.isEmpty)
-        XCTAssertEqual(array.capacity, 3)
+        XCTAssertEqual(array.capacity, 2)
         XCTAssertEqual(array.count, 2)
         XCTAssertEqual(array.first, 0)
         XCTAssertEqual(array.last, 1)
@@ -52,7 +52,7 @@ class ArrayTests: XCTestCase {
 
         array.insert(2, at: 2)
         XCTAssertFalse(array.isEmpty)
-        XCTAssertEqual(array.capacity, 3)
+        XCTAssertEqual(array.capacity, 4)
         XCTAssertEqual(array.count, 3)
         XCTAssertEqual(array.first, 0)
         XCTAssertEqual(array.last, 2)
@@ -61,12 +61,21 @@ class ArrayTests: XCTestCase {
 
         array.insert(3, at: 3)
         XCTAssertFalse(array.isEmpty)
-        XCTAssertEqual(array.capacity, 6)
+        XCTAssertEqual(array.capacity, 4)
         XCTAssertEqual(array.count, 4)
         XCTAssertEqual(array.first, 0)
         XCTAssertEqual(array.last, 3)
         XCTAssertEqual(array[3], 3)
         XCTAssert(array == [0,1,2,3])
+
+        array.insert(4, at: 4)
+        XCTAssertFalse(array.isEmpty)
+        XCTAssertEqual(array.capacity, 8)
+        XCTAssertEqual(array.count, 5)
+        XCTAssertEqual(array.first, 0)
+        XCTAssertEqual(array.last, 4)
+        XCTAssertEqual(array[4], 4)
+        XCTAssert(array == [0,1,2,3,4])
 
     }
     
@@ -98,7 +107,7 @@ class ArrayTests: XCTestCase {
         
         array.remove(at: 2)
         XCTAssertFalse(array.isEmpty)
-        XCTAssertEqual(array.capacity, 6)
+        XCTAssertEqual(array.capacity, 8)
         XCTAssertEqual(array.count, 4)
         XCTAssertEqual(array.first, 0)
         XCTAssertEqual(array.last, 4)
@@ -110,7 +119,7 @@ class ArrayTests: XCTestCase {
         
         array.remove(at: 0)
         XCTAssertFalse(array.isEmpty)
-        XCTAssertEqual(array.capacity, 6)
+        XCTAssertEqual(array.capacity, 8)
         XCTAssertEqual(array.count, 3)
         XCTAssertEqual(array.first, 1)
         XCTAssertEqual(array.last, 4)
@@ -121,7 +130,7 @@ class ArrayTests: XCTestCase {
 
         array.removeLast()
         XCTAssertFalse(array.isEmpty)
-        XCTAssertEqual(array.capacity, 6)
+        XCTAssertEqual(array.capacity, 8)
         XCTAssertEqual(array.count, 2)
         XCTAssertEqual(array.first, 1)
         XCTAssertEqual(array.last, 3)
