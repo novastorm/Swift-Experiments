@@ -35,7 +35,7 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
         var i: Int
         for e in buffer {
             guard let e = e else { continue }
-            i = (e.key.hashValue) % newCapacity
+            i = getIndexForKey(e.key)
             while newArray[i] != nil {
                 i = (i + 1) % newCapacity
             }
@@ -63,17 +63,37 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
     
     @discardableResult
     public func getValue(forKey key: Key) -> Value? {
-        abort()
+        var i: Int = getIndexForKey(key)
+        guard buffer[i] != nil else { return nil }
+
+        if buffer[i]?.key == key {
+            return buffer[i]?.value
+        }
+        let j = i
+        i += 1
+        while i != j && buffer[i]?.key != key {
+            i = (i+1) % capacity
+        }
+        
+        if i == j { return nil }
+        
+        return buffer[i]?.value
     }
 
     @discardableResult
     public mutating func updateValue(_ value: Value, forKey key: Key) -> Value? {
+        if count == capacity {
+            reallocateArray(minimumCapacity: nextCapacity(after: capacity))
+        }
         var i: Int = getIndexForKey(key)
         while buffer[i] != nil && buffer[i]?.key != key {
             i = (i+1) % capacity
         }
         let prev = buffer[i]
         buffer[i] = Element(key, value)
+        if prev == nil {
+            count += 1
+        }
         return prev?.value
     }
     
@@ -83,6 +103,6 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
     }
     
     fileprivate func getIndexForKey(_ key: Key) -> Int {
-        return (key.hashValue) % capacity
+        return (((key.hashValue) % capacity) + capacity) % capacity
     }
 }

@@ -38,6 +38,7 @@
 		3EF04A0C22DEB0D5007B1E8B /* ADL_Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0B22DEB0D5007B1E8B /* ADL_Dictionary.swift */; };
 		3EF595932283EB6D007A2AC8 /* ADL_Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */; };
 		3EF768CB2287F4D800F3CC06 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF768CA2287F4D800F3CC06 /* StackTests.swift */; };
+		3EFDEF9522E19A1000A22721 /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFDEF9422E19A1000A22721 /* DictionaryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		3EF04A0B22DEB0D5007B1E8B /* ADL_Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Dictionary.swift; sourceTree = "<group>"; };
 		3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Stack.swift; sourceTree = "<group>"; };
 		3EF768CA2287F4D800F3CC06 /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
+		3EFDEF9422E19A1000A22721 /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			children = (
 				3EB35B6822893C8800542E97 /* XCTestCase+ProgrammerAssertions.swift */,
 				3E0C27EE2286733F0095533E /* ArrayTests.swift */,
+				3EFDEF9422E19A1000A22721 /* DictionaryTests.swift */,
 				3EF04A0722DC4DC2007B1E8B /* BubbleSortTests.swift */,
 				3EEAD077227EB1B500B6540D /* SinglyLinkedListTests.swift */,
 				3EF768CA2287F4D800F3CC06 /* StackTests.swift */,
@@ -329,6 +332,7 @@
 				3EF768CB2287F4D800F3CC06 /* StackTests.swift in Sources */,
 				3E5A663922D34CCE003B99F5 /* HeapTests.swift in Sources */,
 				3EF04A0822DC4DC2007B1E8B /* BubbleSortTests.swift in Sources */,
+				3EFDEF9522E19A1000A22721 /* DictionaryTests.swift in Sources */,
 				3E52EA002289E97200723A26 /* QueueTests.swift in Sources */,
 				3E0C27EF2286733F0095533E /* ArrayTests.swift in Sources */,
 				3EEAD078227EB1B500B6540D /* SinglyLinkedListTests.swift in Sources */,
