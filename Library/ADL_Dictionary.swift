@@ -68,11 +68,21 @@ public struct ADL_Dictionary<Key, Value> where Key: Hashable {
 
     @discardableResult
     public mutating func updateValue(_ value: Value, forKey key: Key) -> Value? {
-        abort()
+        var i: Int = getIndexForKey(key)
+        while buffer[i] != nil && buffer[i]?.key != key {
+            i = (i+1) % capacity
+        }
+        let prev = buffer[i]
+        buffer[i] = Element(key, value)
+        return prev?.value
     }
     
     @discardableResult
     public mutating func removeValue(forKey key: Key) -> Value? {
         abort()
+    }
+    
+    fileprivate func getIndexForKey(_ key: Key) -> Int {
+        return (key.hashValue) % capacity
     }
 }
