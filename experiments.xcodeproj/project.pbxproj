@@ -36,6 +36,7 @@
 		3EF04A0822DC4DC2007B1E8B /* BubbleSortTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0722DC4DC2007B1E8B /* BubbleSortTests.swift */; };
 		3EF04A0A22DC6539007B1E8B /* Array+InsertionSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0922DC6539007B1E8B /* Array+InsertionSort.swift */; };
 		3EF04A0C22DEB0D5007B1E8B /* ADL_Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0B22DEB0D5007B1E8B /* ADL_Dictionary.swift */; };
+		3EF42F5722E78B5C0078BFED /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF42F5622E78B5C0078BFED /* Singleton.swift */; };
 		3EF595932283EB6D007A2AC8 /* ADL_Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */; };
 		3EF768CB2287F4D800F3CC06 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF768CA2287F4D800F3CC06 /* StackTests.swift */; };
 		3EFDEF9522E19A1000A22721 /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFDEF9422E19A1000A22721 /* DictionaryTests.swift */; };
@@ -94,6 +95,7 @@
 		3EF04A0722DC4DC2007B1E8B /* BubbleSortTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSortTests.swift; sourceTree = "<group>"; };
 		3EF04A0922DC6539007B1E8B /* Array+InsertionSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+InsertionSort.swift"; sourceTree = "<group>"; };
 		3EF04A0B22DEB0D5007B1E8B /* ADL_Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Dictionary.swift; sourceTree = "<group>"; };
+		3EF42F5622E78B5C0078BFED /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Stack.swift; sourceTree = "<group>"; };
 		3EF768CA2287F4D800F3CC06 /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
 		3EFDEF9422E19A1000A22721 /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				3EEAD06B227EB1B500B6540D /* LaunchScreen.storyboard */,
 				3EEAD06E227EB1B500B6540D /* Info.plist */,
 				3E3914E822CE7C17007C8125 /* MaxSubsetSum.swift */,
+				3EF42F5622E78B5C0078BFED /* Singleton.swift */,
 			);
 			path = experiments;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				3EF04A0C22DEB0D5007B1E8B /* ADL_Dictionary.swift in Sources */,
 				3EF595932283EB6D007A2AC8 /* ADL_Stack.swift in Sources */,
 				3EF04A0622DC47AF007B1E8B /* Array+BubbleSort.swift in Sources */,
+				3EF42F5722E78B5C0078BFED /* Singleton.swift in Sources */,
 				3E3914E922CE7C17007C8125 /* MaxSubsetSum.swift in Sources */,
 				3EEAD08B227EB23100B6540D /* Int+Extensions.swift in Sources */,
 				3E1666F622C9124A00AFF2C7 /* ADL_BinarySearchTree.swift in Sources */,
