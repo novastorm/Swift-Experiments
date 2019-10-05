@@ -16,6 +16,8 @@ protocol ADL_Stack {
     var peek: Element? { get }
     
     func push(_ element: Element)
+    
+    @discardableResult
     func pop() -> Element?
 }
 
@@ -98,6 +100,7 @@ final class ADL_AnyStack<Element>: ADL_Stack {
         box.push(element)
     }
     
+    @discardableResult
     func pop() -> Element? {
         return box.pop()
     }
@@ -185,6 +188,7 @@ class ADL_Stack_ADL_Array<Element>: ADL_Stack {
         array.append(element)
     }
     
+    @discardableResult
     func pop() -> Element? {
         guard !isEmpty else {
             return nil

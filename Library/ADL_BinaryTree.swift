@@ -1,11 +1,16 @@
 import Foundation
 
-protocol ADL_BinaryTree {
+protocol ADL_BinaryTree_Iterative {
     associatedtype Element
+    func traverseBreadthFirstIteratively(_ process: (Element) -> Void)
+    func traversePreOrderIteratively(_ process: (Element) -> Void)
+    func traverseInOrderIteratively(_ process: (Element) -> Void)
+    func traverseOutOrderIteratively(_ process: (Element) -> Void)
+    func traversePostOrderIteratively(_ process: (Element) -> Void)
+}
 
-    var count: Int { get }
-    var isEmpty: Bool { get }
-    
+protocol ADL_BinaryTree_Iterator {
+    associatedtype Element
     var breadthFirstIterator: AnyIterator<Element> { get }
     var preOrderIterator: AnyIterator<Element> { get }
     var inOrderIterator: AnyIterator<Element> { get }
@@ -13,12 +18,26 @@ protocol ADL_BinaryTree {
     var postOrderIterator: AnyIterator<Element> { get }
 }
 
-protocol ADL_BinaryTreeNode {
+protocol ADL_BinaryTree_Recursive {
     associatedtype Element
+    func traversePreOrderRecursively(_ process: (Element) -> Void)
+    func traverseInOrderRecursively(_ process: (Element) -> Void)
+    func traverseOutOrderRecursively(_ process: (Element) -> Void)
+    func traversePostOrderRecursively(_ process: (Element) -> Void)
+}
+
+class ADL_BinaryTreeNode<Element> {
+    var value: Element
+    var left: ADL_BinaryTreeNode<Element>?
+    var right: ADL_BinaryTreeNode<Element>?
     
-    var value: Element { get set }
-    var left: Self? { get set }
-    var right: Self? { get set }
+    init(_ value: Element,
+         _ left: ADL_BinaryTreeNode<Element>? = nil,
+         _ right: ADL_BinaryTreeNode<Element>? = nil) {
+        self.value = value
+        self.left = left
+        self.right = right
+    }
 }
 
 extension ADL_BinaryTreeNode {
@@ -27,125 +46,325 @@ extension ADL_BinaryTreeNode {
     }
 }
 
-
-final class ADL_BinaryTreeNode_Recursive<Element>: ADL_BinaryTreeNode , ADL_BinaryTree {
-    
-    var value: Element
-    var left: ADL_BinaryTreeNode_Recursive?
-    var right: ADL_BinaryTreeNode_Recursive?
-
-    init(_ value: Element) {
-        self.value = value
+class ADL_BinaryTree<Element> {
+    var root: ADL_BinaryTreeNode<Element>?
+    var count: Int {
+        return root?.count ?? 0
     }
-
-    init(_ value: Element,
-         _ left:ADL_BinaryTreeNode_Recursive? = nil,
-         _ right: ADL_BinaryTreeNode_Recursive? = nil
-    ) {
-        self.value = value
-        self.left = left
-        self.right = right
-    }
-
-    public var count: Int {
-        return 1 + (left?.count ?? 0) + (right?.count ?? 0)
-    }
-    
     var isEmpty: Bool {
-        return count == 0
+        return root == nil
     }
     
-    public func traverseBreadthFirst(_ process: (Element) -> Void) {
-        var pending = ADL_Queue_Array<ADL_BinaryTreeNode_Recursive<Element>>()
-        pending.enqueue(self)
+    init(_ root: ADL_BinaryTreeNode<Element>) {
+        self.root = root
+    }
+}
+
+extension ADL_BinaryTreeNode: ADL_BinaryTree_Recursive {
+    public func traversePreOrderRecursively(_ process: (Element) -> Void) {
+        process(value)
+        left?.traversePreOrderRecursively(process)
+        right?.traversePreOrderRecursively(process)
+    }
+    
+    public func traverseInOrderRecursively(_ process: (Element) -> Void) {
+        left?.traverseInOrderRecursively(process)
+        process(value)
+        right?.traverseInOrderRecursively(process)
+    }
+    
+    public func traverseOutOrderRecursively(_ process: (Element) -> Void) {
+        right?.traverseOutOrderRecursively(process)
+        process(value)
+        left?.traverseOutOrderRecursively(process)
+    }
+    
+    public func traversePostOrderRecursively(_ process: (Element) -> Void) {
+        left?.traversePostOrderRecursively(process)
+        right?.traversePostOrderRecursively(process)
+        process(value)
+    }
+}
+
+extension ADL_BinaryTree: ADL_BinaryTree_Iterative {
+    public func traverseBreadthFirstIteratively(_ process: (Element) -> Void) {
+        if self.root == nil {
+            return
+        }
+        
+        var pending = ADL_Queue_Array<ADL_BinaryTreeNode<Element>>()
+        pending.enqueue(self.root!)
         
         while let current = pending.dequeue() {
-            process(current.value)
             if let node = current.left {
                 pending.enqueue(node)
             }
             if let node = current.right {
                 pending.enqueue(node)
             }
+            process(current.value)
         }
     }
     
-    public var breadthFirstIterator: AnyIterator<Element> {
-        var results = [Element]()
-        traverseBreadthFirst { (e) in
-            results.append(e)
-        }
-        
-        return AnyIterator<Element>(results.makeIterator())
-    }
-    
-    public func traversePreOrder(_ process: (Element) -> Void) {
-        process(value)
-        left?.traversePreOrder(process)
-        right?.traversePreOrder(process)
-    }
-    
-    public var preOrderIterator: AnyIterator<Element> {
-        var results = [Element]()
-        traversePreOrder { (e) in
-            results.append(e)
+    func traversePreOrderIteratively(_ process: (Element) -> Void) {
+        if self.root == nil {
+            return
         }
         
-        return AnyIterator<Element>(results.makeIterator())
-    }
-
-    public func traverseInOrder(_ process: (Element) -> Void) {
-        left?.traverseInOrder(process)
-        process(value)
-        right?.traverseInOrder(process)
+        let pending = ADL_Stack_Array<ADL_BinaryTreeNode<Element>>()
+        pending.push(self.root!)
+        
+        while let current = pending.pop() {
+            if let node = current.right {
+                pending.push(node)
+            }
+            if let node = current.left {
+                pending.push(node)
+            }
+            process(current.value)
+        }
     }
     
-    public var inOrderIterator: AnyIterator<Element> {
-        var results = [Element]()
-        traverseInOrder { (e) in
-            results.append(e)
+    func traverseInOrderIteratively(_ process: (Element) -> Void) {
+        if self.root == nil {
+            return
         }
         
-        return AnyIterator<Element>(results.makeIterator())
-    }
-
-    public func traverseOutOrder(_ process: (Element) -> Void) {
-        right?.traverseOutOrder(process)
-        process(value)
-        left?.traverseOutOrder(process)
+        let pending = ADL_Stack_Array<ADL_BinaryTreeNode<Element>>()
+        
+        var node = self.root
+        while node != nil {
+            pending.push(node!)
+            node = node!.left
+        }
+        
+        while let next = pending.pop() {
+            node = next.right
+            while node != nil {
+                pending.push(node!)
+                node = node!.left
+            }
+            process(next.value)
+        }
     }
     
-    public var outOrderIterator: AnyIterator<Element> {
-        var results = [Element]()
-        traverseOutOrder { (e) in
-            results.append(e)
+    func traverseOutOrderIteratively(_ process: (Element) -> Void) {
+        if self.root == nil {
+            return
         }
         
-        return AnyIterator<Element>(results.makeIterator())
-    }
-
-    public func traversePostOrder(_ process: (Element) -> Void) {
-        left?.traversePostOrder(process)
-        right?.traversePostOrder(process)
-        process(value)
+        let pending = ADL_Stack_Array<ADL_BinaryTreeNode<Element>>()
+        
+        var node = self.root
+        while node != nil {
+            pending.push(node!)
+            node = node!.right
+        }
+        
+        while let next = pending.pop() {
+            node = next.left
+            while node != nil {
+                pending.push(node!)
+                node = node!.right
+            }
+            process(next.value)
+        }
     }
     
-    public var postOrderIterator: AnyIterator<Element> {
-        var results = [Element]()
-        traversePostOrder { (e) in
-            results.append(e)
+    func traversePostOrderIteratively(_ process: (Element) -> Void) {
+        
+        func insertNodes(into pending: ADL_AnyStack<ADL_BinaryTreeNode<Element>>, from node: ADL_BinaryTreeNode<Element>) {
+            var curr: ADL_BinaryTreeNode<Element>? = node
+            while curr != nil {
+                if curr!.right != nil {
+                    pending.push(curr!.right!)
+                }
+                pending.push(curr!)
+                curr = curr!.left
+            }
         }
         
-        return AnyIterator<Element>(results.makeIterator())
+        let pending = ADL_Stack_Array<ADL_BinaryTreeNode<Element>>()
+        insertNodes(into: ADL_AnyStack(pending), from: self.root!)
+        
+        var node: ADL_BinaryTreeNode<Element>?
+        while var next = pending.pop() {
+            node = next
+            if node!.right != nil && !pending.isEmpty && node!.right === pending.peek {
+                pending.pop()
+                pending.push(node!)
+                insertNodes(into: ADL_AnyStack(pending), from: node!.right!)
+                next = pending.pop()!
+            }
+            process(next.value)
+        }
     }
 }
 
-extension ADL_BinaryTreeNode_Recursive {
-    public static func count(_ tree: ADL_BinaryTreeNode_Recursive?) -> Int {
-        return tree?.count ?? 0
+extension ADL_BinaryTree: ADL_BinaryTree_Iterator {
+    class BreadthFirstIterator: IteratorProtocol {
+        private var pending = ADL_Queue_Array<ADL_BinaryTreeNode<Element>?>()
+
+        init(_ node: ADL_BinaryTreeNode<Element>?) {
+            if let node = node {
+                pending.enqueue(node)
+            }
+        }
+        
+        func next() -> Element? {
+            guard let next = pending.dequeue() else {
+                return nil
+            }
+            
+            if let node = next!.left {
+                pending.enqueue(node)
+            }
+            if let node = next!.right {
+                pending.enqueue(node)
+            }
+            return next!.value
+        }
     }
     
-    public static func isEmpty(_ tree: ADL_BinaryTreeNode_Recursive?) -> Bool {
-        return tree == nil
+    class PreOrderIterator: IteratorProtocol {
+        private var pending = ADL_Stack_Array<ADL_BinaryTreeNode<Element>?>()
+        
+        init(_ node: ADL_BinaryTreeNode<Element>?) {
+            if let node = node {
+                pending.push(node)
+            }
+        }
+        
+        func next() -> Element? {
+            guard let next = pending.pop() else {
+                return nil
+            }
+            
+            if let node = next!.right {
+                pending.push(node)
+            }
+            if let node = next!.left {
+                pending.push(node)
+            }
+            
+            return next!.value
+        }
+    }
+    
+    class InOrderIterator: IteratorProtocol {
+        private var pending = ADL_Stack_Array<ADL_BinaryTreeNode<Element>?>()
+        
+        init(_ node: ADL_BinaryTreeNode<Element>?) {
+            if node == nil {
+                return
+            }
+            var curr = node
+            while curr != nil {
+                pending.push(curr!)
+                curr = curr!.left
+            }
+        }
+        
+        func next() -> Element? {
+            guard let next = pending.pop() else {
+                return nil
+            }
+            
+            var curr = next?.right
+            while curr != nil {
+                pending.push(curr!)
+                curr = curr!.left
+            }
+            
+            return next!.value
+        }
+    }
+    
+    class OutOrderIterator: IteratorProtocol {
+        private var pending = ADL_Stack_Array<ADL_BinaryTreeNode<Element>?>()
+        
+        init(_ node: ADL_BinaryTreeNode<Element>?) {
+            if node == nil {
+                return
+            }
+            var curr = node
+            while curr != nil {
+                pending.push(curr!)
+                curr = curr!.right
+            }
+        }
+        
+        func next() -> Element? {
+            guard let next = pending.pop() else {
+                return nil
+            }
+            
+            var curr = next?.left
+            while curr != nil {
+                pending.push(curr!)
+                curr = curr!.right
+            }
+            
+            return next!.value
+        }
+    }
+    
+    class PostOrderIterator: IteratorProtocol {
+        
+        let pending = ADL_Stack_Array<ADL_BinaryTreeNode<Element>>()
+        
+        func insertNodes(into pending: ADL_AnyStack<ADL_BinaryTreeNode<Element>>, from node: ADL_BinaryTreeNode<Element>) {
+            var curr: ADL_BinaryTreeNode<Element>? = node
+            while curr != nil {
+                if curr!.right != nil {
+                    pending.push(curr!.right!)
+                }
+                pending.push(curr!)
+                curr = curr!.left
+            }
+        }
+        
+        init(_ node: ADL_BinaryTreeNode<Element>?) {
+            if node == nil {
+                return
+            }
+            insertNodes(into: ADL_AnyStack(pending), from: node!)
+        }
+        
+        func next() -> Element? {
+            guard var next = pending.pop() else {
+                return nil
+            }
+            
+            let node = next
+            if node.right != nil && !pending.isEmpty && node.right === pending.peek {
+                pending.pop()
+                pending.push(node)
+                insertNodes(into: ADL_AnyStack(pending), from: node.right!)
+                next = pending.pop()!
+            }
+            
+            return next.value
+        }
+    }
+        
+    var breadthFirstIterator: AnyIterator<Element> {
+        return AnyIterator(BreadthFirstIterator(self.root))
+    }
+    
+    var preOrderIterator: AnyIterator<Element> {
+        return AnyIterator(PreOrderIterator(self.root))
+    }
+    
+    var inOrderIterator: AnyIterator<Element> {
+        return AnyIterator(InOrderIterator(self.root))
+    }
+    
+    var outOrderIterator: AnyIterator<Element> {
+        return AnyIterator(OutOrderIterator(self.root))
+    }
+    
+    var postOrderIterator: AnyIterator<Element> {
+        return AnyIterator(PostOrderIterator(self.root))
     }
 }
