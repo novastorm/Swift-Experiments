@@ -63,6 +63,12 @@ class BinaryTreeTests: XCTestCase {
         XCTAssertEqual(result, [4,2,5,1,3,0])
         XCTAssertEqual(Array(bt.breadthFirstIterator), [4,2,5,1,3,0])
         
+        
+        result.removeAll(keepingCapacity: true)
+        bt.traversePreOrderRecursively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [4,2,1,0,3,5])
         result.removeAll(keepingCapacity: true)
         bt.traversePreOrderIteratively() { (value) in
             result.append(value)
@@ -70,6 +76,12 @@ class BinaryTreeTests: XCTestCase {
         XCTAssertEqual(result, [4,2,1,0,3,5])
         XCTAssertEqual(Array(bt.preOrderIterator), [4,2,1,0,3,5])
 
+        
+        result.removeAll(keepingCapacity: true)
+        bt.traverseInOrderRecursively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [0,1,2,3,4,5])
         result.removeAll(keepingCapacity: true)
         bt.traverseInOrderIteratively() { (value) in
             result.append(value)
@@ -77,6 +89,12 @@ class BinaryTreeTests: XCTestCase {
         XCTAssertEqual(result, [0,1,2,3,4,5])
         XCTAssertEqual(Array(bt.inOrderIterator), [0,1,2,3,4,5])
 
+        
+        result.removeAll(keepingCapacity: true)
+        bt.traverseOutOrderRecursively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [5,4,3,2,1,0])
         result.removeAll(keepingCapacity: true)
         bt.traverseOutOrderIteratively() { (value) in
             result.append(value)
@@ -84,6 +102,12 @@ class BinaryTreeTests: XCTestCase {
         XCTAssertEqual(result, [5,4,3,2,1,0])
         XCTAssertEqual(Array(bt.outOrderIterator), [5,4,3,2,1,0])
 
+        
+        result.removeAll(keepingCapacity: true)
+        bt.traversePostOrderRecursively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [0,1,3,2,5,4])
         result.removeAll(keepingCapacity: true)
         bt.traversePostOrderIteratively() { (value) in
             result.append(value)
