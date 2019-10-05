@@ -60,29 +60,57 @@ class ADL_BinaryTree<Element> {
     }
 }
 
-extension ADL_BinaryTreeNode: ADL_BinaryTree_Recursive {
-    public func traversePreOrderRecursively(_ process: (Element) -> Void) {
-        process(value)
-        left?.traversePreOrderRecursively(process)
-        right?.traversePreOrderRecursively(process)
+extension ADL_BinaryTree: ADL_BinaryTree_Recursive {
+    func traversePreOrderRecursively(_ process: (Element) -> Void) {
+        func helper(_ node: ADL_BinaryTreeNode<Element>, _ process: (Element) -> Void) {
+            process(node.value)
+            if node.left != nil {
+                helper(node.left!, process)
+            }
+            if node.right != nil {
+                helper(node.right!, process)
+            }
+        }
+        helper(root!, process)
     }
     
-    public func traverseInOrderRecursively(_ process: (Element) -> Void) {
-        left?.traverseInOrderRecursively(process)
-        process(value)
-        right?.traverseInOrderRecursively(process)
+    func traverseInOrderRecursively(_ process: (Element) -> Void) {
+        func helper(_ node: ADL_BinaryTreeNode<Element>, _ process: (Element) -> Void) {
+            if node.left != nil {
+                helper(node.left!, process)
+            }
+            process(node.value)
+            if node.right != nil {
+                helper(node.right!, process)
+            }
+        }
+        helper(root!, process)
     }
     
-    public func traverseOutOrderRecursively(_ process: (Element) -> Void) {
-        right?.traverseOutOrderRecursively(process)
-        process(value)
-        left?.traverseOutOrderRecursively(process)
+    func traverseOutOrderRecursively(_ process: (Element) -> Void) {
+        func helper (_ node: ADL_BinaryTreeNode<Element>, _ process: (Element) -> Void) {
+            if node.right != nil {
+                helper(node.right!, process)
+            }
+            process(node.value)
+            if node.left != nil {
+                helper(node.left!, process)
+            }
+        }
+        helper(root!, process)
     }
     
-    public func traversePostOrderRecursively(_ process: (Element) -> Void) {
-        left?.traversePostOrderRecursively(process)
-        right?.traversePostOrderRecursively(process)
-        process(value)
+    func traversePostOrderRecursively(_ process: (Element) -> Void) {
+        func helper(_ node: ADL_BinaryTreeNode<Element>, _ process: (Element) -> Void) {
+            if node.left != nil {
+                helper(node.left!, process)
+            }
+            if node.right != nil {
+                helper(node.right!, process)
+            }
+            process(node.value)
+        }
+        helper(root!, process)
     }
 }
 
