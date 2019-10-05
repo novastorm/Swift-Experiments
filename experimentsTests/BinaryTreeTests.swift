@@ -12,7 +12,7 @@ import XCTest
 
 class BinaryTreeTests: XCTestCase {
     typealias TestType = Int
-    var root: ADL_BinaryTree<TestType>!
+    var root: ADL_BinaryTreeNode<TestType>!
     
     override func setUp() {
         root = nil
@@ -23,7 +23,8 @@ class BinaryTreeTests: XCTestCase {
     }
 
     func test_NodeInitialization() {
-        let node = ADL_BinaryTree(0)
+        typealias Node = ADL_BinaryTreeNode
+        let node = Node(0)
         XCTAssertNotNil(node)
         XCTAssertEqual(node.value, 0)
         XCTAssertNil(node.left)
@@ -31,49 +32,64 @@ class BinaryTreeTests: XCTestCase {
     }
     
     func test_TreeTraversal() {
-        let node0 = ADL_BinaryTree(0)
-        let node1 = ADL_BinaryTree(1)
-        let node2 = ADL_BinaryTree(2)
-        let node3 = ADL_BinaryTree(3)
-        let node4 = ADL_BinaryTree(4)
-        let node5 = ADL_BinaryTree(5)
+        /*
+                4
+              /   \
+             2     5
+            / \
+           1   3
+          /
+         0
+         
+         */
+        typealias Node = ADL_BinaryTreeNode
+        
+        let node5 = Node(5)
+        let node3 = Node(3)
+        let node0 = Node(0)
+        
+        let node1 = Node(1, node0)
+        let node2 = Node(2, node1, node3)
+        let node4 = Node(4, node2, node5)
         
         let root = node4
-        node4.left = node2
-        node4.right = node5
-        node2.left = node1
-        node2.right = node3
-        node1.left = node0
         
+        let bt = ADL_BinaryTree(root)
+
         var result = [Int]()
-        root.traverseBreadthFirst { (value) in
+        bt.traverseBreadthFirstIteratively() { (value) in
             result.append(value)
         }
         XCTAssertEqual(result, [4,2,5,1,3,0])
+        XCTAssertEqual(Array(bt.breadthFirstIterator), [4,2,5,1,3,0])
         
         result.removeAll(keepingCapacity: true)
-        root.traversePreOrder { (value) in
+        bt.traversePreOrderIteratively() { (value) in
             result.append(value)
         }
         XCTAssertEqual(result, [4,2,1,0,3,5])
+        XCTAssertEqual(Array(bt.preOrderIterator), [4,2,1,0,3,5])
 
         result.removeAll(keepingCapacity: true)
-        root.traverseInOrder { (value) in
+        bt.traverseInOrderIteratively() { (value) in
             result.append(value)
         }
         XCTAssertEqual(result, [0,1,2,3,4,5])
-        
+        XCTAssertEqual(Array(bt.inOrderIterator), [0,1,2,3,4,5])
+
         result.removeAll(keepingCapacity: true)
-        root.traversePostOrder { (value) in
-            result.append(value)
-        }
-        XCTAssertEqual(result, [0,1,3,2,5,4])
-        
-        result.removeAll(keepingCapacity: true)
-        root.traverseOutOrder { (value) in
+        bt.traverseOutOrderIteratively() { (value) in
             result.append(value)
         }
         XCTAssertEqual(result, [5,4,3,2,1,0])
+        XCTAssertEqual(Array(bt.outOrderIterator), [5,4,3,2,1,0])
+
+        result.removeAll(keepingCapacity: true)
+        bt.traversePostOrderIteratively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [0,1,3,2,5,4])
+        XCTAssertEqual(Array(bt.postOrderIterator), [0,1,3,2,5,4])
     }
     
 //    func testPerformanceExample() {

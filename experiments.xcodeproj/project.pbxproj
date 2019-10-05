@@ -29,13 +29,12 @@
 		3EEAD06A227EB1B500B6540D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EEAD069227EB1B500B6540D /* Assets.xcassets */; };
 		3EEAD06D227EB1B500B6540D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EEAD06B227EB1B500B6540D /* LaunchScreen.storyboard */; };
 		3EEAD078227EB1B500B6540D /* SinglyLinkedListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD077227EB1B500B6540D /* SinglyLinkedListTests.swift */; };
-		3EEAD088227EB23100B6540D /* ADL_Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD084227EB21900B6540D /* ADL_Collection.swift */; };
 		3EEAD08B227EB23100B6540D /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD083227EB21900B6540D /* Int+Extensions.swift */; };
-		3EEAD08C227EB23100B6540D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEAD087227EB21A00B6540D /* Utilities.swift */; };
 		3EF04A0622DC47AF007B1E8B /* Array+BubbleSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0522DC47AF007B1E8B /* Array+BubbleSort.swift */; };
 		3EF04A0822DC4DC2007B1E8B /* BubbleSortTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0722DC4DC2007B1E8B /* BubbleSortTests.swift */; };
 		3EF04A0A22DC6539007B1E8B /* Array+InsertionSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0922DC6539007B1E8B /* Array+InsertionSort.swift */; };
 		3EF04A0C22DEB0D5007B1E8B /* ADL_Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF04A0B22DEB0D5007B1E8B /* ADL_Dictionary.swift */; };
+		3EF42F5722E78B5C0078BFED /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF42F5622E78B5C0078BFED /* Singleton.swift */; };
 		3EF595932283EB6D007A2AC8 /* ADL_Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */; };
 		3EF768CB2287F4D800F3CC06 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF768CA2287F4D800F3CC06 /* StackTests.swift */; };
 		3EFDEF9522E19A1000A22721 /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFDEF9422E19A1000A22721 /* DictionaryTests.swift */; };
@@ -87,13 +86,12 @@
 		3EEAD077227EB1B500B6540D /* SinglyLinkedListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglyLinkedListTests.swift; sourceTree = "<group>"; };
 		3EEAD079227EB1B500B6540D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EEAD083227EB21900B6540D /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
-		3EEAD084227EB21900B6540D /* ADL_Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Collection.swift; sourceTree = "<group>"; };
 		3EEAD085227EB21900B6540D /* ADL_SinglyLinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_SinglyLinkedList.swift; sourceTree = "<group>"; };
-		3EEAD087227EB21A00B6540D /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		3EF04A0522DC47AF007B1E8B /* Array+BubbleSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+BubbleSort.swift"; sourceTree = "<group>"; };
 		3EF04A0722DC4DC2007B1E8B /* BubbleSortTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSortTests.swift; sourceTree = "<group>"; };
 		3EF04A0922DC6539007B1E8B /* Array+InsertionSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+InsertionSort.swift"; sourceTree = "<group>"; };
 		3EF04A0B22DEB0D5007B1E8B /* ADL_Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Dictionary.swift; sourceTree = "<group>"; };
+		3EF42F5622E78B5C0078BFED /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Stack.swift; sourceTree = "<group>"; };
 		3EF768CA2287F4D800F3CC06 /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
 		3EFDEF9422E19A1000A22721 /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
@@ -153,6 +151,7 @@
 				3EEAD06B227EB1B500B6540D /* LaunchScreen.storyboard */,
 				3EEAD06E227EB1B500B6540D /* Info.plist */,
 				3E3914E822CE7C17007C8125 /* MaxSubsetSum.swift */,
+				3EF42F5622E78B5C0078BFED /* Singleton.swift */,
 			);
 			path = experiments;
 			sourceTree = "<group>";
@@ -187,14 +186,12 @@
 				3E5A663622D334FF003B99F5 /* ADL_BinaryHeap.swift */,
 				3E1666F522C9124A00AFF2C7 /* ADL_BinarySearchTree.swift */,
 				3ED2EC63228B1CAD00AEA2F5 /* ADL_BinaryTree.swift */,
-				3EEAD084227EB21900B6540D /* ADL_Collection.swift */,
 				3E52F7802280FFB900E3A755 /* ADL_DoublyLinkedList.swift */,
 				3ED9706222CCA5B0000A95AC /* ADL_Graph.swift */,
 				3E52EA012289EAFD00723A26 /* ADL_Queue.swift */,
 				3EEAD085227EB21900B6540D /* ADL_SinglyLinkedList.swift */,
 				3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */,
 				3EEAD083227EB21900B6540D /* Int+Extensions.swift */,
-				3EEAD087227EB21A00B6540D /* Utilities.swift */,
 				3E52EA042289EB6300723A26 /* Misc.swift */,
 			);
 			path = Library;
@@ -309,13 +306,12 @@
 				3E52F7792280C13F00E3A755 /* ADL_SinglyLinkedList.swift in Sources */,
 				3ED2EC64228B1CAD00AEA2F5 /* ADL_BinaryTree.swift in Sources */,
 				3EF04A0A22DC6539007B1E8B /* Array+InsertionSort.swift in Sources */,
-				3EEAD08C227EB23100B6540D /* Utilities.swift in Sources */,
 				3E52EA052289EB6300723A26 /* Misc.swift in Sources */,
 				3E52EA032289EB0700723A26 /* ADL_Queue.swift in Sources */,
-				3EEAD088227EB23100B6540D /* ADL_Collection.swift in Sources */,
 				3EF04A0C22DEB0D5007B1E8B /* ADL_Dictionary.swift in Sources */,
 				3EF595932283EB6D007A2AC8 /* ADL_Stack.swift in Sources */,
 				3EF04A0622DC47AF007B1E8B /* Array+BubbleSort.swift in Sources */,
+				3EF42F5722E78B5C0078BFED /* Singleton.swift in Sources */,
 				3E3914E922CE7C17007C8125 /* MaxSubsetSum.swift in Sources */,
 				3EEAD08B227EB23100B6540D /* Int+Extensions.swift in Sources */,
 				3E1666F622C9124A00AFF2C7 /* ADL_BinarySearchTree.swift in Sources */,
@@ -422,7 +418,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -526,7 +522,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -583,7 +579,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
