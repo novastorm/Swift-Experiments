@@ -122,4 +122,91 @@ class BinaryTreeTests: XCTestCase {
 //            // Put the code you want to measure the time of here.
 //        }
 //    }
+    func test_TreeTraversal_2() {
+        /*
+                1
+                  \
+                   3
+                    \
+                     2
+                    /
+                   5
+                  /
+                 4
+         
+         */
+        typealias Node = ADL_BinaryTreeNode
+        
+        let node4 = Node(4)
+        
+        let node5 = Node(5, node4)
+        let node2 = Node(2, node5)
+        let node3 = Node(3, nil, node2)
+        let node1 = Node(1, nil, node3)
+
+        let root = node1
+        
+        let bt = ADL_BinaryTree(root)
+
+        var result = [Int]()
+        bt.traverseBreadthFirstIteratively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [1,3,2,5,4])
+        XCTAssertEqual(Array(bt.breadthFirstIterator), [1,3,2,5,4])
+        
+        
+        result.removeAll(keepingCapacity: true)
+        bt.traversePreOrderRecursively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [1,3,2,5,4])
+        result.removeAll(keepingCapacity: true)
+        bt.traversePreOrderIteratively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [1,3,2,5,4])
+        XCTAssertEqual(Array(bt.preOrderIterator), [1,3,2,5,4])
+
+        
+        result.removeAll(keepingCapacity: true)
+        bt.traverseInOrderRecursively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [1,3,4,5,2])
+        result.removeAll(keepingCapacity: true)
+        bt.traverseInOrderIteratively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [1,3,4,5,2])
+        XCTAssertEqual(Array(bt.inOrderIterator), [1,3,4,5,2])
+
+        
+        result.removeAll(keepingCapacity: true)
+        bt.traverseOutOrderRecursively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [2,5,4,3,1])
+        result.removeAll(keepingCapacity: true)
+        bt.traverseOutOrderIteratively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [2,5,4,3,1])
+        XCTAssertEqual(Array(bt.outOrderIterator), [2,5,4,3,1])
+
+        
+        result.removeAll(keepingCapacity: true)
+        bt.traversePostOrderRecursively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [4,5,2,3,1])
+        result.removeAll(keepingCapacity: true)
+        bt.traversePostOrderIteratively() { (value) in
+            result.append(value)
+        }
+        XCTAssertEqual(result, [4,5,2,3,1])
+        XCTAssertEqual(Array(bt.postOrderIterator), [4,5,2,3,1])
+    }
+    
 }
+

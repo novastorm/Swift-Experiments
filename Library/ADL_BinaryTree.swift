@@ -216,15 +216,16 @@ extension ADL_BinaryTree: ADL_BinaryTree_Iterative {
         insertNodes(into: ADL_AnyStack(pending), from: self.root!)
         
         var node: ADL_BinaryTreeNode<Element>?
-        while var next = pending.pop() {
+        while let next = pending.pop() {
             node = next
             if node!.right != nil && !pending.isEmpty && node!.right === pending.peek {
                 pending.pop()
                 pending.push(node!)
                 insertNodes(into: ADL_AnyStack(pending), from: node!.right!)
-                next = pending.pop()!
             }
-            process(next.value)
+            else {
+                process(next.value)
+            }
         }
     }
 }
@@ -360,19 +361,18 @@ extension ADL_BinaryTree: ADL_BinaryTree_Iterator {
         }
         
         func next() -> Element? {
-            guard var next = pending.pop() else {
-                return nil
+            while let node = pending.pop() {
+                if node.right != nil && !pending.isEmpty && node.right === pending.peek {
+                    pending.pop()
+                    pending.push(node)
+                    insertNodes(into: ADL_AnyStack(pending), from: node.right!)
+                }
+                else {
+                    return node.value
+                }
             }
             
-            let node = next
-            if node.right != nil && !pending.isEmpty && node.right === pending.peek {
-                pending.pop()
-                pending.push(node)
-                insertNodes(into: ADL_AnyStack(pending), from: node.right!)
-                next = pending.pop()!
-            }
-            
-            return next.value
+            return nil
         }
     }
         
