@@ -81,8 +81,13 @@ struct TaskPriorityQueue {
     var count : Int { return CFBinaryHeapGetCount(heap) }
     mutating func push(_ t: Task) {
 //        CFBinaryHeapAddValue(heap, UnsafePointer(Unmanaged.passUnretained(t).toOpaque()))
-        var t = t
-        CFBinaryHeapAddValue(heap, &t)
+
+//        var t = t
+//        CFBinaryHeapAddValue(heap, t)
+        var taskPointer: UnsafeMutablePointer<Task>!
+        taskPointer = UnsafeMutablePointer<Task>.allocate(capacity: 1)
+        taskPointer.initialize(to: t)
+        CFBinaryHeapAddValue(heap, taskPointer)
     }
     func peek() -> Task {
 //        return Unmanaged<Task>.fromOpaque(COpaquePointer(CFBinaryHeapGetMinimum(heap))).takeUnretainedValue()
@@ -95,3 +100,44 @@ struct TaskPriorityQueue {
         return result
     }
 }
+
+//struct ADL_PriorityQueue<Element: Comparable> {
+//    let heap : CFBinaryHeap = {
+//        var callBacks = CFBinaryHeapCallBacks(
+//            version: 0,
+//            retain: {
+//                return UnsafeRawPointer($1)
+//            },
+//            release: {
+//                $1?.deallocate()
+//            },
+//            copyDescription: nil,
+//            compare: { (ptr1, ptr2, _) in
+//                // A C function pointer cannot be formed from a closure that captures generic parameters
+//                let t1: Element = (ptr1?.load(as: Element.self))!
+//                let t2: Element = (ptr2?.load(as: Element.self))!
+//                return
+//                    t1 == t2 ? CFComparisonResult.compareEqualTo
+//                    :
+//                    t1 < t2 ? CFComparisonResult.compareLessThan
+//                    :
+//                    CFComparisonResult.compareGreaterThan
+//            })
+//        return CFBinaryHeapCreate(nil, 0, &callBacks, nil)
+//    }()
+//    var count : Int { return CFBinaryHeapGetCount(heap) }
+//    mutating func push(_ t: Element) {
+//        var taskPointer: UnsafeMutablePointer<Element>!
+//        taskPointer = UnsafeMutablePointer<Element>.allocate(capacity: 1)
+//        taskPointer.initialize(to: t)
+//        CFBinaryHeapAddValue(heap, taskPointer)
+//    }
+//    func peek() -> Element {
+//        return (CFBinaryHeapGetMinimum(heap)?.load(as: Element.self))!
+//    }
+//    mutating func pop() -> Element {
+//        let result = (CFBinaryHeapGetMinimum(heap)?.load(as: Element.self))!
+//        CFBinaryHeapRemoveMinimumValue(heap)
+//        return result
+//    }
+//}

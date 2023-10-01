@@ -38,6 +38,7 @@
 		3EF595932283EB6D007A2AC8 /* ADL_Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */; };
 		3EF768CB2287F4D800F3CC06 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF768CA2287F4D800F3CC06 /* StackTests.swift */; };
 		3EFDEF9522E19A1000A22721 /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFDEF9422E19A1000A22721 /* DictionaryTests.swift */; };
+		7C4CE7C92AC9672600A4B7AB /* GraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4CE7C82AC9672600A4B7AB /* GraphTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		3EF595922283EB6D007A2AC8 /* ADL_Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADL_Stack.swift; sourceTree = "<group>"; };
 		3EF768CA2287F4D800F3CC06 /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
 		3EFDEF9422E19A1000A22721 /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
+		7C4CE7C82AC9672600A4B7AB /* GraphTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 				3EEAD079227EB1B500B6540D /* Info.plist */,
 				3E3914EA22CE84A1007C8125 /* MaxSubsetSumTests.swift */,
 				3E5A663822D34CCE003B99F5 /* HeapTests.swift */,
+				7C4CE7C82AC9672600A4B7AB /* GraphTests.swift */,
 			);
 			path = experimentsTests;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E5D006022CC7CB5004E97CC /* BinaryTreeTests.swift in Sources */,
+				7C4CE7C92AC9672600A4B7AB /* GraphTests.swift in Sources */,
 				3E3914EB22CE84A1007C8125 /* MaxSubsetSumTests.swift in Sources */,
 				3EF768CB2287F4D800F3CC06 /* StackTests.swift in Sources */,
 				3E5A663922D34CCE003B99F5 /* HeapTests.swift in Sources */,
@@ -444,6 +448,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.4mfd.project.practice.experiments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -605,6 +612,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.4mfd.project.practice.experiments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -625,6 +635,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.4mfd.project.practice.experiments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
